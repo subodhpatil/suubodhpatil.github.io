@@ -1,7 +1,15 @@
-title: "Subodh Patil"
-description: "Security, compliance, and cloud architecture insights"
-theme: minima
+title: "Suubodh Patil"
+description: "Security Consultant Architect — SaaS, Compliance & Cloud"
+theme: minima   # default theme, but you can swap
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
 markdown: kramdown
+
+# Branding options
+author:
+  name: "Suubodh Patil"
+  email: "subodhpatil@outlook.com"
+social_links:
+  linkedin: "https://linkedin.com/in/subodhpatil"
+  github: "https://github.com/subodhpatil"
