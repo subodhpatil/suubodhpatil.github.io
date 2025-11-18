@@ -4,6 +4,7 @@ theme: minima   # default theme, but you can swap
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-paginate
 markdown: kramdown
 
 # Branding options
