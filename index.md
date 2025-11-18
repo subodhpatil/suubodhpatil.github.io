@@ -1,6 +1,10 @@
 ---
 layout: home
-title: "Welcome to Subodh's Blog"
+title: "Subodh Patil — Security Consultant Architect"
 ---
-Hi, I’m Subodh Patil — Security Consultant Architect.  
-This site shares insights on SaaS security, compliance, and cloud architecture.
+
+Welcome to my homepage.  
+Here you’ll find blog posts, resources, and insights on SaaS security, compliance, and cloud architecture.
+
+👉 Latest posts are listed below.
+
