@@ -12,5 +12,10 @@ author:
   name: "Suubodh Patil"
   email: "subodhpatil@outlook.com"
 social_links:
-  linkedin: "https://linkedin.com/in/subodhpatil"
-  github: "https://github.com/subodhpatil"
+  - title: "LinkedIn"
+    url: "https://linkedin.com/in/subodhpatil"
+    icon: "linkedin"
+  - title: "GitHub"
+    url: "https://github.com/subodhpatil"
+    icon: "github"
+
