@@ -3,6 +3,7 @@ title: "Who Processes the Data? Trust, Responsibility, and AI Inference Beyond t
 date: 2026-05-13 12:00:00 +0200
 categories: [CloudSecurity, AI]
 tags: [ai, cloud-security, trust-boundary, data-protection, saas, governance]
+mermaid: true
 ---
 
 ## Introduction
@@ -94,43 +95,39 @@ Microsoft documentation states:
 Reference:  
 https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy  
 
----
 
-## Trust Boundary Diagram
+```mermaid
+flowchart TB
+    A["Organization / SaaS Provider\nUser Prompts & Context"] --> B
 
-+------------------------------------------------------+
-|                Organization / SaaS Provider          |
-|                                                      |
-|  User Data, Prompts, Context                          |
-|        |                                             |
-+--------|---------------------------------------------+
-         |
-         v
-+------------------------------------------------------+
-|              Cloud Platform (Control Plane)          |
-|                                                      |
-|  - API Endpoint                                      |
-|  - Authentication / Authorization                    |
-|  - Request Routing                                   |
-|  - Usage Metering & Billing                           |
-|                                                      |
-|  (NO model hosting, NO inference)                    |
-+-------------------------|----------------------------+
-                          |
-        TRUST BOUNDARY     |  <<< Responsibility shifts
-                          |
-+-------------------------v----------------------------+
-|          AI Model Provider (Data Plane)               |
-|                                                      |
-|  - Model Hosting                                     |
-|  - Prompt Processing                                 |
-|  - Inference Execution                               |
-|  - Response Generation                               |
-|                                                      |
-|  Prompts & Outputs processed here                    |
-+------------------------------------------------------+
+    subgraph CP["Cloud Platform (e.g., Azure AI Foundry)"]
+        B[API Endpoint]
+        C[AuthN/AuthZ]
+        D[Routing]
+        E[Billing & Telemetry]
+    end
 
----
+    CB{{Trust Boundary}}
+
+    subgraph DP["AI Model Provider (e.g., Anthropic Claude)"]
+        F[Model Hosting]
+        G[Prompt Processing]
+        H[Inference]
+        I[Response Generation]
+    end
+
+    %% Explicit data flow links to avoid chain parsing issues
+    B --> C
+    C --> D
+    D --> E
+    E --> CB
+    CB --> F
+    F --> G
+    G --> H
+    H --> I
+    I --> D
+    %% End of diagram
+
 
 ## Data Residency Implications
 
