@@ -1,8 +1,8 @@
 ---
-title: Building an Automated Tech Blog on GitHub Pages
-date: 2026-06-15 12:00:00 +0200
-categories: [Architecture, Automation]
-tags: [github, jekyll, cloud]
+title: Encryption Demystified (**Part 1**): Building the Foundation for Data-at-Rest Security in the Cloud
+date: 2025-10-02 12:00:00 +0200
+categories: [Architecture, Data Security, Cloud]
+tags: [github, encryption, cloud]
 ---
 
 **Encryption Demystified (**Part 1**): Building the Foundation for Data-at-Rest Security in the Cloud**
