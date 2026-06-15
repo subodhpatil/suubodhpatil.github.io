@@ -92,9 +92,9 @@ Microsoft documentation states:
 - Inference runs on **Anthropic-managed infrastructure**
 - Azure provides the **control plane**, not the execution environment
 
-Reference:  
-https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy  
 
+Reference:
+https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy
 
 ```mermaid
 flowchart TB
@@ -116,7 +116,6 @@ flowchart TB
         I[Response Generation]
     end
 
-    %% Explicit data flow links to avoid chain parsing issues
     B --> C
     C --> D
     D --> E
@@ -126,7 +125,6 @@ flowchart TB
     G --> H
     H --> I
     I --> D
-    %% End of diagram
 
 
 ## Data Residency Implications
