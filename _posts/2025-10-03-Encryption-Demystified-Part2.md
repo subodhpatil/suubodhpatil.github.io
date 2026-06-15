@@ -1,11 +1,11 @@
 ---
 title: Encryption Demystified (Part 2) Building the Foundation for Data-at-Rest Security in the Cloud
-date: 2025-10-02 12:00:00 +0200
+date: 2025-10-03 12:00:00 +0200
 categories: [Architecture, Data Security, Cloud]
 tags: [github, encryption, cloud]
 ---
 
-🔹 Note to Readers**
+🔹 Note to Readers
 
 *   If you’re new to encryption concepts and want to understand the **basics first**, start with [Part 1 — Encryption Demystified: Building the Foundation for Data-at-Rest Security in the Cloud](https://medium.com/@subodhpatil_46287/encryption-demystified-building-the-foundation-for-data-at-rest-security-in-the-cloud-part-1-e58870316b2c).
 *   If you’re already comfortable with Azure’s CMK/BYOK models and want to explore **advanced strategies** like Bring Your Own HSM (BYOH), escrow models, and governance frameworks, you can skip ahead to [**Part 3**](https://medium.com/@subodhpatil_46287/encryption-demystified-part-3-advanced-key-management-in-azure-from-byoh-to-governance-at-scale-c0b142a8458b)
