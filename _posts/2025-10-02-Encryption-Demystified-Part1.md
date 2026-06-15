@@ -1,13 +1,13 @@
 ---
-title: Encryption Demystified (Part 1): Building the Foundation for Data-at-Rest Security in the Cloud
+title: Encryption Demystified (Part 1) Building the Foundation for Data-at-Rest Security in the Cloud
 date: 2025-10-02 12:00:00 +0200
 categories: [Architecture, Data Security, Cloud]
 tags: [github, encryption, cloud]
 ---
 
-**Encryption Demystified (**Part 1**): Building the Foundation for Data-at-Rest Security in the Cloud**
+###Encryption Demystified (**Part 1**): Building the Foundation for Data-at-Rest Security in the Cloud
 =======================================================================================================
-**The Foundations: Understanding Encryption and Data-at-Rest Security.**
+###The Foundations: Understanding Encryption and Data-at-Rest Security.**
 
 🔹 Note to Readers
 ------------------
@@ -16,7 +16,7 @@ If you’re already well-versed in encryption technologies and key management pr
 
 This post is designed to cover the **foundational concepts** of encryption and explain **why data-at-rest encryption remains critical in cloud environments**, even when physical access risks are mitigate
 
-**1. What is Encryption?**
+###1. What is Encryption?**
 
 Encryption converts readable data (plaintext) into an unreadable format (ciphertext) using cryptographic algorithms and keys. Only authorized parties with the correct key can revert it back to its original form.
 
