@@ -1,6 +1,6 @@
 ---
 title: "From Risk to Trust: Multi‑Geo as a SaaS Vendor’s Compliance Shield"
-date: 2025-11-18
+date: 2025-11-18 12:00:00 +0200
 categories: [Data Residency, Data Sovereignty]
 tags: [github,cloud, powerbi, fabric]
 ---
