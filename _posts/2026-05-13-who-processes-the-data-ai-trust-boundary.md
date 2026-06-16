@@ -68,12 +68,14 @@ flowchart TD
     App --> AWS_ALL
     App --> M365_MS
 
-    subgraph AzF["Azure AI Foundry - Claude"]
+    subgraph AzF["Azure AI Foundry - Azure boundary"]
         AzF_CP["Azure Control Plane\nAPI - Auth - Billing"]
-        TB1(["Trust Boundary\nData crosses here"])
-        AzF_DP["Anthropic Infrastructure\nInference - Global routing\nAnthropic DPA governs"]
-        AzF_CP --> TB1 --> AzF_DP
+        TB1(["Trust Boundary\nData leaves Azure here"])
+        AzF_CP --> TB1
     end
+
+    AzF_DP["Anthropic Infrastructure\nInference - Global routing\nAnthropic DPA governs\nOutside Azure"]
+    TB1 --> AzF_DP
 
     subgraph GCP["GCP Vertex AI - Claude"]
         GCP_ALL["Google Infrastructure\nControl and Inference\nData stays in GCP\nSingle DPA"]
