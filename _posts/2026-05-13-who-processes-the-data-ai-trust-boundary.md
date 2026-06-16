@@ -63,29 +63,29 @@ This is the core problem — and why "we use a reputable cloud provider" is not 
 flowchart TD
     App["Your Application\nSends a Prompt"]
 
-    App --> AzF
-    App --> GCP
-    App --> AWS
-    App --> M365
+    App --> AzF_CP
+    App --> GCP_ALL
+    App --> AWS_ALL
+    App --> M365_MS
 
-    subgraph AzF["Azure AI Foundry — Claude"]
-        AzF_CP["Azure\nControl Plane\nAPI · Auth · Billing"]
-        TB1{{"Trust Boundary\nData crosses here"}}
-        AzF_DP["Anthropic Infrastructure\nInference · Global routing\nAnthropic DPA governs"]
+    subgraph AzF["Azure AI Foundry - Claude"]
+        AzF_CP["Azure Control Plane\nAPI - Auth - Billing"]
+        TB1(["Trust Boundary\nData crosses here"])
+        AzF_DP["Anthropic Infrastructure\nInference - Global routing\nAnthropic DPA governs"]
         AzF_CP --> TB1 --> AzF_DP
     end
 
-    subgraph GCP["GCP Vertex AI — Claude"]
-        GCP_ALL["Google Infrastructure\nControl + Inference\nData stays in GCP\nSingle DPA"]
+    subgraph GCP["GCP Vertex AI - Claude"]
+        GCP_ALL["Google Infrastructure\nControl and Inference\nData stays in GCP\nSingle DPA"]
     end
 
-    subgraph AWS["AWS Bedrock — Claude"]
-        AWS_ALL["AWS Infrastructure\nControl + Inference\nData stays in AWS\nSingle DPA"]
+    subgraph AWS["AWS Bedrock - Claude"]
+        AWS_ALL["AWS Infrastructure\nControl and Inference\nData stays in AWS\nSingle DPA"]
     end
 
-    subgraph M365["M365 Copilot — Claude"]
-        M365_MS["Microsoft\nProcessor"]
-        TB2{{"Sub-processor\nboundary"}}
+    subgraph M365["M365 Copilot - Claude"]
+        M365_MS["Microsoft Processor"]
+        TB2(["Sub-processor boundary"])
         M365_ANT["Anthropic\nSub-processor under MS DPA"]
         M365_MS --> TB2 --> M365_ANT
     end
@@ -109,9 +109,7 @@ There is no ambiguity here. Azure AI Foundry is an API gateway, an authenticatio
 
 ```mermaid
 flowchart TB
-    A["Your Application\nPrompts and Context"] --> B
-
-    subgraph CP["Azure AI Foundry  —  Microsoft"]
+    subgraph CP["Azure AI Foundry - Microsoft"]
         B[API Endpoint]
         C[Authentication]
         D[Request Routing]
@@ -119,7 +117,9 @@ flowchart TB
         B --> C --> D --> E
     end
 
-    CB{{"Trust Boundary\nPrompt crosses here"}}
+    A["Your Application\nPrompts and Context"] --> B
+    TB(["Trust Boundary\nPrompt crosses here"])
+    E --> TB
 
     subgraph DP["Anthropic Infrastructure"]
         F[Model Hosting]
@@ -129,7 +129,7 @@ flowchart TB
         F --> G --> H --> I
     end
 
-    E --> CB --> F
+    TB --> F
     I --> D
 ```
 
