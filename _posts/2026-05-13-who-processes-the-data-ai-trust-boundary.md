@@ -15,11 +15,7 @@ This creates a new and often misunderstood reality:
 > You authenticate, deploy, and pay through a cloud provider —  
 > but your prompts and outputs may be processed **outside that cloud entirely**.
 
-This post explores:
-- The **new AI trust problem**
-- How **trust boundaries emerge between cloud and model providers**
-- What this means for **security, privacy, and contractual responsibility**
-- A real-world example using **Microsoft Azure AI Foundry and Anthropic Claude**
+This post explores the new AI trust problem, how trust boundaries emerge between cloud and model providers, what this means for security, privacy, and contractual responsibility, and a real-world example using Microsoft Azure AI Foundry and Anthropic Claude.
 
 ---
 
@@ -27,7 +23,7 @@ This post explores:
 
 For years, cloud security operated on a simple assumption:
 
-> *“If it runs in my cloud, my cloud provider processes my data.”*
+> *"If it runs in my cloud, my cloud provider processes my data."*
 
 That assumption no longer holds true.
 
@@ -40,7 +36,7 @@ This raises critical questions:
 - Which contract governs my prompts?
 - Who is responsible in case of a breach?
 
-These are no longer theoretical—they directly impact **compliance, audit, and risk posture**.
+These are no longer theoretical — they directly impact **compliance, audit, and risk posture**.
 
 ---
 
@@ -50,31 +46,17 @@ Before diving into a specific provider, it helps to separate two roles.
 
 ### Cloud Platform Provider
 
-Responsible for:
-- API access  
-- Authentication and identity  
-- Request routing  
-- Usage metering and billing  
-
-Importantly, this does **not automatically include AI inference**.
-
----
+Responsible for API access, authentication and identity, request routing, and usage metering and billing. Importantly, this does **not automatically include AI inference**.
 
 ### AI Model Provider
 
-Responsible for:
-- Hosting the model  
-- Executing inference  
-- Processing prompts  
-- Generating outputs  
-
----
+Responsible for hosting the model, executing inference, processing prompts, and generating outputs.
 
 ### Where the Boundary Forms
 
 A **trust boundary emerges** when these roles are separate:
 
-> The moment your prompt leaves the cloud control plane and enters the model provider’s infrastructure, **responsibility shifts**.
+> The moment your prompt leaves the cloud control plane and enters the model provider's infrastructure, **responsibility shifts**.
 
 ---
 
@@ -84,17 +66,11 @@ Azure AI Foundry provides access to third-party models such as Anthropic Claude.
 
 Microsoft documentation states:
 
-> “The API gives you access to the model that Anthropic service hosts and manages.”
+> "The API gives you access to the model that Anthropic service hosts and manages."
 
-### What this means
+This means the model is **not hosted in Microsoft Azure** — inference runs on **Anthropic-managed infrastructure**, and Azure provides the **control plane**, not the execution environment.
 
-- The model is **not hosted in Microsoft Azure**
-- Inference runs on **Anthropic-managed infrastructure**
-- Azure provides the **control plane**, not the execution environment
-
-
-Reference:
-https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy
+Reference: [Azure AI Foundry — Claude Models Data Privacy](https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy)
 
 ```mermaid
 flowchart TB
@@ -125,7 +101,9 @@ flowchart TB
     G --> H
     H --> I
     I --> D
+```
 
+---
 
 ## Data Residency Implications
 
@@ -135,8 +113,7 @@ In this architecture:
 - Processing may occur across **global regions**
 - Cloud region selection does **not constrain inference location**
 
-**Key takeaway:**  
-Cloud region ≠ AI processing location
+**Key takeaway:** Cloud region ≠ AI processing location.
 
 ---
 
@@ -144,32 +121,15 @@ Cloud region ≠ AI processing location
 
 ### Cloud Provider Scope
 
-- API infrastructure  
-- Authentication metadata  
-- Usage and billing  
-
-Governed by:  
-https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA  
-
----
+Covers API infrastructure, authentication metadata, and usage and billing. Governed by the [Microsoft Products and Services Data Protection Addendum](https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA).
 
 ### Model Provider Scope
 
-- Prompts  
-- Outputs  
-- Personal data within AI interactions  
-
-Governed by:  
-https://www.anthropic.com/legal/data-processing-addendum  
-https://www.anthropic.com/legal/commercial-terms  
-
----
+Covers prompts, outputs, and personal data within AI interactions. Governed by the [Anthropic Data Processing Addendum](https://www.anthropic.com/legal/data-processing-addendum) and [Anthropic Commercial Terms](https://www.anthropic.com/legal/commercial-terms).
 
 ### Key Insight
 
-The model provider is **not a sub-processor of the cloud provider**.
-
-Each party is responsible for **different parts of the data flow**.
+The model provider is **not a sub-processor of the cloud provider**. Each party is responsible for **different parts of the data flow**.
 
 ---
 
@@ -177,48 +137,46 @@ Each party is responsible for **different parts of the data flow**.
 
 For a SaaS provider:
 
-- You act as a **processor**  
-- The AI model provider becomes your **sub-processor**  
-- Disclosure is required when personal data is involved  
+- You act as a **processor**
+- The AI model provider becomes your **sub-processor**
+- Disclosure is required when personal data is involved
 
 ---
 
 ## Common Misconceptions
 
-**“If it's in my cloud, my cloud provider processes it.”**  
-→ Not always true
+**"If it's in my cloud, my cloud provider processes it."**  
+Not always true — modern AI platforms route inference to external model providers.
 
-**“Region selection guarantees residency.”**  
-→ Not for external inference
+**"Region selection guarantees residency."**  
+Not for external inference — model providers may process across global regions.
 
-**“One contract covers everything.”**  
-→ Multiple agreements apply
-
----
-
-## Final Thought
-
-The most important question is no longer:
-
-> *“Which cloud am I using?”*
-
-It is:
-
-> **“Who is actually processing my data—and where?”**
-
-Cloud platforms enable access.  
-Model providers execute inference.  
-**Trust lives in the boundary between them.**
+**"One contract covers everything."**  
+Multiple agreements apply — cloud provider and model provider terms govern different parts of the data flow.
 
 ---
 
-## Additional References
+## Key Takeaways
 
-- Azure AI Foundry Models Overview  
-  https://learn.microsoft.com/en-us/azure/foundry-classic/concepts/foundry-models-overview#models-from-partners-and-community  
+- Cloud platforms increasingly act as access brokers, not inference environments — inference may happen outside your cloud entirely.
+- A trust boundary forms the moment your prompt leaves the cloud control plane and enters the model provider's infrastructure.
+- Cloud region selection does not constrain where AI inference occurs.
+- Dual contractual responsibility applies — cloud provider and model provider agreements govern different parts of the data flow.
+- SaaS providers must treat AI model providers as sub-processors and disclose this relationship when personal data is involved.
 
-- Microsoft Partner Center Analytics  
-  https://learn.microsoft.com/en-us/partner-center/insights/analytics  
+---
+
+> 💡 **Pro Tip:** Before deploying any AI model through a cloud platform, audit the actual data flow: identify who hosts the model, where inference runs, and which contract governs your prompts. Don't assume cloud region = AI processing location.
+
+---
+
+## References
+
+- [Azure AI Foundry Models Overview](https://learn.microsoft.com/en-us/azure/foundry-classic/concepts/foundry-models-overview#models-from-partners-and-community)
+- [Azure AI Foundry — Claude Models Data Privacy](https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy)
+- [Microsoft Products and Services Data Protection Addendum](https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA)
+- [Anthropic Data Processing Addendum](https://www.anthropic.com/legal/data-processing-addendum)
+- [Anthropic Commercial Terms](https://www.anthropic.com/legal/commercial-terms)
 
 ---
 
