@@ -1,8 +1,8 @@
 ---
 title: "Encryption Demystified (Part 2): Inside Azure — How Encryption at Rest Works and Why Key Control Matters"
 date: 2025-10-03 12:00:00 +0200
-categories: [Architecture, DataSecurity, Cloud]
-tags: [encryption, cloud, azure, key-management, cmk, byok, saas]
+categories: [CloudSecurity, DataSecurity]
+tags: [encryption, azure, key-management, cmk, byok, saas, compliance]
 mermaid: true
 ---
 

@@ -1,8 +1,8 @@
 ---
 title: "Encryption Demystified (Part 3): Advanced Key Management in Azure — From BYOH to Governance at Scale"
 date: 2025-10-04 12:00:00 +0200
-categories: [Architecture, DataSecurity, Cloud]
-tags: [encryption, cloud, azure, key-management, byoh, hsm, governance, saas]
+categories: [CloudSecurity, DataSecurity]
+tags: [encryption, azure, key-management, byoh, hsm, governance, saas]
 ---
 
 > **Series:** [← Part 1: Building the Foundation](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/) · [← Part 2: Inside Azure — How Encryption at Rest Works](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/) · **Part 3**
