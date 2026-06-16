@@ -3,6 +3,7 @@ title: "From Risk to Trust: Multi-Geo as a SaaS Vendor's Compliance Shield"
 date: 2025-11-18 12:00:00 +0200
 categories: [Compliance, DataResidency]
 tags: [data-residency, azure, power-bi, microsoft-fabric, saas, compliance]
+mermaid: true
 ---
 
 ## Introduction
@@ -40,6 +41,71 @@ Multi-Geo gives SaaS vendors control over where data at rest is stored by allowi
 - **Compliance assurance:** Vendors can commit to customers that their workspace data resides in the selected region.
 
 **Important caveat:** Multi-Geo moves workspace-level data and most workspace metadata to the satellite region. However, certain tenant-level metadata — administrative configuration, some service telemetry, and platform-level records — remains anchored to the home region. This distinction matters for audits: "data residency" under Multi-Geo covers workspace content, but not the full tenant metadata footprint.
+
+---
+
+## How Data Flows: Visualizing the Residency Gap
+
+To make this concrete, consider a SaaS vendor whose M365 tenant was provisioned from India (home region: Southeast Asia), with customer data sitting in Azure SQL in West Europe.
+
+### Without Multi-Geo — Data Crosses Region Boundaries
+
+```mermaid
+flowchart TB
+    subgraph AZ_EU["Azure — West Europe (EU)"]
+        SQL[("Azure SQL\nEU Customer Data")]
+        SAP["SAP / Other Sources"]
+    end
+
+    subgraph Tenant["M365 Tenant — Home Region: Southeast Asia"]
+        subgraph DefaultCap["Default Fabric Capacity — Southeast Asia"]
+            WS["Fabric Workspace"]
+            OL[("OneLake\n⚠️ Southeast Asia\nEU data stored here")]
+            PBI["Power BI Reports\nDashboards"]
+        end
+        Meta["Tenant Admin Metadata\nSoutheast Asia"]
+    end
+
+    SQL -- "Import / Ingest ❌\nEU data crosses to Southeast Asia" --> WS
+    SAP -- "Import / Ingest ❌" --> WS
+    WS --> OL
+    OL --> PBI
+```
+
+EU customer data ingested into Fabric lands in Southeast Asia — the home region of the tenant. A SaaS vendor that has committed to "data stays in the EU" is already in breach the moment a dataset is imported.
+
+---
+
+### With Multi-Geo — Data Stays in the Customer's Region
+
+```mermaid
+flowchart TB
+    subgraph AZ_EU["Azure — West Europe (EU)"]
+        SQL[("Azure SQL\nEU Customer Data")]
+        SAP["SAP / Other Sources"]
+
+        subgraph SatCap["Satellite Fabric Capacity — West Europe"]
+            WS["Fabric Workspace\nassigned to WE capacity"]
+            OL[("OneLake\n✅ West Europe\nData stays in EU")]
+            PBI["Power BI Reports\nDashboards"]
+        end
+    end
+
+    subgraph Tenant["M365 Tenant — Home Region: Southeast Asia"]
+        Meta["⚠️ Tenant Admin Metadata\nAlways stays in Southeast Asia"]
+    end
+
+    SQL -- "Import / Ingest ✅\nstays in West Europe" --> WS
+    SAP -- "Import / Ingest ✅" --> WS
+    WS --> OL
+    OL --> PBI
+```
+
+With Multi-Geo enabled and a Fabric F SKU capacity provisioned in West Europe, the workspace's OneLake storage is in West Europe. EU data ingested from Azure SQL stays in the EU. The SaaS vendor can now make a defensible data residency commitment — with the caveat that tenant-level administrative metadata still anchors to Southeast Asia.
+
+### A Note on DirectQuery Mode
+
+Both diagrams above apply to **Import mode** and **Direct Lake mode** — scenarios where data is physically copied into OneLake. In **DirectQuery mode**, no data is ingested into Fabric at all. Power BI queries go directly to the source database at runtime, so data residency is governed entirely by where the source database lives (e.g., Azure SQL's region), not by Fabric or Multi-Geo. DirectQuery effectively bypasses the residency concern for Fabric — though it comes with its own performance trade-offs.
 
 ---
 
