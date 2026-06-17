@@ -50,12 +50,12 @@ The clearest illustration of this problem is to trace what happens when the same
 | Platform | Who hosts inference | Contractual structure | Does cloud region constrain inference? |
 |---|---|---|---|
 | **Azure AI Foundry** (Claude) | Anthropic — outside Azure | Dual DPA: Microsoft (infra) + Anthropic (inference) | No — Anthropic routes globally |
-| **Azure OpenAI** (GPT models) | Microsoft — inside Azure | Single DPA: Microsoft only | Yes |
 | **AWS Bedrock** (Claude) | AWS — inside AWS | AWS DPA primary + Anthropic terms | Yes |
 | **GCP Vertex AI** (Claude) | Google — inside GCP | Single DPA: Google only | Yes — hard regional enforcement |
-| **M365 Copilot** (Claude) | Anthropic — outside Azure | Microsoft DPA umbrella (Anthropic = MS sub-processor) | Partial — EU Data Boundary exclusions apply |
+| **M365 Copilot** (Claude) | Anthropic — outside Azure, on AWS/GCP infra | Microsoft DPA umbrella (Anthropic = MS sub-processor) | Partial — EU Data Boundary exclusions apply |
+| **Azure OpenAI** (GPT — for contrast) | Microsoft — inside Azure | Single DPA: Microsoft only | Yes |
 
-The same underlying model. Five different trust architectures. The platform you choose determines where inference runs, which contract governs your prompts, whether your region selection has any effect, and who bears data processing responsibility.
+The same Claude model. Four different trust architectures. The platform you choose determines where inference runs, which contract governs your prompts, whether your region selection has any effect, and who bears data processing responsibility. The Azure OpenAI row at the bottom shows GPT models as a contrast — a case where Azure *does* fully host the model, making data residency guarantees clean. Claude on Azure AI Foundry has no equivalent.
 
 This is the core problem — and why "we use a reputable cloud provider" is not a sufficient answer to AI data governance questions.
 
