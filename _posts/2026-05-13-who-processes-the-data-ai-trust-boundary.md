@@ -298,7 +298,14 @@ The trust boundary question will not stay answered. As models shift between host
 
 ---
 
-> 💡 **Three questions before you deploy any AI model integration:** Who physically hosts inference — the cloud provider or someone else? Which DPA explicitly covers your prompts and completions? Has your legal team reviewed the acceptance path? If you cannot answer all three confidently, that is your audit starting point.
+> 💡 **Pro Tip: Do not rely on the cloud provider's sub-processor list to determine where inference happens.**
+>
+> 1. **Start with the sub-processor list, but treat it only as a hint.** Most lists are global and do not reflect the architecture of a specific AI integration.
+> 2. **Check the service-specific DPA and documentation.** If it explicitly names the model provider as the processor for prompts and completions, they are an independent processor — even if they also appear as a sub-processor elsewhere.
+> 3. **Appearing on the sub-processor list does not mean the cloud provider hosts inference.** M365 Copilot is the clearest example: Anthropic is listed as a Microsoft sub-processor, yet inference still runs on Anthropic infrastructure outside Azure.
+> 4. **If the model developer does not appear on the service-specific sub-processor list, you almost certainly have a dual-DPA structure.** That is the case for Azure AI Foundry with Claude.
+> 5. **Check whether you accepted the model provider's terms via click-through.** Enabling Claude in Azure Foundry automatically creates a direct contractual relationship with Anthropic — without a separate signing process.
+> 6. **Final rule:** Sub-processor list = who *may* process your data. DPA = who is *responsible* for processing your data. Architecture = where your data is *actually* processed. All three must be checked independently.
 
 ---
 
