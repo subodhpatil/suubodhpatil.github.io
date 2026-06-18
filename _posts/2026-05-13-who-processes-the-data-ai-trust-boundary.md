@@ -6,15 +6,27 @@ tags: [ai, azure, trust-boundary, data-protection, saas, governance, compliance]
 mermaid: true
 ---
 
+> **Written for:** CISOs, cloud architects, privacy and legal teams, and SaaS vendors building AI-powered products on managed cloud platforms.
+
+## Executive Summary
+
+- Cloud AI platforms frequently split the **control plane** (API, auth, billing — owned by the cloud provider) from the **data plane** (inference — which may be owned by an entirely different company under a separate contract).
+- The same model accessed through different platforms carries different trust profiles: Claude on AWS Bedrock stays inside AWS, while Claude on Azure AI Foundry is processed on Anthropic's infrastructure outside Azure — under a separate Anthropic DPA.
+- Common Azure security controls — Customer Managed Keys, EU Data Boundary, sovereign cloud deployments — **do not extend** to Anthropic's inference layer.
+- Zero Data Retention (ZDR) reduces but does not eliminate Anthropic's data retention: User Safety classifier outputs are retained even under ZDR, and whether they constitute personal data under GDPR is an unresolved compliance question.
+- Trust boundary evaluation is a **governance process, not a one-time audit** — platform architectures change, sub-processor lists update, and the answers from six months ago may no longer be correct.
+
+---
+
 ## Introduction
 
-Most cloud contracts were written for vertically integrated services. AI integrations are changing the architecture beneath them — and the contractual coverage may not have kept pace.
+In 2026, the cloud you authenticate with is no longer the cloud that processes your data.
 
 For most of cloud computing's history, a straightforward assumption held: the provider you authenticated with was the entity processing your data. One vendor, one contract, one Data Processing Addendum. Compliance decisions, privacy notices, and audit responses were built on this foundation. It worked because cloud services were vertically integrated — the company managing your API was the same company running the compute that touched your data.
 
 AI has quietly disaggregated that model.
 
-This split is not unprecedented. Control and data plane separation has long existed in SaaS architectures, payment processing pipelines, and content delivery networks. But AI makes the split more acute for three reasons: first, prompts often contain unstructured sensitive data that is difficult to classify or sanitise before transmission; second, the inference layer is largely opaque, making it hard to audit what happens inside; and third, model providers are consolidating rapidly, creating unexpected vendor dependencies that may not be reflected in your original procurement decision.
+This split is not unprecedented — control and data plane separation has long existed in SaaS architectures and payment processing pipelines. But AI makes it more acute for three reasons: prompts routinely contain unstructured sensitive data that is hard to sanitise before transmission; the inference layer is largely opaque, making it difficult to audit what happens inside; and a single model provider like Anthropic is now simultaneously deployed across Azure AI Foundry, AWS Bedrock, and GCP Vertex AI — each under a different hosting arrangement, a different DPA, and a different trust profile. Procurement decisions made for one platform do not carry over to another.
 
 When you access a foundation model through a major cloud platform today, you may be dealing with two entirely separate companies processing your data — under different contracts, in different locations, with different sub-processors. The cloud provider manages the front door. A third party may handle everything that happens inside. And this split is not always visible from the API surface or the billing dashboard.
 
@@ -33,11 +45,11 @@ These two layers sitting within the same provider's boundary is what made cloud 
 
 Modern cloud AI platforms have broken this assumption. The control plane often remains with the cloud provider. But the data plane — where your prompt is tokenised, processed by the model, and a completion generated — may operate on infrastructure owned and managed by an entirely different company.
 
-When these two layers are split across different companies, the following consequences follow:
+When these two layers split across different companies, the consequences are significant:
 
 - The cloud provider's DPA may cover only the control plane
 - Cloud region selection may constrain routing, not inference location
-- Security controls you have enabled (encryption, access policies, data boundaries) may not extend to the inference environment
+- Security controls you have enabled may not extend to the inference environment
 - You may have a direct contractual relationship with the model provider that your legal team has never reviewed
 - Your sub-processor disclosures to customers may be incomplete
 
@@ -57,11 +69,9 @@ The clearest illustration of this problem is to trace what happens when the same
 | **M365 Copilot** (Claude) | Anthropic — outside Azure, on AWS/GCP infra | Microsoft DPA umbrella (Anthropic = MS sub-processor) | Partial — EU Data Boundary exclusions apply |
 | **Azure OpenAI** (GPT — for contrast) | Microsoft — inside Azure | Single DPA: Microsoft only | Yes |
 
-The same Claude model. Four different trust architectures. The platform you choose determines where inference runs, which contract governs your prompts, whether your region selection has any effect, and who bears data processing responsibility. The Azure OpenAI row at the bottom shows GPT models as a contrast — a case where Azure *does* fully host the model, making data residency guarantees clean. Claude on Azure AI Foundry has no equivalent.
+The same Claude model. Four different trust architectures. The platform you choose determines where inference runs, which contract governs your prompts, whether your region selection has any effect, and who bears data processing responsibility. The Azure OpenAI row shows GPT as a contrast — Azure *does* fully host that model, making data residency clean. Claude on Azure AI Foundry has no equivalent.
 
-This is the core problem — and why "we use a reputable cloud provider" is not a sufficient answer to AI data governance questions.
-
-At this trust boundary, several things can change simultaneously: TLS may be re-terminated, moving from one certificate authority to another; audit logs may switch retention policies and jurisdictional coverage; and the contractual basis for data processing shifts from one Data Processing Addendum to another. The table above shows where these boundaries sit for each platform. The diagram below illustrates how data flows across each of these architectures.
+At the trust boundary, several things change simultaneously: TLS is re-terminated under a different certificate authority; audit logs switch retention policies and jurisdictional coverage; and the contractual basis for data processing shifts from one DPA to another. The diagram below shows where that boundary sits for each platform.
 
 ```mermaid
 flowchart TD
@@ -103,15 +113,11 @@ flowchart TD
 
 Azure AI Foundry is the most instructive case study because the trust boundary is explicitly documented by Microsoft itself.
 
-Microsoft's own documentation states (as of May 2026):
-
 > *"The API gives you access to the model that Anthropic service hosts and manages."* ([source](https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy))
-
-And more directly (as of May 2026):
 
 > *"When you transact for Claude in Foundry, you will agree to Anthropic's terms of use and Anthropic (not Microsoft) is the processor of the data."* ([source](https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy))
 
-There is no ambiguity here. Azure AI Foundry is an API gateway, an authentication layer, and a billing mechanism. Inference runs on Anthropic-managed infrastructure that sits outside Microsoft Azure. Azure region selection does not constrain where Anthropic processes prompts — Anthropic's infrastructure spans multiple geographies and routes requests dynamically for performance and capacity.
+There is no ambiguity here. Azure AI Foundry is an API gateway, an authentication layer, and a billing mechanism. Inference runs on Anthropic-managed infrastructure outside Microsoft Azure. Azure region selection does not constrain where Anthropic processes prompts — Anthropic's infrastructure spans multiple geographies and routes requests dynamically.
 
 ```mermaid
 flowchart TB
@@ -142,127 +148,157 @@ flowchart TB
 
 ### Two Contracts, Two Scopes
 
-This architecture produces a dual-DPA reality. Both contracts are in force simultaneously — but they govern entirely different parts of the data flow, and neither extends its coverage to the other's domain.
+This architecture produces a dual-DPA reality. Both contracts are in force simultaneously, but they govern entirely different parts of the data flow.
 
 **Microsoft DPA** governs: the Foundry API infrastructure, authentication metadata, usage telemetry, and billing records.
 
 **Anthropic DPA** governs: user prompts, model completions, and any personal data contained within AI interactions.
 
-The practical implication: strengthening your contractual position with Microsoft — through enterprise agreements, DPA amendments, or compliance addenda — does not change what happens to your prompts after they cross the trust boundary into Anthropic's environment.
+Strengthening your contractual position with Microsoft — through enterprise agreements, DPA amendments, or compliance addenda — does not change what happens to your prompts after they cross into Anthropic's environment.
 
 ### What Security Controls Do Not Cover
 
-Several controls that enterprises commonly enable in Azure do not extend their protection to Anthropic's inference layer.
+**Customer Managed Keys (CMK):** CMK via Azure Key Vault covers data stored within Azure — project files, evaluation artefacts, uploaded documents. It does not apply to prompts or completions processed by Anthropic's infrastructure. Organisations enabling CMK believing it gives full cryptographic control over AI interactions are working with an incomplete picture.
 
-**Customer Managed Keys (CMK):** Azure AI Foundry supports CMK via Azure Key Vault for data stored within Azure — project files, evaluation artefacts, and uploaded documents. CMK does not apply to prompts or completions processed by Anthropic's infrastructure. Enabling CMK provides encryption coverage for Azure-stored artefacts only. Organisations that enable CMK believing they have full cryptographic control over their AI interactions are working with an incomplete picture.
+**EU Data Boundary (as of May 2026):** Microsoft's EU Data Boundary programme currently excludes Claude models across Azure AI Foundry, M365 Copilot, Copilot Studio, and Power Platform. EU-based organisations cannot rely on this commitment for prompt and inference data.
 
-**EU Data Boundary (as of May 2026):** Microsoft's EU Data Boundary programme currently excludes Claude models deployed through Microsoft products — including Azure AI Foundry, M365 Copilot, Copilot Studio, and Power Platform. EU-based organisations using these services cannot rely on Microsoft's EU Data Boundary commitment for prompt and inference data. This exclusion is documented in Microsoft's own guidance.
-
-**Azure sovereign cloud deployments:** Azure Government and other sovereign cloud variants provide infrastructure isolation within Azure's boundary. This isolation does not extend to Anthropic's inference environment — the same architectural split applies regardless of which Azure cloud variant you use.
+**Azure sovereign cloud deployments:** Azure Government and other sovereign cloud variants provide infrastructure isolation within Azure's boundary. That isolation does not extend to Anthropic's inference environment.
 
 ### The Contract You May Not Know You Signed
 
-When an organisation enables Claude in Azure Foundry through the Azure Marketplace, accepting the marketplace terms constitutes a click-through acceptance of [Anthropic's Commercial Terms](https://www.anthropic.com/legal/commercial-terms) and [Data Processing Addendum](https://www.anthropic.com/legal/data-processing-addendum). A direct contractual relationship between the organisation and Anthropic is created at this moment — automatically, without a separate signing process, often without the involvement of legal or procurement teams.
-
-For many organisations, this means AI model agreements are in force without having been reviewed through normal procurement governance. This is worth auditing.
+Accepting the Azure Marketplace terms when enabling Claude in Foundry constitutes click-through acceptance of [Anthropic's Commercial Terms](https://www.anthropic.com/legal/commercial-terms) and [Data Processing Addendum](https://www.anthropic.com/legal/data-processing-addendum). A direct contractual relationship between your organisation and Anthropic is created automatically — often without the involvement of legal or procurement teams. This is worth auditing.
 
 ### Data Retention and Zero Data Retention
 
-Under standard terms (as of May 2026), Anthropic retains API interaction logs for 30 days for abuse monitoring and safety purposes. Enterprise customers can negotiate a Zero Data Retention (ZDR) addendum — under which prompts and completions are not stored after the API response is returned ([Anthropic DPA](https://www.anthropic.com/legal/data-processing-addendum), [Commercial Terms](https://www.anthropic.com/legal/commercial-terms)). ZDR is not automatic for Foundry deployments; it requires a separately executed agreement with Anthropic and must be confirmed for this specific integration path.
+Under standard terms, Anthropic retains API interaction logs for 30 days. Enterprise customers can negotiate a Zero Data Retention (ZDR) addendum ([Anthropic DPA](https://www.anthropic.com/legal/data-processing-addendum)), under which prompts and completions are not stored after the response is returned. ZDR requires a separately executed agreement and must be confirmed for Foundry deployments specifically.
 
-One important nuance: even under a ZDR agreement, Anthropic retains the outputs of its User Safety classifier. This classifier evaluates prompts and completions for policy violations — such as harmful content, abuse, or jailbreak attempts — and generates outputs in the form of risk scores, category flags, or binary decisions. Under ZDR, these classifier outputs are retained while the underlying prompts and completions are erased. Whether these outputs constitute personal data under GDPR depends on whether they can be linked to an identifiable individual and on the specific categories of data flagged. This is an open question: organisations should treat this as an unresolved compliance point requiring legal review.
+One important nuance: even under ZDR, Anthropic retains outputs from its User Safety classifier — the component that evaluates prompts for policy violations such as harmful content or jailbreak attempts. These outputs persist after the underlying prompts are erased. Whether they constitute personal data under GDPR is an open compliance question that requires legal review.
 
 ---
 
-## The Counterexample: When the Cloud Fully Owns the Model
+## Three Architectural Patterns
 
-The Azure AI Foundry architecture is not universal. Other providers have made fundamentally different choices.
+Across today's cloud AI platforms, three distinct trust architectures emerge. Understanding which pattern applies is the first step in evaluating any integration.
 
-On **Google Cloud Vertex AI** (as of May 2026), Claude operates as a fully managed, serverless service within Google's own infrastructure. The model is hosted, served, and operated by Google. Requests go to Google Vertex AI API endpoints — the data never reaches Anthropic. Regional endpoints enforce hard data residency — selecting a region means your data and processing remain within that geographic boundary, backed by infrastructure rather than routing preference. [Google's sub-processor list](https://cloud.google.com/terms/subprocessors) does not include Anthropic, which is the contractual proof that Anthropic has no data processing role in this architecture. Even Claude-specific internal metadata generated during inference is classified as [Google-controlled Service Data](https://cloud.google.com/vertex-ai/generative-ai/docs/data-governance) under Google's terms.
+```mermaid
+flowchart TD
+    subgraph PA["Pattern A — Split Trust\nAzure AI Foundry with Claude"]
+        A1["Your App"] --> CP1["Cloud Control Plane\nMicrosoft - API - Auth - Billing"]
+        CP1 --> TB1(["Trust Boundary\nData leaves cloud here"])
+        TB1 --> DP1["Model Provider Inference\nAnthopic - Outside Azure\nSeparate DPA"]
+    end
 
-On **AWS Bedrock** (as of May 2026), the architecture follows a similar pattern — AWS hosts and serves Claude within its own infrastructure under the AWS DPA, providing the same kind of single-provider trust boundary that GCP offers.
+    subgraph PB["Pattern B — Unified Trust\nGCP Vertex AI and AWS Bedrock"]
+        A2["Your App"] --> ALL2["Cloud Provider\nControl and Inference\nData stays in cloud\nSingle DPA"]
+    end
 
-But "fully hosted" should not be read as "fully governed." It is worth asking whether AWS sends model performance telemetry, safety logs, or weight-update metrics back to Anthropic — and whether Google uses any third-party compute or network paths for Vertex AI inference that sit outside GCP's contractual boundary. Even if the answer to both questions is no, asking the question is part of evaluating the boundary rather than assuming it. Vendor documentation changes, and "fully hosted" is a technical description, not a perpetual contractual guarantee.
+    subgraph PC["Pattern C — Sub-processor Chain\nM365 Copilot with Claude"]
+        A3["Your App"] --> CP3["Cloud Processor\nMicrosoft - Full Accountability"]
+        CP3 --> SB3(["Sub-processor boundary"])
+        SB3 --> SP3["Model Provider\nAnthopic - Sub-processor\nunder MS DPA"]
+    end
+```
 
-The contrast is stark: **the model is not the trust boundary. The platform is.** Choosing a model and choosing a platform are separate decisions with separate trust implications. Both need to be evaluated independently.
+**Pattern A — Split Trust** is the Azure AI Foundry architecture. The cloud provider handles the control plane; the model provider independently handles inference under a separate DPA. Two contracts, two processors, two audit relationships.
+
+**Pattern B — Unified Trust** describes GCP Vertex AI and AWS Bedrock. On GCP (as of May 2026), Claude is fully managed within Google's infrastructure. Requests go to Google Vertex AI endpoints — data never reaches Anthropic. Regional endpoints enforce hard data residency backed by infrastructure, not routing preference. [Google's sub-processor list](https://cloud.google.com/terms/subprocessors) does not include Anthropic, which is the contractual proof. AWS Bedrock follows the same pattern — AWS hosts and serves Claude under a single AWS DPA.
+
+**Pattern C — Sub-processor Chain** is the M365 Copilot model, covered in detail in the next section.
+
+**A word of caution on Pattern B:** "fully hosted" should not be read as "fully governed." It is worth asking whether AWS sends model telemetry or weight-update metrics back to Anthropic, and whether Google uses any third-party compute paths outside GCP's contractual boundary. If you cannot find a documented answer, that is a vendor questionnaire item, not a safe assumption. Use this checklist to verify:
+
+- Does the cloud provider's sub-processor list for this specific service include the model developer?
+- Does the cloud DPA explicitly state the provider processes inference data — not just infrastructure metadata?
+- Does the model provider's privacy policy contain "usage data" or "service improvement" clauses that could allow telemetry flows?
+- Has the model provider confirmed in writing that no inference data is returned to them in this hosting arrangement?
+
+Vendor documentation changes. "Fully hosted" is a technical description, not a perpetual contractual guarantee.
+
+**The model is not the trust boundary. The platform is.** Choosing a model and choosing a platform are separate decisions with separate trust implications.
 
 ---
 
 ## The M365 Copilot Nuance
 
-M365 Copilot with Claude (as of May 2026) presents a third architectural pattern. Here, Anthropic hosts the model — as with Azure AI Foundry — but the contractual structure differs: Anthropic operates as a sub-processor *of Microsoft*, sitting under Microsoft's DPA umbrella rather than as a direct, independent processor.
+M365 Copilot with Claude (as of May 2026) presents Pattern C — the sub-processor chain. Anthropic still hosts the inference on its own infrastructure (running on AWS/GCP datacenters), but the contractual structure is fundamentally different from Azure AI Foundry: Anthropic operates as a sub-processor *of Microsoft*, sitting under Microsoft's DPA umbrella rather than as a direct, independent processor.
 
-This means Microsoft bears processor responsibility for the full data flow, with Anthropic's role contractually subordinated. From a GDPR perspective, an organisation using M365 Copilot deals with Microsoft as their processor — not with Anthropic directly. Microsoft's commitments govern the whole chain.
+This distinction has concrete governance implications:
 
-This is a genuinely different risk profile from Azure AI Foundry — even though the underlying model and some infrastructure may be the same. It illustrates that the contractual architecture matters as much as the technical architecture.
+| Governance dimension | Azure AI Foundry (Claude) | M365 Copilot (Claude) |
+|---|---|---|
+| **Your processor** | Anthropic — direct, independent | Microsoft — Anthropic is their sub-processor |
+| **Liability** | Split: Microsoft for infra, Anthropic for inference | Microsoft bears full processor accountability |
+| **Audit rights** | Audit Microsoft for infra; audit Anthropic separately under Anthropic DPA | Audit Microsoft; Microsoft audits Anthropic on your behalf |
+| **Data residency** | Anthropic routes globally; Azure region has no effect | EU Data Boundary exclusions still apply |
+| **Breach notification** | Two separate obligations, two timelines | Microsoft's 72-hour GDPR obligation covers the full chain |
+
+From a GDPR perspective, an organisation using M365 Copilot deals with Microsoft as their processor — not with Anthropic directly. This simplifies the contractual relationship but does not eliminate the underlying architectural reality: inference still occurs outside Microsoft's infrastructure, and the EU Data Boundary exclusions that apply to Azure AI Foundry apply here too.
 
 ---
 
 ## The Evolving Landscape
 
-The specific state of each platform described in this post reflects documentation available in mid-2026 — and it will continue to change.
+The specific state of each platform in this post reflects documentation available in mid-2026 — and it will continue to change.
 
-Microsoft has been developing regional data zone support for Claude in Foundry. EU data zone availability has been on the roadmap, which would bring inference residency controls closer to what GCP and AWS currently offer. If native hosted deployments of third-party models become available within Azure's infrastructure boundary, the dual-DPA structure described here would no longer apply to those deployments.
+Microsoft has been developing regional data zone support for Claude in Foundry. EU data zone availability has been on the roadmap, which would bring inference residency controls closer to what GCP and AWS currently offer. If native hosted deployments of third-party models become available within Azure's infrastructure boundary, the dual-DPA structure described here would no longer apply.
 
-What this means in practice: **any specific answer to "where does my data go?" has an expiry date.** Governance decisions made today need to be revisited when a service moves from preview to GA, when a cloud provider updates its sub-processor list, when a model gains a new regional deployment, or when a provider announces a hosting architecture change.
-
-This is why a static checklist is insufficient. What organisations need is a repeatable evaluation process.
+**Any specific answer to "where does my data go?" has an expiry date.** Governance decisions need to be revisited when a service moves from preview to GA, when a cloud provider updates its sub-processor list, when a model gains a new regional deployment, or when a provider announces a hosting architecture change.
 
 ---
 
 ## How to Evaluate Your Trust Boundary
 
-For any AI model integration — on any platform, at any point in time — the following questions determine the actual trust profile.
+For any AI model integration — on any platform, at any point in time — three areas of inquiry determine the actual trust profile.
 
-**On inference location:**
+**Inference and residency:**
 - Who physically hosts the model — the cloud provider or the model developer? Is this explicitly documented?
 - Does the cloud provider's DPA name them as the data processor for prompts and completions, or does it defer to a third party?
-- Is the model developer listed as a sub-processor of the cloud provider? If not, they are a direct, independent processor.
-
-**On data residency:**
-- Does cloud region selection constrain where inference runs, or only where the API endpoint and control plane operate?
-- Are regional guarantees backed by infrastructure and contractual commitments, or by routing preference only?
+- Does cloud region selection constrain where inference runs, or only where the API endpoint operates?
 - Is this model explicitly included in or excluded from the cloud provider's data boundary programme?
 
-**On contracts:**
+**Contracts and acceptance:**
 - How many DPAs govern this data flow? Which one covers prompts and completions specifically?
 - Has your organisation reviewed and accepted the model provider's terms? Through what mechanism, and when?
 - If there is a click-through acceptance path, has your legal team reviewed what was accepted?
+- Which entities must be disclosed to your customers as sub-processors under GDPR Article 28?
 
-**On security controls:**
+**Controls and disclosure:**
 - Do encryption controls extend to the inference environment, or only to data stored in the cloud provider's storage layer?
 - What is the model provider's data retention period? Is ZDR available, activated, and confirmed for this specific integration?
-
-**For SaaS providers specifically:**
-- Which entities in your AI data flow must be disclosed to your customers as sub-processors under GDPR Article 28?
 - Does your privacy notice accurately describe where inference actually occurs?
-- Have you cross-checked both the cloud provider's and the model provider's sub-processor lists?
+- Have you cross-checked both the cloud provider's and model provider's sub-processor lists?
 
 ---
 
 ## Governance Process
 
-A checklist is only useful if someone owns it and revisits it. Organisations should treat AI trust boundary evaluation as a governance process, not a one-time audit.
+Treat AI trust boundary evaluation as a governance process, not a one-time audit.
 
-**Assign ownership:** Decide whether legal, security, or procurement owns the evaluation. In practice, all three need input. Legal should review the DPA coverage; security should verify the technical boundary; procurement should confirm that the contractual path aligns with the vendor's actual architecture. One function should own the decision trail.
+**Assign ownership:** Legal, security, and procurement all need input. Legal reviews DPA coverage; security verifies the technical boundary; procurement confirms the contractual path matches the vendor's actual architecture. One function should own the decision trail.
 
-**Establish a review cadence:** Re-evaluate the trust boundary quarterly, and ad-hoc whenever the cloud provider or model vendor announces a service update, a new regional deployment, a change to their sub-processor list, or a shift from preview to general availability. The answers from six months ago may no longer be correct.
+**Establish a review cadence:** Re-evaluate quarterly, and ad-hoc whenever a provider announces a service update, regional deployment, sub-processor list change, or shift from preview to GA. The answers from six months ago may no longer be correct.
 
-**Document the decision trail:** For each AI integration, maintain a short record of who evaluated the boundary, what date they evaluated it, which documentation they relied on, and what conclusion they reached. This record is what auditors will ask for, and it is far easier to maintain at the time of the decision than to reconstruct later.
+**Document the decision trail:** For each AI integration, record who evaluated the boundary, when, which documentation they relied on, and what conclusion they reached. This is what auditors will ask for.
+
+---
+
+## Conclusion
+
+The trust boundary question will not stay answered. As models shift between hosting arrangements, as cloud providers build native inference capacity, and as regulators catch up to multi-party AI architectures, the specific answers in this post will change. The discipline should not. Ask who physically processes your data, under which contract, and what controls actually reach that environment. Then ask again next quarter. The framework is stable even when the answers are not.
 
 ---
 
 ## Key Takeaways
 
 - Cloud AI platforms frequently separate the control plane (API, auth, billing) from the data plane (inference). These two layers may belong to entirely different companies under different contracts.
-- The same model can operate under fundamentally different trust profiles depending on the platform — as demonstrated by Claude's different architectures across Azure AI Foundry, GCP Vertex AI, AWS Bedrock, and M365 Copilot.
+- The same model operates under fundamentally different trust profiles depending on the platform — demonstrated by Claude's different architectures across Azure AI Foundry, GCP Vertex AI, AWS Bedrock, and M365 Copilot.
 - Cloud region selection, Customer Managed Keys, and data boundary commitments may not extend to third-party model inference. Each control needs to be evaluated against what it actually covers.
-- Contractual acceptance of model provider terms can occur automatically through cloud marketplace click-through. Organisations should audit which AI model agreements are in force and how they were accepted.
-- The specific answers will change as platforms evolve. The evaluation process — who hosts the model, which DPA governs inference, what do security controls actually reach — remains constant.
+- Contractual acceptance of model provider terms can occur automatically through cloud marketplace click-through. Audit which AI model agreements are in force and how they were accepted.
+- The specific answers will change as platforms evolve. The evaluation process — who hosts the model, which DPA governs inference, what do controls actually reach — remains constant.
 
 ---
 
-> 💡 **Pro Tip:** Check the cloud provider's sub-processor list as a starting point, but verify against the specific service's DPA and documentation. Sub-processor lists are often service-agnostic and may not reflect the architecture of a specific AI integration. If the model developer appears on the list for the specific service you are using, the cloud provider likely covers the inference layer under a single DPA. If they do not appear, the model developer may be an independent processor and you should review their terms separately.
+> 💡 **Three questions before you deploy any AI model integration:** Who physically hosts inference — the cloud provider or someone else? Which DPA explicitly covers your prompts and completions? Has your legal team reviewed the acceptance path? If you cannot answer all three confidently, that is your audit starting point.
 
 ---
 
@@ -283,14 +319,14 @@ A checklist is only useful if someone owns it and revisits it. Organisations sho
 
 ## Limitations
 
-This analysis focuses on managed cloud AI integrations where a foundation model is accessed through a third-party platform's API. It does not cover:
+This analysis covers managed cloud AI integrations where a foundation model is accessed through a third-party platform's API. It does not cover:
 
 - **On-premise deployments** or self-hosted open-weight models, where the trust boundary is entirely within your own infrastructure.
-- **Fine-tuning data flows**, where training data may be stored, processed, or retained under different terms than inference prompts.
-- **Multi-tenant versus single-tenant inference**, which affects isolation guarantees but is not addressed here.
-- **Sovereign cloud nuances beyond Azure**, such as AWS GovCloud or Google Cloud Sovereign Controls, which may have additional contractual or technical boundaries not covered in this post.
+- **Fine-tuning data flows**, where training data may be stored or retained under different terms than inference prompts.
+- **Multi-tenant versus single-tenant inference**, which affects isolation guarantees.
+- **Sovereign cloud nuances beyond Azure**, such as AWS GovCloud or Google Cloud Sovereign Controls.
 
-These are important topics, and readers should not assume that the conclusions drawn for managed API inference apply to them without separate evaluation.
+Readers should not assume that conclusions drawn for managed API inference apply to these scenarios without separate evaluation.
 
 ---
 
