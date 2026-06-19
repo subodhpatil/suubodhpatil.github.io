@@ -55,6 +55,8 @@ When these two layers split across different companies, the consequences are sig
 
 None of this is hypothetical. It is the documented, contractual reality of several major cloud AI integrations today.
 
+> **GDPR note for engineers:** Under GDPR, a *processor* processes personal data on behalf of the data controller (your organisation); a *sub-processor* is engaged by the processor to carry out specific tasks. When Anthropic is Microsoft's sub-processor (as in M365 Copilot), your compliance obligations flow through Microsoft — you audit Microsoft, and Microsoft audits Anthropic on your behalf. When Anthropic is a direct, independent processor (as in Azure AI Foundry), you have a separate legal relationship with Anthropic that your organisation must manage directly.
+
 ---
 
 ## Same Model, Different Trust: Why Platform Choice Determines Your Risk
@@ -180,24 +182,13 @@ One important nuance: even under ZDR, Anthropic retains outputs from its User Sa
 
 Across today's cloud AI platforms, three distinct trust architectures emerge. Understanding which pattern applies is the first step in evaluating any integration.
 
-```mermaid
-flowchart TD
-    subgraph PA["Pattern A — Split Trust\nAzure AI Foundry with Claude"]
-        A1["Your App"] --> CP1["Cloud Control Plane\nMicrosoft - API - Auth - Billing"]
-        CP1 --> TB1(["Trust Boundary\nData leaves cloud here"])
-        TB1 --> DP1["Model Provider Inference\nAnthopic - Outside Azure\nSeparate DPA"]
-    end
-
-    subgraph PB["Pattern B — Unified Trust\nGCP Vertex AI and AWS Bedrock"]
-        A2["Your App"] --> ALL2["Cloud Provider\nControl and Inference\nData stays in cloud\nSingle DPA"]
-    end
-
-    subgraph PC["Pattern C — Sub-processor Chain\nM365 Copilot with Claude"]
-        A3["Your App"] --> CP3["Cloud Processor\nMicrosoft - Full Accountability"]
-        CP3 --> SB3(["Sub-processor boundary"])
-        SB3 --> SP3["Model Provider\nAnthopic - Sub-processor\nunder MS DPA"]
-    end
-```
+| | Pattern A — Split Trust | Pattern B — Unified Trust | Pattern C — Sub-processor Chain |
+|---|---|---|---|
+| **Example** | Azure AI Foundry (Claude) | GCP Vertex AI, AWS Bedrock (Claude) | M365 Copilot (Claude) |
+| **Who hosts inference** | Model provider — outside cloud | Cloud provider — inside cloud | Model provider — outside cloud |
+| **DPA structure** | Dual DPA — two separate contracts | Single DPA — one contract | Single DPA — MS umbrella covers chain |
+| **Your relationship with model provider** | Direct and independent | None — cloud provider is sole processor | Via Microsoft — Anthropic is sub-processor |
+| **Does region selection constrain inference?** | No | Yes — hard enforcement | Partial — EU exclusions apply |
 
 **Pattern A — Split Trust** is the Azure AI Foundry architecture. The cloud provider handles the control plane; the model provider independently handles inference under a separate DPA. Two contracts, two processors, two audit relationships.
 
@@ -234,6 +225,8 @@ This distinction has concrete governance implications:
 
 From a GDPR perspective, an organisation using M365 Copilot deals with Microsoft as their processor — not with Anthropic directly. This simplifies the contractual relationship but does not eliminate the underlying architectural reality: inference still occurs outside Microsoft's infrastructure, and the EU Data Boundary exclusions that apply to Azure AI Foundry apply here too.
 
+On breach notification, the sub-processor chain has a concrete implication: Microsoft's 72-hour GDPR notification obligation covers the full chain. In practice this means that if Anthropic detects a breach, they must notify Microsoft, and Microsoft must notify you — your 72-hour clock starts from when Microsoft becomes aware, not from when Anthropic does. Organisations should confirm with Microsoft how quickly Anthropic is contractually required to notify them, since a delay in that upstream notification compresses your own response window. This is a governance point worth raising during vendor review.
+
 ---
 
 ## The Evolving Landscape
@@ -242,7 +235,7 @@ The specific state of each platform in this post reflects documentation availabl
 
 Microsoft has been developing regional data zone support for Claude in Foundry. EU data zone availability has been on the roadmap, which would bring inference residency controls closer to what GCP and AWS currently offer. If native hosted deployments of third-party models become available within Azure's infrastructure boundary, the dual-DPA structure described here would no longer apply.
 
-**Any specific answer to "where does my data go?" has an expiry date.** Governance decisions need to be revisited when a service moves from preview to GA, when a cloud provider updates its sub-processor list, when a model gains a new regional deployment, or when a provider announces a hosting architecture change.
+**Any specific answer to "where does my data go?" has an expiry date.** Governance decisions need to be revisited when a service moves from preview to GA, when a cloud provider updates its sub-processor list, when a model gains a new regional deployment, or when a provider announces a hosting architecture change. Critically, cloud providers sometimes change hosting arrangements without prominent announcements — a model hosted natively in GCP today may be routed differently in a future update. Monitoring sub-processor list change notices and DPA revision dates is the most reliable early warning signal; do not assume that an answer verified six months ago is still current.
 
 ---
 
@@ -284,7 +277,7 @@ Treat AI trust boundary evaluation as a governance process, not a one-time audit
 
 ## Conclusion
 
-The trust boundary question will not stay answered. As models shift between hosting arrangements, as cloud providers build native inference capacity, and as regulators catch up to multi-party AI architectures, the specific answers in this post will change. The discipline should not. Ask who physically processes your data, under which contract, and what controls actually reach that environment. Then ask again next quarter. The framework is stable even when the answers are not.
+The trust boundary question will not stay answered. As models shift between hosting arrangements, as cloud providers build native inference capacity, and as regulators catch up to multi-party AI architectures, the specific answers in this post will change. The discipline should not. Ask who physically processes your data, under which contract, and what controls actually reach that environment. Then ask again next quarter. The framework is stable even when the answers are not. In AI, the model is not the trust boundary — the platform is.
 
 ---
 
@@ -298,14 +291,7 @@ The trust boundary question will not stay answered. As models shift between host
 
 ---
 
-> 💡 **Pro Tip: Do not rely on the cloud provider's sub-processor list to determine where inference happens.**
->
-> 1. **Start with the sub-processor list, but treat it only as a hint.** Most lists are global and do not reflect the architecture of a specific AI integration.
-> 2. **Check the service-specific DPA and documentation.** If it explicitly names the model provider as the processor for prompts and completions, they are an independent processor — even if they also appear as a sub-processor elsewhere.
-> 3. **Appearing on the sub-processor list does not mean the cloud provider hosts inference.** M365 Copilot is the clearest example: Anthropic is listed as a Microsoft sub-processor, yet inference still runs on Anthropic infrastructure outside Azure.
-> 4. **If the model developer does not appear on the service-specific sub-processor list, you almost certainly have a dual-DPA structure.** That is the case for Azure AI Foundry with Claude.
-> 5. **Check whether you accepted the model provider's terms via click-through.** Enabling Claude in Azure Foundry automatically creates a direct contractual relationship with Anthropic — without a separate signing process.
-> 6. **Final rule:** Sub-processor list = who *may* process your data. DPA = who is *responsible* for processing your data. Architecture = where your data is *actually* processed. All three must be checked independently.
+> 💡 **Pro Tip:** The sub-processor list is a starting point, not a trust boundary map — Anthropic appears on Microsoft's list for M365 Copilot, yet inference still runs on Anthropic infrastructure outside Azure. To find the actual boundary, check the service-specific DPA for who is named as processor for prompts and completions, and verify whether deploying the model triggered click-through acceptance of the model provider's own terms. Remember: sub-processor lists are often global, may lag behind actual architecture changes, and do not substitute for reading the service-level DPA — the rule is simple: list = who *may* process, DPA = who is *responsible*, architecture = where data *actually* goes.
 
 ---
 
