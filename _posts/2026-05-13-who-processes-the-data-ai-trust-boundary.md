@@ -55,7 +55,7 @@ When these two layers split across different companies, the consequences are sig
 
 None of this is hypothetical. It is the documented, contractual reality of several major cloud AI integrations today.
 
-> **GDPR note for engineers:** Under GDPR, a *processor* processes personal data on behalf of the data controller (your organisation); a *sub-processor* is engaged by the processor to carry out specific tasks. When Anthropic is Microsoft's sub-processor (as in M365 Copilot), your compliance obligations flow through Microsoft — you audit Microsoft, and Microsoft audits Anthropic on your behalf. When Anthropic is a direct, independent processor (as in Azure AI Foundry), you have a separate legal relationship with Anthropic that your organisation must manage directly.
+> **GDPR note for engineers:** Under GDPR, a *processor* processes personal data on behalf of the data controller (your organisation); a *sub-processor* is engaged by the processor to carry out specific tasks. When Anthropic is Microsoft's sub-processor (as in M365 Copilot), your compliance obligations flow through Microsoft — you audit Microsoft, and Microsoft audits Anthropic on your behalf. When Anthropic is a direct, independent processor (as in Azure AI Foundry), you have a separate legal relationship with Anthropic that your organisation must manage directly. Two further patterns exist at the edges: *joint controllers*, where two entities independently determine the purposes of processing and both bear direct GDPR obligations to you — uncommon in standard AI inference but possible in co-developed integrations; and *delegated processing*, where the cloud provider acts as a technical intermediary under the model provider's contractual terms rather than as a processor in their own right — an arrangement not always visible in standard sub-processor lists.
 
 ---
 
@@ -203,7 +203,7 @@ Across today's cloud AI platforms, three distinct trust architectures emerge. Un
 - Does the model provider's privacy policy contain "usage data" or "service improvement" clauses that could allow telemetry flows?
 - Has the model provider confirmed in writing that no inference data is returned to them in this hosting arrangement?
 
-Vendor documentation changes. "Fully hosted" is a technical description, not a perpetual contractual guarantee.
+Vendor documentation changes. "Fully hosted" is a technical description, not a perpetual contractual guarantee. Even in fully hosted deployments, some model providers embed "service improvement" clauses in their terms that permit statistical telemetry to flow back to the model developer — check the model provider's privacy policy for such language even when the cloud provider hosts the model entirely.
 
 **The model is not the trust boundary. The platform is.** Choosing a model and choosing a platform are separate decisions with separate trust implications.
 
@@ -291,7 +291,7 @@ The trust boundary question will not stay answered. As models shift between host
 
 ---
 
-> 💡 **Pro Tip:** The sub-processor list is a starting point, not a trust boundary map — Anthropic appears on Microsoft's list for M365 Copilot, yet inference still runs on Anthropic infrastructure outside Azure. To find the actual boundary, check the service-specific DPA for who is named as processor for prompts and completions, and verify whether deploying the model triggered click-through acceptance of the model provider's own terms. Remember: sub-processor lists are often global, may lag behind actual architecture changes, and do not substitute for reading the service-level DPA — the rule is simple: list = who *may* process, DPA = who is *responsible*, architecture = where data *actually* goes.
+> 💡 **Pro Tip:** The sub-processor list is a starting point, not a trust boundary map — Anthropic appears on Microsoft's list for M365 Copilot, yet inference still runs on Anthropic infrastructure outside Azure. To find the actual boundary, check the service-specific DPA for who is named as processor for prompts and completions, and verify whether deploying the model triggered click-through acceptance of the model provider's own terms. Remember: cloud providers often maintain multiple sub-processor lists — global, service-specific, and product-specific — which can contradict each other; only the service-specific list is authoritative for a given integration, lists may lag behind actual architecture changes, and neither substitutes for reading the service-level DPA — the rule is simple: list = who *may* process, DPA = who is *responsible*, architecture = where data *actually* goes.
 
 ---
 
