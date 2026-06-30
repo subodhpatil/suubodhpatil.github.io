@@ -12,27 +12,13 @@ mermaid: true
 
 ## Introduction
 
-The padlock icon in your browser is one of the most trusted symbols in computing. Billions of people rely on it every day to protect passwords, financial transactions, and personal data. Yet most engineers who build the systems behind that padlock have never fully read how the protocol actually works.
+The padlock icon in your browser is one of the most trusted symbols in computing — and one of the least understood. Before TLS, HTTP transmitted everything in plaintext: every request, every cookie, every password visible to anyone on the same network. In 2010, a Firefox extension called **Firesheep** made session hijacking a single click — no technical skill required. Hundreds of thousands of downloads in 24 hours forced major sites to move to HTTPS-by-default within months.
 
-This matters beyond technical curiosity. Every major compliance framework — PCI DSS, GDPR, HIPAA, ISO 27001, RBI, MAS — mandates encryption in transit. Auditors don't just ask "do you use HTTPS?" They ask which TLS versions are enabled, which cipher suites are configured, whether certificates are properly chained, and whether weak protocols have been explicitly disabled. The padlock is the easy part. What sits behind it is a governance decision.
+The business stakes go further than session security. Every major compliance framework — PCI DSS, GDPR, HIPAA, ISO 27001, RBI, MAS — mandates encryption in transit. Auditors don't just ask "do you use HTTPS?" They ask which TLS versions are enabled, which cipher suites are configured, whether certificates are properly chained, and whether weak protocols have been explicitly disabled. The padlock is the easy part. What sits behind it is a governance decision.
 
-This post builds the foundation: how TLS works, what the handshake actually does, what a certificate is and why you should care about who signed it, and — critically — what HTTPS does *not* protect that engineers frequently assume it does.
+TLS solves three problems simultaneously: **confidentiality** (data cannot be read by an eavesdropper), **integrity** (data cannot be modified in transit without detection), and **authentication** (you are communicating with the server you believe you are). The third is the most critical and most overlooked. Encryption without authentication means sending a secret to *someone* — but you don't know who. Remove that binding and no amount of encryption prevents a man-in-the-middle attacker from silently reading and relaying your traffic.
 
----
-
-## Why TLS Exists: The Business Risk of Plaintext
-
-Before TLS, HTTP transmitted everything in plaintext. Every request, every cookie, every password — visible to anyone on the same network. On shared networks (coffee shop Wi-Fi, corporate LAN, university networks), passive interception required nothing more than a network interface card in promiscuous mode.
-
-In 2010, a Firefox extension called **Firesheep** made this trivially accessible to non-technical users: one click and you could hijack any Facebook, Twitter, or email session on your network. Hundreds of thousands of downloads in the first 24 hours. Major sites moved to HTTPS-by-default within months.
-
-TLS addresses this by providing three guarantees that underpin all secure communication:
-
-1. **Confidentiality** — data cannot be read by an eavesdropper
-2. **Integrity** — data cannot be modified in transit without detection
-3. **Authentication** — you are communicating with the server you think you are
-
-The third guarantee is the most important and most overlooked. Encryption without authentication means you are sending a secret to *someone* — but you don't know who. TLS binds the encryption to a verified identity through certificates. Remove that binding and encryption alone provides no protection against a man-in-the-middle attacker.
+This post builds the foundation: what the handshake actually does, how the session key is derived without ever being transmitted, what a certificate is and why the CA that signed it matters, and — critically — what HTTPS does not protect that engineers frequently assume it does.
 
 ---
 
@@ -81,7 +67,7 @@ TLS operates as a layer between TCP and HTTP. The TCP connection is established 
 
 ## The TLS Handshake: Step by Step
 
-Before any application data flows, the browser and server perform a handshake — a negotiation that authenticates the server, agrees on cryptographic algorithms, and establishes a shared session key. The entire process completes in under 100 milliseconds.
+Before any application data flows, the browser and server perform a handshake — a negotiation that authenticates the server, agrees on cryptographic algorithms, and establishes a shared session key. TLS 1.3 completes this in a single round trip — often under 100ms in low-latency environments, though cross-region connections may take considerably longer depending on network RTT.
 
 ```mermaid
 sequenceDiagram
@@ -113,7 +99,8 @@ sequenceDiagram
 A few things worth noting:
 
 - **The `CertificateVerify` message is the identity proof.** The server signs a transcript of the handshake with its private key. Having the certificate alone is not enough to impersonate a server — the matching private key is required.
-- **TLS 1.3 provides forward secrecy by default.** Each session uses a fresh ephemeral key pair. Compromising the server's private key today does not expose sessions that were recorded in the past. TLS 1.2 did not guarantee this.
+- **TLS 1.3 makes forward secrecy mandatory.** Each session uses a fresh ephemeral key pair. Compromising the server's private key today does not expose sessions recorded in the past. TLS 1.2 did not enforce this — whether forward secrecy applied depended entirely on which cipher suite was negotiated; RSA key exchange (still common in TLS 1.2 deployments) provided none.
+- **OCSP stapling improves validation performance and privacy.** Rather than the browser making a separate round trip to the CA's OCSP responder during every handshake, the server pre-fetches and caches the CA's OCSP response and attaches (staples) it directly to the TLS handshake. This eliminates latency and prevents the CA from learning which sites a user visits.
 
 ### How the Session Key Is Derived — The Math Behind It
 
@@ -167,7 +154,7 @@ The handshake and the data channel use fundamentally different types of encrypti
 
 **Asymmetric encryption** uses a mathematically linked key pair: a **public key** anyone can see, and a **private key** that never leaves the server. Data encrypted with the public key can only be decrypted with the private key. Think of the public key as a letterbox slot — anyone can post a message through it, but only the owner with the private key can open the box and read the contents. This solves the key distribution problem: two parties who have never met can establish a shared secret using only public information. The trade-off is performance — it is far too slow for encrypting large data streams.
 
-TLS uses both: **asymmetric encryption during the handshake** to securely agree on a session key, then **symmetric encryption for all actual data**. The session key used for AES encryption is the output of the key exchange — never transmitted, derived independently by both sides.
+TLS uses both in distinct roles. **ECDH handles key agreement** — both sides exchange public values and independently derive the same session key without ever transmitting it or using asymmetric encryption on it. **Asymmetric cryptography (RSA or ECDSA) handles authentication only** — the server signs the handshake transcript with its private key to prove it genuinely holds the certificate. **Symmetric encryption then handles all actual data**, using the derived session key. These three roles are separate: conflating key agreement with asymmetric encryption is one of the most common misconceptions about how TLS actually works.
 
 ---
 
@@ -191,6 +178,16 @@ flowchart TD
     LEAF -- "Presented during TLS handshake" --> BROWSER
     ROOT -. "Pre-installed trust anchor" .-> BROWSER
 ```
+
+A real-world chain makes this concrete. When your browser connects to a site secured by Let's Encrypt, the certificate chain it verifies looks like this:
+
+| Level | Name | Signed by |
+|---|---|---|
+| Root CA | ISRG Root X1 | Self-signed — pre-installed in browsers and OS |
+| Intermediate CA | Let's Encrypt R3 (or E1) | Signed by ISRG Root X1 |
+| Leaf Certificate | your-domain.com | Signed by R3 — contains your server's public key |
+
+The browser walks up this chain verifying each signature until it reaches ISRG Root X1 — which it already trusts because it was pre-installed. If any signature in the chain is invalid, the connection is rejected.
 
 **One important clarification on whose keys are in those HSMs.** The HSMs shown above belong entirely to the Certificate Authority — DigiCert, Let's Encrypt, Sectigo. The private key stored offline is the CA's *own signing key*, used to sign intermediate CA certificates. It has nothing to do with your server's private key. When you obtain an SSL certificate, you generate your own key pair — the CA never sees your private key. Your certificate is simply the CA's signature on your public key and domain name. How and where you store your server's private key is entirely your responsibility — and one of the most underestimated security decisions in TLS deployments, which we will address directly in this series.
 
@@ -216,7 +213,7 @@ Many teams believe "we use HTTPS" fully answers security and compliance question
 
 When a browser initiates a TLS handshake, it sends the **Server Name Indication (SNI)** extension in the ClientHello — in plaintext, before any encryption is established. SNI is necessary so a server hosting multiple domains knows which certificate to present. The consequence: the domain you are visiting is visible to any network observer even over HTTPS.
 
-**Encrypted Client Hello (ECH)** is an emerging TLS extension designed to encrypt the SNI and close this gap. DNS-over-TLS (DoT) and DNSSEC address the related problem of DNS query visibility — though these are separate topics worth their own discussion.
+**Encrypted Client Hello (ECH)** is an emerging TLS extension designed to encrypt the SNI and close this gap. As of 2026, ECH is supported in Chrome and Firefox and deployed at scale by Cloudflare, but server-side support remains limited and it is not yet a universal solution — most web servers and CDNs do not support it. DNS-over-TLS (DoT) and DNSSEC address the related problem of DNS query visibility — though these are separate topics worth their own discussion.
 
 **Governance implication:** If your compliance requirement covers the confidentiality of destination domains — internal service URLs, confidential API endpoints, or applications where visiting the site is itself sensitive — HTTPS alone is insufficient. Private networking or ECH-capable infrastructure is required.
 
@@ -233,7 +230,7 @@ Standard TLS authenticates only the server — any client can connect. **Mutual 
 - TLS provides confidentiality, integrity, and authentication. All three are required — encryption without server authentication allows silent MITM attacks.
 - The session key is never transmitted. Both sides derive it independently from the key exchange material, making passive packet capture insufficient to decrypt traffic.
 - Certificates bind a server's public key to a verified domain identity. The CA's signature is the trust anchor — and CA compromise breaks the entire model for every domain that CA issued for. CAA DNS records limit this risk.
-- TLS 1.3 provides forward secrecy by default — past sessions remain protected even if the private key is later compromised. TLS 1.2 did not guarantee this.
+- TLS 1.3 makes forward secrecy mandatory — past sessions remain protected even if the private key is later compromised. In TLS 1.2, forward secrecy depended on cipher suite selection; RSA key exchange, still widely used, provided none.
 - HTTPS does not hide the destination domain (SNI) or IP address. Systems with stricter confidentiality requirements need additional controls.
 - Compliance frameworks require more than "HTTPS enabled" — specific TLS versions, cipher suites, and certificate lifecycle management are all in scope.
 
