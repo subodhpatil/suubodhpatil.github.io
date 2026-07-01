@@ -6,6 +6,25 @@ tags: [data-residency, azure, power-bi, microsoft-fabric, saas, compliance]
 mermaid: true
 ---
 
+> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
+>
+> `Summarize this article in 5 bullet points with key takeaways, and flag anything a cloud/compliance architect should act on: https://blog.suubodhpatil.com/posts/multi-geo-compliance-shield/`
+{: .prompt-tip }
+
+> **Written for:** SaaS vendors, cloud architects, and compliance leads building analytics products on Power BI or Microsoft Fabric for regulated markets.
+
+---
+
+## Executive Summary
+
+- Without Multi-Geo, Power BI and Microsoft Fabric store all workspace data in the tenant's home region — regardless of where compute capacity is provisioned — creating a compliance gap for SaaS vendors with data residency obligations.
+- Multi-Geo moves workspace data and most workspace metadata to a satellite Azure region, enabling SaaS vendors to make defensible "data stays in your region" commitments for customers under GDPR, DPDP, PIPL, LGPD, and other data localization frameworks.
+- Enabling Multi-Geo requires a tenant-level licensing prerequisite: at least **5% of eligible users** must hold a Multi-Geo add-on license before Microsoft enables the capability at the tenant level — it is not simply a capacity configuration choice.
+- Tenant-level administrative metadata always remains in the home region regardless of Multi-Geo configuration — compliance commitments must be scoped accordingly.
+- For SaaS vendors where even residual home-region metadata is unacceptable, a **multi-tenant architecture** — with separate Microsoft tenants provisioned per target region — provides complete data sovereignty, at significantly higher operational complexity and cost.
+
+---
+
 ## Introduction
 
 For SaaS vendors, data residency is no longer just a technical detail — it's a contractual and regulatory obligation. Customers expect their data to be stored and processed only in the region they select, driven by a growing body of data localization laws and cross-border transfer restrictions:
@@ -165,17 +184,4 @@ For SaaS vendors where even this residual metadata exposure is unacceptable to a
 | Single tenant + Multi-Geo | Workspace data in satellite region | Partial — some stays in home region | Low | Lower |
 | Multiple tenants per region | Complete — home region is the target region | Full — no residual leakage | High | Higher |
 
-A multi-tenant architecture is a significant operational and cost commitment — separate identity management, separate capacity billing, limited cross-tenant collaboration. It is not the right answer for every vendor. But for SaaS providers targeting markets with the strictest data sovereignty expectations — where customers contractually require that *no* data or metadata touches a non-compliant region — it is worth evaluating.
-
----
-
-## Key Takeaways
-
-- Without Multi-Geo, Power BI and Fabric store all data in the tenant home region regardless of where compute capacity is provisioned — creating a compliance gap for SaaS vendors serving regulated markets.
-- Multi-Geo is gated by a tenant-level licensing prerequisite: Microsoft requires at least 5% of eligible users to hold Multi-Geo add-on licenses before enabling the capability on the tenant.
-- Multi-Geo moves workspace data and most workspace metadata to the satellite region — but tenant-level administrative metadata remains in the home region. Compliance commitments should be scoped accordingly.
-- For vendors where residual home-region metadata is a concern, a multi-tenant architecture — with separate tenants provisioned per target region — provides complete data sovereignty, at the cost of significantly higher operational complexity.
-
----
-
-> 💡 **Pro Tip:** Before committing to a single-tenant + Multi-Geo architecture, map your largest customers' regulatory requirements against what Multi-Geo actually covers. For most customers, Multi-Geo is sufficient. But if you have customers in jurisdictions with strict data localization laws who ask "where does *any* of my data live?" — including metadata — the honest answer may point you toward a multi-tenant design.
+A multi-tenant architecture is 

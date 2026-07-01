@@ -6,6 +6,11 @@ tags: [ai, azure, trust-boundary, data-protection, saas, governance, compliance]
 mermaid: true
 ---
 
+> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
+>
+> `Summarize this article in 5 bullet points with key takeaways, and flag anything a cloud/security architect should act on: https://blog.suubodhpatil.com/posts/who-processes-the-data-ai-trust-boundary/`
+{: .prompt-tip }
+
 > **Written for:** CISOs, cloud architects, privacy and legal teams, and SaaS vendors building AI-powered products on managed cloud platforms.
 
 ## Executive Summary
@@ -325,4 +330,4 @@ Readers should not assume that conclusions drawn for managed API inference apply
 
 ## Disclaimer
 
-This content reflects independent technical analysis based on publicly documented architecture and contractual terms as of the publication date. Cloud AI platform architectures, hosting arrangements, and contractual terms evolve frequently — readers should verify current documentation before making compliance or architectural decisions. This post does not represent the position of any cloud provider, model vendor, or employer.
+This content reflects independent technical analysis based on publicly d

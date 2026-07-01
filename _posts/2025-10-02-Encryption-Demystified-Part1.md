@@ -6,7 +6,22 @@ tags: [encryption, azure, key-management, data-at-rest, compliance, saas]
 mermaid: true
 ---
 
+> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
+>
+> `Summarize this article in 5 bullet points with key takeaways, and flag anything a cloud/security architect should act on: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/`
+{: .prompt-tip }
+
 > **Series:** **Part 1** · [Part 2: Inside Azure — How Encryption at Rest Works →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/) · [Part 3: Advanced Key Management →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/)
+
+---
+
+## Executive Summary
+
+- Encryption protects data across three states — at rest, in transit, and in use. This series focuses on data-at-rest encryption and key management: who holds the keys to your data, and what that means for compliance and trust.
+- In cloud environments, the primary threats encryption addresses are logical — compromised credentials, insider access, and multi-tenant exposure — not physical media theft.
+- Regulatory frameworks including PCI DSS, HIPAA, GDPR, ISO 27001, and CJIS increasingly mandate **customer-controlled key management**, not just encryption by default.
+- Cloud providers offer a spectrum of key control models — from Microsoft-Managed Keys (MMK) to Bring Your Own HSM (BYOH). The right model depends on your compliance obligations and risk profile.
+- Selecting the wrong key management model at design time is costly to retrofit — mapping regulatory requirements to key control models is a first-principles architectural decision, not an afterthought.
 
 ---
 
@@ -87,23 +102,4 @@ flowchart TD
     B -->|You generate externally| E["Bring Your Own Key (BYOK)\nImported from your HSM into Key Vault"]
     B -->|Your own HSM, never leaves| F["Bring Your Own HSM (BYOH)\nKeys never enter Microsoft infrastructure"]
 
-    C --> G["Lowest control\nHighest convenience\nSuitable for most workloads"]
-    D --> H["Balanced control\nMeets most enterprise compliance"]
-    E --> I["High control\nRequired for regulated industries"]
-    F --> J["Maximum control\nMaximum complexity\nDefense / critical infrastructure"]
-```
-
-Part 2 covers MMK, CMK, and BYOK in detail. Part 3 covers BYOH and escrow models, and provides a decision framework for choosing between them.
-
----
-
-## Key Takeaways
-
-- Encryption in the cloud is primarily about **logical security** — protecting against credential compromise, misconfiguration, and insider access — not just physical theft prevention.
-- Regulatory frameworks increasingly require **customer-controlled key management**, not just encryption by default.
-- Cloud providers offer a spectrum of key control models, from fully managed (MMK) to fully customer-owned (BYOH). Understanding where your compliance obligations sit on that spectrum is the first step.
-- Symmetric and asymmetric encryption serve different purposes in practice — most cloud encryption combines both.
-
----
-
-> 💡 **Pro Tip:** Map your regulatory obligations to key management models early in your design phase — before selecting a cloud service or architecture pattern. Retrofitting key management controls into an existing deployment is significantly more complex and costly than designing for them upfront.
+    C --> G["Lowest control\nHighest convenie
