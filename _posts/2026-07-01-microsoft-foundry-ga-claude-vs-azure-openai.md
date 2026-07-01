@@ -6,9 +6,9 @@ tags: [ai, azure, anthropic, openai, trust-boundary, data-protection, zero-data-
 description: "Microsoft Foundry reached general availability for Claude on June 29, 2026, adding a new Hosted on Azure option. Breaks down what actually changed, why Anthropic remains an independent data processor either way, and how that differs from Azure OpenAI's single-processor model — including who governs Zero Data Retention in each case."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
+> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
 >
-> `Summarize this article in 5 bullet points with key takeaways, and flag anything a cloud/security architect should act on: https://blog.suubodhpatil.com/posts/microsoft-foundry-ga-claude-vs-azure-openai/`
+> `Summarize this article in 5 bullet points with key takeaways, and flag anything relevant to AI vendor risk, procurement, or governance decisions: https://blog.suubodhpatil.com/posts/microsoft-foundry-ga-claude-vs-azure-openai/`
 {: .prompt-tip }
 
 > **Also worth reading:** This post is a companion update to [Who Processes the Data? Trust, Responsibility, and AI Inference Beyond the Cloud](/posts/who-processes-the-data-ai-trust-boundary/) — read that one first for the full control-plane/data-plane framework this post builds on.

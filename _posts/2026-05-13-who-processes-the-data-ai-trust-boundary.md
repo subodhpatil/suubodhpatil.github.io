@@ -7,9 +7,9 @@ mermaid: true
 description: "Breaks down the split between the control plane and data plane in cloud AI platforms, showing how the same model can carry very different trust profiles depending on where inference actually runs. Looks at the limits of Zero Data Retention and why trust-boundary review has to be an ongoing process, not a one-time audit."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
+> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
 >
-> `Summarize this article in 5 bullet points with key takeaways, and flag anything a cloud/security architect should act on: https://blog.suubodhpatil.com/posts/who-processes-the-data-ai-trust-boundary/`
+> `Summarize this article in 5 bullet points with key takeaways, and flag anything relevant to AI vendor risk, procurement, or governance decisions: https://blog.suubodhpatil.com/posts/who-processes-the-data-ai-trust-boundary/`
 {: .prompt-tip }
 
 > **Written for:** CISOs, cloud architects, privacy and legal teams, and SaaS vendors building AI-powered products on managed cloud platforms.

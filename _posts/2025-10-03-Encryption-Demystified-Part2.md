@@ -7,9 +7,9 @@ mermaid: true
 description: "A look inside Azure's encryption-at-rest implementation, from default Microsoft-Managed Keys to Customer-Managed Keys in Azure Key Vault and Bring Your Own Key. Explains how key protection levels and rotation policies affect compliance, and why key control matters for SaaS vendors."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
+> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
 >
-> `Summarize this article in 5 bullet points with key takeaways, and flag anything a cloud/security architect should act on: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/`
+> `Summarize this article in 5 bullet points with key takeaways, and flag anything worth double-checking in your own key management or data protection setup: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/`
 {: .prompt-tip }
 
 > **Series:** [← Part 1: Building the Foundation](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/) · **Part 2** · [Part 3: Advanced Key Management →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/)

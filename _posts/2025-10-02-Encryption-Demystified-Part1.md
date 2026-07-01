@@ -7,9 +7,9 @@ mermaid: true
 description: "An introduction to data-at-rest encryption in the cloud, covering how AES-256 and key management actually work. Lays out the key control spectrum, from Microsoft-Managed Keys to Bring Your Own HSM, and why regulators like PCI DSS, HIPAA, and GDPR are pushing toward customer-controlled keys."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
+> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
 >
-> `Summarize this article in 5 bullet points with key takeaways, and flag anything a cloud/security architect should act on: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/`
+> `Summarize this article in 5 bullet points with key takeaways, and flag anything worth double-checking in your own key management or data protection setup: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/`
 {: .prompt-tip }
 
 > **Series:** **Part 1** · [Part 2: Inside Azure — How Encryption at Rest Works →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/) · [Part 3: Advanced Key Management →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/)

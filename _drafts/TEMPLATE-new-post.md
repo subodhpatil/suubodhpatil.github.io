@@ -22,9 +22,9 @@ description: "A plain-language, 2-line summary of what this article actually cov
     7. Body (Introduction, sections, diagrams, conclusion)
 -->
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
+> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
 >
-> `Summarize this article in 5 bullet points with key takeaways, and flag anything a cloud/security architect should act on: https://blog.suubodhpatil.com/posts/POST-SLUG/`
+> `Summarize this article in 5 bullet points with key takeaways, and CATEGORY-CTA-HERE: https://blog.suubodhpatil.com/posts/POST-SLUG/`
 {: .prompt-tip }
 
 > **Written for:** who this post is for (or use **Series:** for multi-part posts, or **Also worth reading:** to cross-link related posts).
@@ -59,5 +59,11 @@ Close with a short, practitioner-facing summary — what to decide, what to chec
 
 - Always fill in `description:` in the front matter with a real, plain-language 2-line summary. Chirpy's home page, RSS feed, and SEO meta tags all read `description:` — not Jekyll's built-in `excerpt:`. Without it, Chirpy auto-generates the preview from the first bit of body content, which is the AI-summary prompt block, not something a human should see on the homepage.
 - Replace `POST-SLUG` in the AI-summary prompt with the exact permalink slug (matches the filename after the date, e.g. `2026-06-17-how-https-actually-works.md` → slug `how-https-actually-works`).
+- Replace `CATEGORY-CTA-HERE` with the closing ask that matches this post's primary category — pick the first match, top to bottom, from the post's `categories:` list:
+  - **AISecurity** → "flag anything relevant to AI vendor risk, procurement, or governance decisions"
+  - **Compliance** or **DataResidency** → "flag any compliance or audit implications worth noting"
+  - **DataSecurity** → "flag anything worth double-checking in your own key management or data protection setup"
+  - **WebSecurity**, **NetworkSecurity**, or any purely explainer/protocol post → "note anything commonly misunderstood about this topic that's worth double-checking"
+  - No clean match (a genuinely new topic area) → write a one-off closing ask in the same spirit: quick, specific to what a reader in that space would actually want flagged. Don't fall back to the generic "flag anything a security architect should act on" — it doesn't fit every post and reads as templated once a reader sees it twice.
 - Keep the `{: .prompt-tip }` line directly under the blockquote with no blank line in between — that's Chirpy's IAL syntax for the colored tip box.
-- Keep the AI-summary block as the very first thing after front matter, even before the Series/Written-for line — it's the "if you're not going to read this, at least do this" shortcut.
+- Keep the AI-summary block as the very first thing after front matter, even before the Series/Written-for line — it's the "if you're not going to read this, at least do this" shortcut. The goal is dual-purpose: readers who want the full human-written piece read on below; readers who don't have time get a real summary and, ideally, enough of a hook to come back and read it properly later.

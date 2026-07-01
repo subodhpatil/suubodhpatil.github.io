@@ -7,9 +7,9 @@ mermaid: true
 description: "A practical walkthrough of how HTTPS actually secures a connection: the TLS handshake, certificate trust chains, and how symmetric and asymmetric encryption work together. Also covers what HTTPS does not protect, like the destination domain and IP address, and what compliance auditors actually check."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
+> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
 >
-> `Summarize this article in 5 bullet points with key takeaways, and flag anything a cloud/security architect should act on: https://blog.suubodhpatil.com/posts/how-https-actually-works/`
+> `Summarize this article in 5 bullet points with key takeaways, and note anything commonly misunderstood about this topic that's worth double-checking: https://blog.suubodhpatil.com/posts/how-https-actually-works/`
 {: .prompt-tip }
 
 > **Also worth reading:** From SSL 2.0 to TLS 1.3 · Post-Quantum Cryptography and TLS · Why TLS Private Keys Must Never Live on Your Web Server

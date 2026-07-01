@@ -7,9 +7,9 @@ mermaid: true
 description: "Explains how Multi-Geo in Power BI and Microsoft Fabric lets SaaS vendors keep customer workspace data in a specific region instead of the tenant's home region. Covers the licensing prerequisites, what metadata still stays home-region, and when a full multi-tenant architecture is needed instead."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
+> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
 >
-> `Summarize this article in 5 bullet points with key takeaways, and flag anything a cloud/security architect should act on: https://blog.suubodhpatil.com/posts/multi-geo-compliance-shield/`
+> `Summarize this article in 5 bullet points with key takeaways, and flag any compliance or audit implications worth noting: https://blog.suubodhpatil.com/posts/multi-geo-compliance-shield/`
 {: .prompt-tip }
 
 > **Written for:** SaaS vendors, cloud architects, and compliance leads building analytics products on Power BI or Microsoft Fabric for regulated markets.
