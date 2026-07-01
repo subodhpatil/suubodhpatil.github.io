@@ -4,6 +4,7 @@ date: 2026-06-17 12:00:00 +0200
 categories: [WebSecurity, NetworkSecurity]
 tags: [tls, https, encryption, pki, certificates, handshake, symmetric, asymmetric, governance, compliance]
 mermaid: true
+excerpt: "A practical walkthrough of how HTTPS actually secures a connection: the TLS handshake, certificate trust chains, and how symmetric and asymmetric encryption work together. Also covers what HTTPS does not protect, like the destination domain and IP address, and what compliance auditors actually check."
 ---
 
 > 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
@@ -240,16 +241,36 @@ Standard TLS authenticates only the server — any client can connect. **Mutual 
 
 ---
 
-## Conclusion
-
-The padlock is the easy part. What sits behind it — TLS version selection, cipher suite configuration, certificate lifecycle management, forward secrecy enforcement, and explicit disablement of weak protocols — is where compliance is actually made or broken. Understanding how TLS works at the protocol level is what allows engineers to make these decisions deliberately rather than by default. As quantum computing matures, the asymmetric algorithms underlying today's TLS key exchange will require replacement — and the server's private key, the root of trust for every TLS session, will need to be protected with far greater deliberateness than it often is today. These questions drive the next posts in this series.
-
----
-
 ## Key Takeaways
 
 - TLS provides confidentiality, integrity, and authentication. All three are required — encryption without server authentication allows silent MITM attacks.
 - The session key is never transmitted. Both sides derive it independently from the key exchange material, making passive packet capture insufficient to decrypt traffic.
 - Certificates bind a server's public key to a verified domain identity. The CA's signature is the trust anchor — and CA compromise breaks the entire model for every domain that CA issued for. CAA DNS records limit this risk.
 - TLS 1.3 makes forward secrecy mandatory — past sessions remain protected even if the private key is later compromised. In TLS 1.2, forward secrecy depended on cipher suite selection; RSA key exchange, still widely used, provided none.
-- HTTPS does not hide the destination domain (SNI) or IP address. Systems with stricter confidentiality requirements need additional contro
+- HTTPS does not hide the destination domain (SNI) or IP address. Systems with stricter confidentiality requirements need additional controls.
+- Compliance frameworks require more than "HTTPS enabled" — specific TLS versions, cipher suites, and certificate lifecycle management are all in scope.
+
+> **Open questions for the road ahead:** As quantum computing matures, will the asymmetric algorithms underlying TLS key exchange remain secure? And if the private key used in every TLS handshake is the root of all session trust — where exactly should that key live, and who should be able to access it? These questions drive the next posts in this series.
+
+---
+
+> 💡 **Pro Tip:** Run your domain through [Qualys SSL Labs](https://www.ssllabs.com/ssltest/) — it takes 60 seconds and produces a detailed grade covering TLS versions, cipher suites, certificate chain, and known vulnerabilities. An A grade is the minimum bar for any system handling sensitive data. A B or below is very likely a finding in a PCI DSS or ISO 27001 audit.
+
+---
+
+## References
+
+- [RFC 8446 — The Transport Layer Security (TLS) Protocol Version 1.3](https://datatracker.ietf.org/doc/html/rfc8446)
+- [NIST SP 800-52 Rev 2 — Guidelines for TLS Implementations](https://csrc.nist.gov/publications/detail/sp/800-52/rev-2/final)
+- [PCI DSS v4.0 — Requirement 4.2: Protect PAN with Strong Cryptography During Transmission](https://www.pcisecuritystandards.org/)
+- [OWASP Transport Layer Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html)
+- [Qualys SSL Labs — SSL Server Test](https://www.ssllabs.com/ssltest/)
+- [Let's Encrypt — How It Works](https://letsencrypt.org/how-it-works/)
+- [Google Certificate Transparency](https://certificate.transparency.dev/)
+- [Encrypted Client Hello — IETF Draft](https://datatracker.ietf.org/doc/draft-ietf-tls-esni/)
+
+---
+
+## Disclaimer
+
+This content reflects independent technical analysis based on publicly documented standards, protocols, and security research as of the publication date. Protocol specifications and compliance requirements evolve — readers should verify current standards before making architectural or compliance decisions. This post does not represent the position of any employer, vendor, or standards body.

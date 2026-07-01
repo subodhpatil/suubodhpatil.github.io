@@ -4,6 +4,7 @@ date: 2025-10-02 12:00:00 +0200
 categories: [CloudSecurity, DataSecurity]
 tags: [encryption, azure, key-management, data-at-rest, compliance, saas]
 mermaid: true
+excerpt: "An introduction to data-at-rest encryption in the cloud, covering how AES-256 and key management actually work. Lays out the key control spectrum, from Microsoft-Managed Keys to Bring Your Own HSM, and why regulators like PCI DSS, HIPAA, and GDPR are pushing toward customer-controlled keys."
 ---
 
 > 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
@@ -102,4 +103,23 @@ flowchart TD
     B -->|You generate externally| E["Bring Your Own Key (BYOK)\nImported from your HSM into Key Vault"]
     B -->|Your own HSM, never leaves| F["Bring Your Own HSM (BYOH)\nKeys never enter Microsoft infrastructure"]
 
-    C --> G["Lowest control\nHighest convenie
+    C --> G["Lowest control\nHighest convenience\nSuitable for most workloads"]
+    D --> H["Balanced control\nMeets most enterprise compliance"]
+    E --> I["High control\nRequired for regulated industries"]
+    F --> J["Maximum control\nMaximum complexity\nDefense / critical infrastructure"]
+```
+
+Part 2 covers MMK, CMK, and BYOK in detail. Part 3 covers BYOH and escrow models, and provides a decision framework for choosing between them.
+
+---
+
+## Key Takeaways
+
+- Encryption in the cloud is primarily about **logical security** — protecting against credential compromise, misconfiguration, and insider access — not just physical theft prevention.
+- Regulatory frameworks increasingly require **customer-controlled key management**, not just encryption by default.
+- Cloud providers offer a spectrum of key control models, from fully managed (MMK) to fully customer-owned (BYOH). Understanding where your compliance obligations sit on that spectrum is the first step.
+- Symmetric and asymmetric encryption serve different purposes in practice — most cloud encryption combines both.
+
+---
+
+> 💡 **Pro Tip:** Map your regulatory obligations to key management models early in your design phase — before selecting a cloud service or architecture pattern. Retrofitting key management controls into an existing deployment is significantly more complex and costly than designing for them upfront.
