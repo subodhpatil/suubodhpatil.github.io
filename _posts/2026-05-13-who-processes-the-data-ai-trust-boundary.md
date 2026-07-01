@@ -14,6 +14,9 @@ description: "Breaks down the split between the control plane and data plane in 
 
 > **Written for:** CISOs, cloud architects, privacy and legal teams, and SaaS vendors building AI-powered products on managed cloud platforms.
 
+> 📌 **Update — July 2026:** On June 29, 2026, Azure AI Foundry was rebranded **Microsoft Foundry** and Claude reached **general availability** there, adding a second hosting option — **Hosted on Azure** — alongside the original **Hosted on Anthropic Infrastructure** path (formerly "Foundry Preview") described below. Under Hosted on Azure, request ingress, API services, and GPU inference can now run inside Azure's infrastructure, with data at rest in your selected Azure geography and a new US Data Zone. That narrows the *infrastructure* gap this post describes — but not the *legal* one: Microsoft's own documentation confirms **"Anthropic remains the seller and operator of Claude models... and acts as an independent data processor for prompts and outputs"** under both hosting options. The dual-DPA reality below still holds; it now has two variants instead of one, and it still looks nothing like Azure OpenAI's single-processor model. Full breakdown, including Zero Data Retention governance for each case, in the companion post: [Microsoft Foundry Goes GA: Same Processor, Two Hosting Paths — and Why Claude Still Isn't Azure OpenAI](/posts/microsoft-foundry-ga-claude-vs-azure-openai/).
+{: .prompt-warning }
+
 ## Executive Summary
 
 - Cloud AI platforms frequently split the **control plane** (API, auth, billing — owned by the cloud provider) from the **data plane** (inference — which may be owned by an entirely different company under a separate contract).
@@ -312,23 +315,4 @@ The trust boundary question will not stay answered. As models shift between host
 - [Google Cloud Vertex AI — Partner Models](https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude)
 - [Google Cloud Vertex AI — Data Governance](https://cloud.google.com/vertex-ai/generative-ai/docs/data-governance)
 - [Google Cloud Sub-processors](https://cloud.google.com/terms/subprocessors)
-- [Anthropic — Claude on Google Vertex AI](https://www.anthropic.com/news/google-vertex-general-availability)
-
----
-
-## Limitations
-
-This analysis covers managed cloud AI integrations where a foundation model is accessed through a third-party platform's API. It does not cover:
-
-- **On-premise deployments** or self-hosted open-weight models, where the trust boundary is entirely within your own infrastructure.
-- **Fine-tuning data flows**, where training data may be stored or retained under different terms than inference prompts.
-- **Multi-tenant versus single-tenant inference**, which affects isolation guarantees.
-- **Sovereign cloud nuances beyond Azure**, such as AWS GovCloud or Google Cloud Sovereign Controls.
-
-Readers should not assume that conclusions drawn for managed API inference apply to these scenarios without separate evaluation.
-
----
-
-## Disclaimer
-
-This content reflects independent technical analysis based on publicly documented architecture and contractual terms as of the publication date. Cloud AI platform architectures, hosting arrangements, and contractual terms evolve frequently — readers should verify current documentation before making compliance or architectural decisions. This post does not represent the position of any cloud provider, model vendor, or employer.
+- [Anthropic — Claude on Google Vertex AI](https://www.anthropic.com/ne
