@@ -4,7 +4,7 @@ date: 2025-10-03 12:00:00 +0200
 categories: [CloudSecurity, DataSecurity]
 tags: [encryption, azure, key-management, cmk, byok, saas, compliance]
 mermaid: true
-excerpt: "A look inside Azure's encryption-at-rest implementation, from default Microsoft-Managed Keys to Customer-Managed Keys in Azure Key Vault and Bring Your Own Key. Explains how key protection levels and rotation policies affect compliance, and why key control matters for SaaS vendors."
+description: "A look inside Azure's encryption-at-rest implementation, from default Microsoft-Managed Keys to Customer-Managed Keys in Azure Key Vault and Bring Your Own Key. Explains how key protection levels and rotation policies affect compliance, and why key control matters for SaaS vendors."
 ---
 
 > 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:

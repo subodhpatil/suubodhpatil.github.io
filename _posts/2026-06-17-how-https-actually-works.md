@@ -4,7 +4,7 @@ date: 2026-06-17 12:00:00 +0200
 categories: [WebSecurity, NetworkSecurity]
 tags: [tls, https, encryption, pki, certificates, handshake, symmetric, asymmetric, governance, compliance]
 mermaid: true
-excerpt: "A practical walkthrough of how HTTPS actually secures a connection: the TLS handshake, certificate trust chains, and how symmetric and asymmetric encryption work together. Also covers what HTTPS does not protect, like the destination domain and IP address, and what compliance auditors actually check."
+description: "A practical walkthrough of how HTTPS actually secures a connection: the TLS handshake, certificate trust chains, and how symmetric and asymmetric encryption work together. Also covers what HTTPS does not protect, like the destination domain and IP address, and what compliance auditors actually check."
 ---
 
 > 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:

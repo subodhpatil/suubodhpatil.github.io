@@ -4,7 +4,7 @@ date: YYYY-MM-DD 12:00:00 +0200
 categories: [CategoryOne, CategoryTwo]
 tags: [tag-one, tag-two, tag-three]
 mermaid: true   # remove this line if the post has no diagrams
-excerpt: "A plain-language, 2-line summary of what this article actually covers. No AI-prompt text, no TL;DR framing — this is what shows up in the homepage post list and link previews."
+description: "A plain-language, 2-line summary of what this article actually covers. No AI-prompt text, no TL;DR framing — this is what shows up in the homepage post list and link previews."
 ---
 
 <!--
@@ -13,7 +13,7 @@ excerpt: "A plain-language, 2-line summary of what this article actually covers.
   YYYY-MM-DD-post-slug.md, fill it in, then delete this comment block.
 
   Standard structure for every post on this site, top to bottom:
-    1. Front matter — including `excerpt:` (drives the homepage summary, see below)
+    1. Front matter — including `description:` (drives the homepage summary, see below)
     2. AI-summary prompt block (below) — always present, always first in the body
     3. Optional context line — "Series:", "Written for:", or "Also worth reading:"
     4. Horizontal rule
@@ -57,7 +57,7 @@ Close with a short, practitioner-facing summary — what to decide, what to chec
 
 ## Notes for whoever fills this in
 
-- Always fill in `excerpt:` in the front matter with a real, plain-language 2-line summary. Without it, Jekyll auto-generates the homepage excerpt from the first paragraph in the body — which is the AI-summary prompt block, not something a human should see on the homepage.
+- Always fill in `description:` in the front matter with a real, plain-language 2-line summary. Chirpy's home page, RSS feed, and SEO meta tags all read `description:` — not Jekyll's built-in `excerpt:`. Without it, Chirpy auto-generates the preview from the first bit of body content, which is the AI-summary prompt block, not something a human should see on the homepage.
 - Replace `POST-SLUG` in the AI-summary prompt with the exact permalink slug (matches the filename after the date, e.g. `2026-06-17-how-https-actually-works.md` → slug `how-https-actually-works`).
 - Keep the `{: .prompt-tip }` line directly under the blockquote with no blank line in between — that's Chirpy's IAL syntax for the colored tip box.
 - Keep the AI-summary block as the very first thing after front matter, even before the Series/Written-for line — it's the "if you're not going to read this, at least do this" shortcut.

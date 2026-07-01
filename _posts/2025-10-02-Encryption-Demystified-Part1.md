@@ -4,7 +4,7 @@ date: 2025-10-02 12:00:00 +0200
 categories: [CloudSecurity, DataSecurity]
 tags: [encryption, azure, key-management, data-at-rest, compliance, saas]
 mermaid: true
-excerpt: "An introduction to data-at-rest encryption in the cloud, covering how AES-256 and key management actually work. Lays out the key control spectrum, from Microsoft-Managed Keys to Bring Your Own HSM, and why regulators like PCI DSS, HIPAA, and GDPR are pushing toward customer-controlled keys."
+description: "An introduction to data-at-rest encryption in the cloud, covering how AES-256 and key management actually work. Lays out the key control spectrum, from Microsoft-Managed Keys to Bring Your Own HSM, and why regulators like PCI DSS, HIPAA, and GDPR are pushing toward customer-controlled keys."
 ---
 
 > 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:

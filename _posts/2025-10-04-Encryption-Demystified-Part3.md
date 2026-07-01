@@ -3,7 +3,7 @@ title: "Encryption Demystified (Part 3): Advanced Key Management in Azure — Fr
 date: 2025-10-04 12:00:00 +0200
 categories: [CloudSecurity, DataSecurity]
 tags: [encryption, azure, key-management, byoh, hsm, governance, saas]
-excerpt: "Covers the advanced end of Azure key management: Bring Your Own HSM, neutral escrow models, and governance at scale across RBAC, rotation, and audit logging. Closes with a decision framework for choosing a key control model and a look at what comes next, from confidential computing to post-quantum cryptography."
+description: "Covers the advanced end of Azure key management: Bring Your Own HSM, neutral escrow models, and governance at scale across RBAC, rotation, and audit logging. Closes with a decision framework for choosing a key control model and a look at what comes next, from confidential computing to post-quantum cryptography."
 ---
 
 > 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:

@@ -4,7 +4,7 @@ date: 2026-05-13 12:00:00 +0200
 categories: [CloudSecurity, AISecurity]
 tags: [ai, azure, trust-boundary, data-protection, saas, governance, compliance]
 mermaid: true
-excerpt: "Breaks down the split between the control plane and data plane in cloud AI platforms, showing how the same model can carry very different trust profiles depending on where inference actually runs. Looks at the limits of Zero Data Retention and why trust-boundary review has to be an ongoing process, not a one-time audit."
+description: "Breaks down the split between the control plane and data plane in cloud AI platforms, showing how the same model can carry very different trust profiles depending on where inference actually runs. Looks at the limits of Zero Data Retention and why trust-boundary review has to be an ongoing process, not a one-time audit."
 ---
 
 > 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:

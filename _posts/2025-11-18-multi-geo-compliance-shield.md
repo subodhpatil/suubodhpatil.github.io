@@ -4,7 +4,7 @@ date: 2025-11-18 12:00:00 +0200
 categories: [Compliance, DataResidency]
 tags: [data-residency, azure, power-bi, microsoft-fabric, saas, compliance]
 mermaid: true
-excerpt: "Explains how Multi-Geo in Power BI and Microsoft Fabric lets SaaS vendors keep customer workspace data in a specific region instead of the tenant's home region. Covers the licensing prerequisites, what metadata still stays home-region, and when a full multi-tenant architecture is needed instead."
+description: "Explains how Multi-Geo in Power BI and Microsoft Fabric lets SaaS vendors keep customer workspace data in a specific region instead of the tenant's home region. Covers the licensing prerequisites, what metadata still stays home-region, and when a full multi-tenant architecture is needed instead."
 ---
 
 > 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — no need to read the whole thing:
