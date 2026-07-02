@@ -17,6 +17,7 @@ description: "Microsoft Foundry reached general availability for Claude on June 
 
 ## Executive Summary
 
+- **The core premise from the original post still holds:** Claude is always processed by Anthropic, regardless of which Microsoft Foundry hosting option you choose — Azure hosting changes where compute runs, not who processes your data.
 - On June 29, 2026, **Azure AI Foundry was rebranded Microsoft Foundry**, and Claude reached **general availability** there with a new **Hosted on Azure** option — GPU inference, ingress, and API services now run inside Azure infrastructure, with a new US Data Zone for residency.
 - The new option narrows the *infrastructure* gap between Claude and natively-Azure models, but **not the legal one**: Microsoft's own documentation states Anthropic remains the seller and operator of Claude and **"acts as an independent data processor for prompts and outputs"** under both hosting options.
 - **Azure OpenAI is a fundamentally different category.** Microsoft classifies it as a "Model sold by Azure" — Microsoft is the sole processor, and OpenAI has contractually no access to your prompts or completions. Claude is a "Model from partners and community" — a Non-Microsoft Product — in both Foundry hosting modes.
@@ -48,6 +49,8 @@ It would be easy to read "Hosted on Azure" and assume the trust-boundary problem
 
 > *"For both hosting options, Anthropic remains the seller and operator of Claude models in Microsoft Foundry and acts as an independent data processor for prompts and outputs associated with Claude models."* ([source](https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/claude-models/data-privacy))
 
+Split by component, here's what actually moved: under Hosted on Azure, Azure infrastructure now performs inference compute, request ingress, and API services. Anthropic continues to operate safety review and policy enforcement in both hosting modes, and remains the named data processor for prompts and completions either way. One nuance worth raising with legal rather than assuming resolved: Microsoft's documentation confirms Azure technically processes prompts and outputs during Hosted-on-Azure inference, but it does not spell out Azure's own processor or sub-processor status for that data — it simply states Anthropic is the independent processor "for both hosting options." That's a contractual gap, not a technical one, and it's worth a direct question to your Microsoft and Anthropic account teams.
+
 Even under Hosted on Azure, "automatic safeguards flag content that might be sent to Anthropic Trust & Safety for review," and Anthropic personnel review flagged content on an exceptions basis. Deploying Claude in either mode still requires an Azure Marketplace subscription that constitutes acceptance of Anthropic's own Commercial Terms and DPA — the click-through contract the original post flagged as easy to miss.
 
 So the original post's "Pattern A — Split Trust" now has two sub-variants rather than being replaced:
@@ -70,6 +73,10 @@ This is the comparison worth having with legal and procurement, because Microsof
 | Marketplace click-through to a third party | No | Yes |
 | Base inference retention by default | Stateless — no prompts/completions stored in the model | Standard API terms retain interaction logs (30 days) unless ZDR is separately negotiated |
 
+*(Both paths also generate standard Azure platform telemetry — API gateway logs, network logs, billing and usage records — as part of normal cloud operations. That operational telemetry is separate from, and not a substitute for, the model-level processor and retention questions addressed here.)*
+
+To make the legal point explicit: **Claude on Microsoft Foundry is not covered under Microsoft's Azure OpenAI DPA — it is covered under Anthropic's own DPA and Commercial Terms**, in either hosting mode. The two DPAs are not interchangeable, and a vendor-risk assessment approved for one does not carry over to the other.
+
 Two models can now run on the same Azure hardware, in the same region, and still sit on opposite sides of the "who processes my data" question. That's the sharpest evidence yet for the original post's core claim.
 
 ## Zero Data Retention: Who Actually Grants It
@@ -78,7 +85,7 @@ This is where the category difference becomes operational rather than theoretica
 
 **Azure OpenAI's equivalent is "Modified Abuse Monitoring."** It's a Microsoft-only process: a customer applies through a Microsoft Limited Access eligibility form, and once approved, Microsoft turns off the human-review data store used for abuse detection. Because base inference is already stateless, this is the only retention lever that exists — and Microsoft is the sole approver, operator, and auditee.
 
-**Claude's ZDR is an Anthropic-governed addendum.** It's a separately negotiated agreement with Anthropic, and per Anthropic's own terms, it must be explicitly confirmed to apply to Foundry deployments specifically — a ZDR agreement in place for direct API use doesn't automatically extend to Foundry. This doesn't change under the new Hosted on Azure option: Anthropic, not Microsoft, is still who you'd negotiate with, and even under ZDR, Anthropic's User Safety classifier outputs are retained — an open question for GDPR personal-data classification that the original post already flagged.
+**Claude ZDR is adjudicated and approved by Anthropic, not Microsoft** — Foundry's role is purely as the marketplace and infrastructure wrapper. It's a separately negotiated agreement with Anthropic, and per Anthropic's own terms, it must be explicitly confirmed to apply to Foundry deployments specifically — a ZDR agreement in place for direct API use doesn't automatically extend to Foundry. This doesn't change under the new Hosted on Azure option: Anthropic, not Microsoft, is still who you'd negotiate with, and even under ZDR, Anthropic's User Safety classifier outputs are retained — an open question for GDPR personal-data classification that the original post already flagged.
 
 If your organization is asking "can we get zero retention?" for both model families, you are asking two different vendors two different questions, governed by two different contracts, with two different audit trails.
 
