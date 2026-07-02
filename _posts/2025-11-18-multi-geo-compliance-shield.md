@@ -1,6 +1,7 @@
 ---
 title: "From Risk to Trust: Multi-Geo as a SaaS Vendor's Compliance Shield"
 date: 2025-11-18 12:00:00 +0200
+last_modified_at: 2025-11-18 12:00:00 +0200
 categories: [Compliance, DataResidency]
 tags: [data-residency, azure, power-bi, microsoft-fabric, saas, compliance]
 mermaid: true

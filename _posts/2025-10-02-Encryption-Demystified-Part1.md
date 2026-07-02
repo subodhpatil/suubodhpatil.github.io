@@ -1,6 +1,7 @@
 ---
 title: "Encryption Demystified (Part 1): Building the Foundation for Data-at-Rest Security in the Cloud"
 date: 2025-10-02 12:00:00 +0200
+last_modified_at: 2025-10-02 12:00:00 +0200
 categories: [CloudSecurity, DataSecurity]
 tags: [encryption, azure, key-management, data-at-rest, compliance, saas]
 mermaid: true

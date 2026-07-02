@@ -1,6 +1,7 @@
 ---
 title: "Encryption Demystified (Part 3): Advanced Key Management in Azure — From BYOH to Governance at Scale"
 date: 2025-10-04 12:00:00 +0200
+last_modified_at: 2025-10-04 12:00:00 +0200
 categories: [CloudSecurity, DataSecurity]
 tags: [encryption, azure, key-management, byoh, hsm, governance, saas]
 description: "Covers the advanced end of Azure key management: Bring Your Own HSM, neutral escrow models, and governance at scale across RBAC, rotation, and audit logging. Closes with a decision framework for choosing a key control model and a look at what comes next, from confidential computing to post-quantum cryptography."

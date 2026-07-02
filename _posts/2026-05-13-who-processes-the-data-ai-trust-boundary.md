@@ -1,6 +1,7 @@
 ---
 title: "Who Processes the Data? Trust, Responsibility, and AI Inference Beyond the Cloud"
 date: 2026-05-13 12:00:00 +0200
+last_modified_at: 2026-06-29 12:00:00 +0200
 categories: [CloudSecurity, AISecurity]
 tags: [ai, azure, trust-boundary, data-protection, saas, governance, compliance]
 mermaid: true

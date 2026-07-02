@@ -1,6 +1,7 @@
 ---
 title: "How HTTPS Actually Works: A Practical Deep Dive for Engineers"
-date: 2026-06-17 12:00:00 +0200
+date: 2025-12-13 12:00:00 +0200
+last_modified_at: 2025-12-13 12:00:00 +0200
 categories: [WebSecurity, NetworkSecurity]
 tags: [tls, https, encryption, pki, certificates, handshake, symmetric, asymmetric, governance, compliance]
 mermaid: true
