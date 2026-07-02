@@ -316,4 +316,23 @@ The trust boundary question will not stay answered. As models shift between host
 - [Google Cloud Vertex AI — Partner Models](https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude)
 - [Google Cloud Vertex AI — Data Governance](https://cloud.google.com/vertex-ai/generative-ai/docs/data-governance)
 - [Google Cloud Sub-processors](https://cloud.google.com/terms/subprocessors)
-- [Anthropic — Claude on Google Vertex AI](https://www.anthropic.com/ne
+- [Anthropic — Claude on Google Vertex AI](https://www.anthropic.com/news/google-vertex-general-availability)
+
+---
+
+## Limitations
+
+This analysis covers managed cloud AI integrations where a foundation model is accessed through a third-party platform's API. It does not cover:
+
+- **On-premise deployments** or self-hosted open-weight models, where the trust boundary is entirely within your own infrastructure.
+- **Fine-tuning data flows**, where training data may be stored or retained under different terms than inference prompts.
+- **Multi-tenant versus single-tenant inference**, which affects isolation guarantees.
+- **Sovereign cloud nuances beyond Azure**, such as AWS GovCloud or Google Cloud Sovereign Controls.
+
+Readers should not assume that conclusions drawn for managed API inference apply to these scenarios without separate evaluation.
+
+---
+
+## Disclaimer
+
+This content reflects independent technical analysis based on publicly documented architecture and contractual terms as of the publication date. Cloud AI platform architectures, hosting arrangements, and contractual terms evolve frequently — readers should verify current documentation before making compliance or architectural decisions. This post does not represent the position of any cloud provider, model vendor, or employer.
