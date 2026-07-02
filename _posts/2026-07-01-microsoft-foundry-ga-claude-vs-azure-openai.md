@@ -19,7 +19,7 @@ description: "Microsoft Foundry reached general availability for Claude on June 
 ## Executive Summary
 
 - **The core premise from the original post still holds:** Claude is always processed by Anthropic, regardless of which Microsoft Foundry hosting option you choose — Azure hosting changes where compute runs, not who processes your data.
-- On June 29, 2026, **Azure AI Foundry was rebranded Microsoft Foundry**, and Claude reached **general availability** there with a new **Hosted on Azure** option — GPU inference, ingress, and API services now run inside Azure infrastructure, with a new US Data Zone for residency.
+- On June 29, 2026, Claude reached **general availability** on Microsoft Foundry with a new **Hosted on Azure** option — GPU inference, ingress, and API services now run inside Azure infrastructure, with a new US Data Zone for residency.
 - The new option narrows the *infrastructure* gap between Claude and natively-Azure models, but **not the legal one**: Microsoft's own documentation states Anthropic remains the seller and operator of Claude and **"acts as an independent data processor for prompts and outputs"** under both hosting options.
 - **Azure OpenAI is a fundamentally different category.** Microsoft classifies it as a "Model sold by Azure" — Microsoft is the sole processor, and OpenAI has contractually no access to your prompts or completions. Claude is a "Model from partners and community" — a Non-Microsoft Product — in both Foundry hosting modes.
 - **Zero Data Retention is governed by different companies for each model.** For Claude, ZDR is an Anthropic DPA addendum that must be separately confirmed for Foundry; for Azure OpenAI, the equivalent — "Modified Abuse Monitoring" — is a Microsoft-only approval process with no third-party sign-off.
@@ -29,11 +29,7 @@ description: "Microsoft Foundry reached general availability for Claude on June 
 
 ## What Actually Changed on June 29, 2026
 
-Two things happened at once, and it's worth separating them because they get conflated in casual reads of the announcement.
-
-**The rebrand:** Azure AI Foundry is now **Microsoft Foundry**. If you're auditing sub-processor lists, DPAs, or internal architecture diagrams that still say "Azure AI Foundry," they're referencing the old name for the same service family.
-
-**The GA launch:** What was previously called "Foundry Preview" — Anthropic-hosted, outside Azure — is now formally named **Hosted on Anthropic Infrastructure**, and it's joined by a new sibling: **Hosted on Azure**. Under Hosted on Azure, Azure infrastructure performs request ingress, API services, and GPU inference (Anthropic's announcement specifically calls out NVIDIA GB300 GPUs), with data at rest kept in your selected Azure geography, including a new **US Data Zone** for residency-sensitive workloads. Supported regions at GA are **East US2** and **Sweden Central**.
+On June 29, 2026, Claude reached **general availability** on Microsoft Foundry. What was previously called "Foundry Preview" — Anthropic-hosted, outside Azure — is now formally named **Hosted on Anthropic Infrastructure**, and it's joined by a new sibling: **Hosted on Azure**. Under Hosted on Azure, Azure infrastructure performs request ingress, API services, and GPU inference (Anthropic's announcement specifically calls out NVIDIA GB300 GPUs), with data at rest kept in your selected Azure geography, including a new **US Data Zone** for residency-sensitive workloads. Supported regions at GA are **East US2** and **Sweden Central**.
 
 | | Hosted on Anthropic Infrastructure (was "Foundry Preview") | Hosted on Azure (new, GA) |
 |---|---|---|
@@ -92,7 +88,7 @@ If your organization is asking "can we get zero retention?" for both model famil
 
 ## What This Means for Your Evaluation Checklist
 
-Nothing about the original post's three-part evaluation framework — inference and residency, contracts and acceptance, controls and disclosure — needs to change. What changes is one input: when evaluating Claude on Microsoft Foundry, you now record *which hosting option* was selected, because it determines the residency answer, while the processor and ZDR-governance answers stay constant across both. Re-run the checklist at your next quarterly review, and update your sub-processor and DPA inventory to reflect the Microsoft Foundry rebrand.
+Nothing about the original post's three-part evaluation framework — inference and residency, contracts and acceptance, controls and disclosure — needs to change. What changes is one input: when evaluating Claude on Microsoft Foundry, you now record *which hosting option* was selected, because it determines the residency answer, while the processor and ZDR-governance answers stay constant across both. Re-run the checklist at your next quarterly review, and update your sub-processor and DPA inventory to reflect the new hosting option.
 
 ---
 
@@ -101,7 +97,7 @@ Nothing about the original post's three-part evaluation framework — inference 
 - Microsoft Foundry's GA for Claude adds real infrastructure choice (Hosted on Azure, with regional enforcement and a US Data Zone) but does not change who the data processor is — Anthropic, under both hosting options.
 - Azure OpenAI and Claude on Microsoft Foundry are different categories in Microsoft's own documentation: "sold by Azure" (Microsoft-processed, provider has no data access) versus "partners and community" (independent third-party processor, marketplace click-through required).
 - Zero Data Retention is not a single concept across vendors: for Azure OpenAI it's a Microsoft-approved configuration; for Claude it's an Anthropic contract that must be confirmed specifically for Foundry.
-- Update sub-processor inventories and DPA records to reflect the Azure AI Foundry → Microsoft Foundry rename, and note which Claude hosting option is in use for each deployment.
+- Update sub-processor inventories and DPA records to note which Claude hosting option is in use for each deployment.
 
 ---
 
