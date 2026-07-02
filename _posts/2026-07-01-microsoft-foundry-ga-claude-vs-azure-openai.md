@@ -1,6 +1,7 @@
 ---
 title: "Microsoft Foundry Goes GA: Same Processor, Two Hosting Paths — and Why Claude Still Isn't Azure OpenAI"
 date: 2026-07-01 12:00:00 +0200
+last_modified_at: 2026-07-01 12:00:00 +0200
 categories: [CloudSecurity, AISecurity]
 tags: [ai, azure, anthropic, openai, trust-boundary, data-protection, zero-data-retention, saas, governance, compliance]
 description: "Microsoft Foundry reached general availability for Claude on June 29, 2026, adding a new Hosted on Azure option. Breaks down what actually changed, why Anthropic remains an independent data processor either way, and how that differs from Azure OpenAI's single-processor model — including who governs Zero Data Retention in each case."
