@@ -1,20 +1,16 @@
 ---
 layout: page
-permalink: /retrospective/editorial-june-2011/
 title: "Editorial — June 2011 (Envision Magazine)"
 date: 2011-06-01 00:00:00 +0530
+permalink: /retrospective/editorial-june-2011/
 categories: [Retrospective]
 tags: [envision, decos, editorial, leadership]
 ---
-layout: page
-permalink: /retrospective/editorial-june-2011/
 
 > **Originally published** in *Envision* — the internal magazine of Decos India, June 2011.
 > I served as editor of this magazine. Reproduced here as a personal archive.
 
 ---
-layout: page
-permalink: /retrospective/editorial-june-2011/
 
 Hello all,
 
@@ -26,7 +22,7 @@ Apart from our regular on-the-spot awards, Mitesh organised an intriguing and in
 
 Along with awards, appreciating individuals and teams is very important. Bhushan Patil shares the success story of his team — don't forget to read it.
 
-Celebration is always welcome, and this month we have **15 birthdays** to celebrate! So, a chocolate every alternate day? 😊
+Celebration is always welcome, and this month we have **15 birthdays** to celebrate! So, a chocolate every alternate day?
 
 I am happy to say that the "Bringing Minds Together" section that we launched last month has received an immense response. In the last release, it was the most-visited page. This time we have Sanket sharing his experience — I am sure we will all enjoy reading it.
 

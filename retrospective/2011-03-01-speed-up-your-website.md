@@ -1,20 +1,16 @@
 ---
 layout: page
-permalink: /retrospective/speed-up-your-website/
 title: "Speed Up Your Website: HTTP Combiner and Caching in ASP.NET"
 date: 2011-03-01 00:00:00 +0530
+permalink: /retrospective/speed-up-your-website/
 categories: [Retrospective]
 tags: [envision, decos, web-performance, asp-net, caching, http]
 ---
-layout: page
-permalink: /retrospective/speed-up-your-website/
 
 > **Originally published** in *Envision* — the internal magazine of Decos India, March 2011.
 > Reproduced here as a personal archive. Note: this article reflects web development practices of 2011. Some tools and techniques (e.g. HTTPWatch, ASP.NET WebForms) have since evolved, but the core concepts of HTTP caching and request reduction remain valid.
 
 ---
-layout: page
-permalink: /retrospective/speed-up-your-website/
 
 *By Subodh Patil*
 
@@ -27,70 +23,48 @@ Believe me, I tried all these approaches on a project that had been running for 
 What we are going to talk about today is the **HTTP Combiner** and its implementation in ASP.NET. Non-.NET developers can still read this article as it talks more about concepts than actual code.
 
 ---
-layout: page
-permalink: /retrospective/speed-up-your-website/
 
 ## Understanding What Happens When a Web Page Loads
 
-To observe this, you'll need a tool like **HTTPWatch** (basic edition is free). There are other tools like Fiddler as well.
+To observe this, you will need a tool like **HTTPWatch** (basic edition is free). There are other tools like Fiddler as well.
 
-On a typical first page load, a site like Microsoft.com might take around 9 seconds to load — downloading ~370 KB of data. Press F5 and it drops to ~6 seconds. Hit Enter (note: there's a difference between an F5 refresh and Enter) and it drops further to ~4 seconds.
+On a typical first page load, a site like Microsoft.com might take around 9 seconds — downloading ~370 KB of data. Press F5 and it drops to ~6 seconds. Hit Enter (note: there is a difference between an F5 refresh and Enter) and it drops further to ~4 seconds.
 
-What's happening? Let's understand some basic HTTP status codes:
+Basic HTTP status codes relevant here:
 
 | Code | Meaning |
 |------|---------|
 | **200 OK** | Standard successful response |
-| **304 Not Modified** | Resource unchanged since last request — client can use its cached copy |
+| **304 Not Modified** | Resource unchanged — client uses its cached copy |
 | **404 Not Found** | Resource not found |
 
-On the second and third page loads, you'll see that many JavaScript files, CSS files, and images that returned `200` on the first request now return `304`. For some, you'll see `(cache)` — meaning no HTTP request was sent at all; the browser served it from local cache.
+On the second and third page loads, many files that returned `200` now return `304`. For some you will see `(cache)` — no HTTP request at all, served from local cache.
 
 ---
-layout: page
-permalink: /retrospective/speed-up-your-website/
 
 ## The Strategy: Reduce Requests, Cache Everything
 
-To improve web page performance the best method is to **reduce the number of requests** sent to and received from the server. A simple web page has many requests — mostly images, CSS, and JavaScript. The key insight:
-
-- **Determine what is static vs. dynamic.** In my experience, once a site is deployed to production, JavaScript files, CSS files, and images rarely change unless you do a version upgrade — which shouldn't happen more than every couple of months.
-- **Cache static assets aggressively** by setting appropriate response headers.
+- **Determine what is static vs dynamic.** Once deployed to production, JS/CSS/images rarely change between version releases.
+- **Cache static assets aggressively** via response headers.
 - **Combine multiple files** into single requests.
 
 ---
-layout: page
-permalink: /retrospective/speed-up-your-website/
 
 ## Part 1: Asking the Browser to Cache Files
 
-The structure of a `200 HTTP` response looks like this:
-
-```
-HTTP/1.x 200 OK
-Transfer-Encoding: chunked
-Date: Sat, 28 Nov 2009 04:36:25 GMT
-Server: LiteSpeed
-Pragma: public
-Expires: Sat, 28 Nov 2009 05:36:25 GMT
-Cache-Control: max-age=3600, public
-Content-Type: text/html; charset=UTF-8
-Last-Modified: Sat, 28 Nov 2009 03:50:37 GMT
-```
-
-The key field is `Last-Modified`. On the first request, add this to your response:
+On the first request, set the Last-Modified header:
 
 ```csharp
 context.Response.Cache.SetLastModified(DateTime.Now);
 ```
 
-On the next request from the same client, inspect the incoming header:
+On the next request, inspect the incoming header:
 
 ```csharp
 context.Request.Headers["If-Modified-Since"];
 ```
 
-Compare that date with the file on the server. If they match, tell the browser not to re-download it:
+If the file hasn't changed, respond with 304:
 
 ```csharp
 context.Response.Clear();
@@ -99,49 +73,32 @@ context.Response.StatusDescription = "Not Modified";
 return;
 ```
 
-Done. Every unchanged file will now return `304` from the second request onwards.
+Every unchanged file will now return `304` from the second request onwards.
 
 ---
-layout: page
-permalink: /retrospective/speed-up-your-website/
 
 ## Part 2: Combine All Files Into One Request
 
-You've reduced load time from the second request onwards. But what about the large number of first-time requests and the latency they add?
+Within the USA, average network latency is ~70ms. A page with 4 JS and 3 CSS files wastes **490ms** before the page even starts rendering. Outside the USA at ~200ms latency, that is **1,400ms** of waiting.
 
-Within the USA, average network latency is ~70ms. A page with 4 JavaScript files and 3 CSS files wastes 7 × 70ms = **490ms** before the page even starts rendering. Outside the USA, at ~200ms latency, that becomes **1,400ms of waiting** — just for file requests.
+The solution — combine all JS files (and separately CSS files) into a single request:
 
-**The solution:** combine all JS files (and separately, all CSS files) into a single request.
-
-Here's the approach:
-
-1. Read each file from disk one by one, appending to a memory stream
+1. Read each file from disk, appending to a memory stream
 2. Compress the combined byte array using GZIP
-3. Send it to the client in a single HTTP response
-4. Apply the caching headers from Part 1 to this single combined request
+3. Send to the client in a single HTTP response with caching headers from Part 1
 
-I built a control called **HTTP Combiner** that does all of this. With it, 5 JS + 5 CSS files load in a single HTTP request, with caching enabled.
+I built a control called **HTTP Combiner** that does all of this — 5 JS + 5 CSS files in a single HTTP request, cached by the browser.
 
 ---
-layout: page
-permalink: /retrospective/speed-up-your-website/
 
 ## Part 3: CSS Sprites for Images
 
-You can't combine images the same way as text files — images are structurally complex. The best technique is **CSS Sprites**: combine many small images into one large image, then use CSS `background-position` to display the right portion wherever needed.
-
-This is primarily a CSS design technique. For more detail: [CSS-Tricks: CSS Sprites](https://css-tricks.com/css-sprites/)
+Images cannot be combined the same way. The best technique is **CSS Sprites** — combine many small images into one large image, then use CSS `background-position` to show the right portion. Read more at [CSS-Tricks: CSS Sprites](https://css-tricks.com/css-sprites/).
 
 ---
-layout: page
-permalink: /retrospective/speed-up-your-website/
 
 ## Summary
 
-Three things you can do to speed up your website:
-
-1. **Cache files** — set `Last-Modified` headers and respond with `304` for unchanged assets
-2. **Combine JS/CSS** — use HTTP Combiner to merge all files into one request, with caching
-3. **CSS Sprites** — combine images into one file and use CSS positioning
-
-These are not exhaustive — there are many more techniques — but these three have the most impact for the least disruption to an existing codebase. If you know better techniques or have implemented HTTP Combiner differently, I'd love to hear from you.
+1. **Cache files** — `Last-Modified` headers + `304` responses for unchanged assets
+2. **Combine JS/CSS** — HTTP Combiner merges all files into one cached request
+3. **CSS Sprites** — combine images, use CSS positioning

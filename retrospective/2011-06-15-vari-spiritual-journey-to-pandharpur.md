@@ -1,28 +1,22 @@
 ---
 layout: page
-permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 title: "Vari — A Spiritual Journey to Pandharpur"
 date: 2011-06-15 00:00:00 +0530
+permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 categories: [Retrospective]
 tags: [envision, decos, culture, spirituality, maharashtra, vari, pandharpur]
 ---
-layout: page
-permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 
 > **Originally published** in *Envision* — the internal magazine of Decos India, June 2011.
 > Reproduced here as a personal archive.
 
 ---
-layout: page
-permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 
 *By Subodh Patil*
 
 Being in Pune, we are all at least aware of words like *Vari*, *Palakhi*, *Pandharpur*, *Vithoba*. But what do they really mean?
 
 ---
-layout: page
-permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 
 ## What is Vari?
 
@@ -31,8 +25,6 @@ Every year in the month of *Ashadh* (the Marathi-Hindu calendar month falling ro
 The people who participate in Vari are called **Varkaris** — pilgrims vowed to visiting the sacred city of Pandharpur. For them, Pandurang is the cosmic spirit, present simultaneously within all space and time, and yet also beyond.
 
 ---
-layout: page
-permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 
 ## A Tradition Six Centuries Old
 
@@ -43,34 +35,26 @@ The Vari was established in its current form by **Narayan Maharaj**, son of Sain
 Today, the two most famous Varis are those of **Sant Tukaram Maharaj** (starting from Dehu, near Pune) and **Sant Dnyaneshwar Maharaj** (starting from Alandi, also near Pune). Both are in Pune district, adjacent to the city.
 
 ---
-layout: page
-permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 
 ## The 2011 Vari
 
-This year, the Sant Tukaram and Sant Dnyaneshwar Palakhis began their journey to Pandharpur on 22nd and 23rd June respectively, with more than **2 lakh people** participating. On *Ashadhi Ekadashi* — the 11th day of the Marathi month Ashadh (11th July 2011 this year) — around **12 to 15 lakh people** were expected to gather at Pandharpur from across Maharashtra. The Varkaris walk hundreds of miles over more than 3 weeks to meet Lord Vithhala.
+This year, the Sant Tukaram and Sant Dnyaneshwar Palakhis began their journey to Pandharpur on 22nd and 23rd June respectively, with more than **2 lakh people** participating. On *Ashadhi Ekadashi* (11th July 2011) around **12 to 15 lakh people** were expected to gather at Pandharpur from across Maharashtra. The Varkaris walk hundreds of miles over more than 3 weeks to meet Lord Vithhala.
 
 ---
-layout: page
-permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 
 ## Who is Vithoba?
 
 **Vithoba** — also known as Vitthala and Panduranga — is a Hindu god worshipped predominantly in Maharashtra, Karnataka, Goa, and Andhra Pradesh. He is generally considered a manifestation of Vishnu or his avatar Krishna.
 
 ---
-layout: page
-permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 
 ## Sant Tukaram and the Abhang
 
 **Sant Tukaram** (1608–1650) was a prominent Varkari saint and spiritual poet of the 17th century. He composed around 4,500 *Abhangas* — a form of devotional poetry sung in praise of Vitthala. The word *Abhang* is Marathi: *bhang* means "to break"; *a-bhang* is its opposite — that which does not break. It is a way of praising the Lord.
 
-Tukaram's Abhangas are so beautiful that their translation by Dilip Chitre has been included in *The Longman Anthology of World Literature, Volume C — The Early Modern Period* (Pearson Longman, New York).
+Tukaram's Abhangas are so beautiful that their translation by Dilip Chitre have been included in *The Longman Anthology of World Literature, Volume C — The Early Modern Period* (Pearson Longman, New York).
 
 ---
-layout: page
-permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 
 ## The Beauty of Vari
 
@@ -90,7 +74,5 @@ In short: all kinds of people make this pilgrimage without regard for caste, age
 Vari is not something that can be fully explained — it needs to be experienced.
 
 ---
-layout: page
-permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 
 *References: Wikipedia, [tukaram.com](https://www.tukaram.com), Dilip Chitre's articles*

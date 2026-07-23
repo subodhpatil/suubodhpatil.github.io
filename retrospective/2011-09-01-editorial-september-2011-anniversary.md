@@ -1,21 +1,17 @@
 ---
 layout: page
-permalink: /retrospective/editorial-september-2011-anniversary/
 title: "Editorial — September 2011: The Anniversary Issue (Envision Magazine)"
 date: 2011-09-01 00:00:00 +0530
+permalink: /retrospective/editorial-september-2011-anniversary/
 categories: [Retrospective]
 tags: [envision, decos, editorial, leadership, anniversary]
 ---
-layout: page
-permalink: /retrospective/editorial-september-2011-anniversary/
 
 > **Originally published** in *Envision* — the internal magazine of Decos India, September 2011.
-> This was the first-anniversary print edition of Envision — a milestone issue.
+> This was the first-anniversary print edition — a milestone issue of 60 pages.
 > I served as editor of this magazine. Reproduced here as a personal archive.
 
 ---
-layout: page
-permalink: /retrospective/editorial-september-2011-anniversary/
 
 Hello all,
 
@@ -24,8 +20,6 @@ Everybody encounters some inexpressible moments. Offering you the Anniversary Is
 When everybody around us was busy preparing for Ganapati Festival celebrations, the Envision team was filled with one thought: presenting you with a very dear gift in the form of this Anniversary Issue.
 
 ---
-layout: page
-permalink: /retrospective/editorial-september-2011-anniversary/
 
 One has to struggle and work against obstacles to reach the desired height. But once you are at that height, the obstacles start working for you — the height itself begins to solve the problems. Envision was a journey filled with many ups and downs over the last year.
 
@@ -36,8 +30,6 @@ I promise you on behalf of the Envision team: with every upcoming issue, we will
 If you missed Envision over the last year, we have a *Best of Envision* compilation from all past issues.
 
 ---
-layout: page
-permalink: /retrospective/editorial-september-2011-anniversary/
 
 I will not write much in this editorial — you have many wonderful things to relish in this issue.
 
