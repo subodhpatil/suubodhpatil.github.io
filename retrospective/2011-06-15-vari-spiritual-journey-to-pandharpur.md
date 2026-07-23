@@ -93,4 +93,4 @@ Vari is not something that can be fully explained — it needs to be experienced
 layout: page
 permalink: /retrospective/vari-spiritual-journey-to-pandharpur/
 
-*References: Wikipedia, [tukaram.com](http://www.tukaram.com), Dilip Chitre's articles*
+*References: Wikipedia, [tukaram.com](https://www.tukaram.com), Dilip Chitre's articles*
