@@ -252,20 +252,20 @@ TLS terminates at Akamai's edge. Origin connectivity follows similar patterns to
 
 ```mermaid
 flowchart TD
-    A{{"Does your compliance requirement\nmandate that the private key\nnever leave YOUR HSM boundary —\nincluding at handshake time?"}}
+    A{Must private key stay\ninside YOUR HSM\nat all times?}
 
-    A -->|Yes| B{{"Is your web server IIS?"}}
-    A -->|No — vendor HSM acceptable| C{{"Is edge/CDN termination acceptable?"}}
-    A -->|No HSM requirement| J["Azure AG or AFD\nwith Key Vault Standard\nor Premium"]
+    A -->|Yes| B{Is your TLS\nterminator IIS?}
+    A -->|Vendor HSM acceptable| C{Is CDN or edge\ntermination acceptable?}
+    A -->|No HSM requirement| J[Azure AG or AFD\nwith Key Vault Standard\nor Premium]
 
-    B -->|Yes| D["IIS cannot use Azure Managed HSM.\nPlace NGINX or F5 in front of IIS.\nNGINX/F5 terminates TLS with HSM key.\nForward to IIS via internal certificate."]
-    B -->|No — Linux-based TLS terminator| E["✅ NGINX + Azure Managed HSM\n(PKCS#11 via TLS Offload Library)"]
-    B -->|No — enterprise ADC / WAF needed| F["✅ F5 BIG-IP VE + Azure Managed HSM\n(PKCS#11, multi-domain, HA)"]
+    B -->|Yes| D[IIS cannot use Azure Managed HSM.\nAdd NGINX or F5 in front of IIS.\nIIS receives traffic via internal cert.]
+    B -->|No - Linux terminator| E[NGINX + Azure Managed HSM\nvia PKCS#11 TLS Offload Library]
+    B -->|No - enterprise ADC needed| F[F5 BIG-IP VE + Azure Managed HSM\nvia PKCS#11 - multi-domain, HA]
 
-    C -->|Yes| G["✅ Cloudflare Keyless SSL\nor Akamai CPS\n(Non-exportable, vendor HSM)"]
-    C -->|No| H{{"Is HSM-backed at rest\nwith exportable key acceptable?"}}
+    C -->|Yes| G[Cloudflare Keyless SSL\nor Akamai CPS\nNon-exportable, vendor HSM]
+    C -->|No| H{HSM-backed at rest\nwith exportable key\nacceptable?}
 
-    H -->|Yes| I["⚠️ Azure Key Vault Premium\n+ Azure AG or AFD\nKey exported to compute at termination"]
+    H -->|Yes| I[Azure Key Vault Premium\nplus Azure AG or AFD\nKey copied to compute at handshake]
     H -->|No| E
 
     style E fill:#080,color:#fff
