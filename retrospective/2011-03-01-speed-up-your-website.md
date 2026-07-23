@@ -8,9 +8,13 @@ tags: [envision, decos, web-performance, asp-net, caching, http]
 ---
 
 > **Originally published** in *Envision* — the internal magazine of Decos India, March 2011.
-> Reproduced here as a personal archive. Note: this article reflects web development practices of 2011. Some tools and techniques (e.g. HTTPWatch, ASP.NET WebForms) have since evolved, but the core concepts of HTTP caching and request reduction remain valid.
+> Reproduced here as a personal archive. [View original ↗](https://envision-decosindia.blogspot.com/2011/03/speed-up-your-website.html){:target="_blank"}
+>
+> Note: this article reflects web development practices of 2011. Some tools and techniques (e.g. HTTPWatch, ASP.NET WebForms) have since evolved, but the core concepts of HTTP caching and request reduction remain valid.
 
 ---
+
+[![Speed Up Your Website — Envision Decos India, March 2011](/assets/img/retrospective/envision-speed-up-website.jpg)]{: style="width:100%; border:1px solid #333; border-radius:6px; margin-bottom:1rem;"}
 
 *By Subodh Patil*
 

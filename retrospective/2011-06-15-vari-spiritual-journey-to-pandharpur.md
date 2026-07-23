@@ -8,9 +8,11 @@ tags: [envision, decos, culture, spirituality, maharashtra, vari, pandharpur]
 ---
 
 > **Originally published** in *Envision* — the internal magazine of Decos India, June 2011.
-> Reproduced here as a personal archive.
+> Reproduced here as a personal archive. [View original ↗](https://envision-decosindia.blogspot.com/2011/06/vari-spiritual-journey-to-pandharpur.html){:target="_blank"}
 
 ---
+
+[![Vari — A Spiritual Journey to Pandharpur, Envision Decos India](/assets/img/retrospective/envision-vari-pandharpur.jpg)]{: style="width:100%; border:1px solid #333; border-radius:6px; margin-bottom:1rem;"}
 
 *By Subodh Patil*
 

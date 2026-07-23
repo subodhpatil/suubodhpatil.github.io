@@ -8,9 +8,11 @@ tags: [envision, decos, editorial, leadership, culture]
 ---
 
 > **Originally published** in *Envision* — the internal magazine of Decos India, July 2011.
-> I served as editor of this magazine. Reproduced here as a personal archive.
+> I served as editor of this magazine. Reproduced here as a personal archive. [View original ↗](https://envision-decosindia.blogspot.com/2011/07/editorial-july-2011.html){:target="_blank"}
 
 ---
+
+[![Editorial July 2011 — Envision Decos India](/assets/img/retrospective/envision-editorial-july-2011.jpg)]{: style="width:100%; border:1px solid #333; border-radius:6px; margin-bottom:1rem;"}
 
 Hello all,
 

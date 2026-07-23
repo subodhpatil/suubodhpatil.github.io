@@ -9,9 +9,11 @@ tags: [envision, decos, editorial, leadership, anniversary]
 
 > **Originally published** in *Envision* — the internal magazine of Decos India, September 2011.
 > This was the first-anniversary print edition — a milestone issue of 60 pages.
-> I served as editor of this magazine. Reproduced here as a personal archive.
+> I served as editor of this magazine. Reproduced here as a personal archive. [View original ↗](https://envision-decosindia.blogspot.com/2011/09/editorial-september-2011.html){:target="_blank"}
 
 ---
+
+[![Editorial September 2011 Anniversary — Envision Decos India](/assets/img/retrospective/envision-editorial-sep-2011.jpg)]{: style="width:100%; border:1px solid #333; border-radius:6px; margin-bottom:1rem;"}
 
 Hello all,
 
