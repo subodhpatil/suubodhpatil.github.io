@@ -12,7 +12,6 @@ tags: [envision, decos, editorial, leadership]
 
 ---
 
-[![Editorial June 2011 — Envision Decos India](/assets/img/retrospective/envision-editorial-june-2011.jpg)]{: style="width:100%; border:1px solid #333; border-radius:6px; margin-bottom:1rem;"}
 
 Hello all,
 

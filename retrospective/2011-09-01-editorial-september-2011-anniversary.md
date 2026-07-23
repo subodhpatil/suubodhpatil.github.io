@@ -13,7 +13,6 @@ tags: [envision, decos, editorial, leadership, anniversary]
 
 ---
 
-[![Editorial September 2011 Anniversary — Envision Decos India](/assets/img/retrospective/envision-editorial-sep-2011.jpg)]{: style="width:100%; border:1px solid #333; border-radius:6px; margin-bottom:1rem;"}
 
 Hello all,
 

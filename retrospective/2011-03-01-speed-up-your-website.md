@@ -14,7 +14,6 @@ tags: [envision, decos, web-performance, asp-net, caching, http]
 
 ---
 
-[![Speed Up Your Website — Envision Decos India, March 2011](/assets/img/retrospective/envision-speed-up-website.jpg)]{: style="width:100%; border:1px solid #333; border-radius:6px; margin-bottom:1rem;"}
 
 *By Subodh Patil*
 
