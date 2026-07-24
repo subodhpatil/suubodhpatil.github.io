@@ -1,7 +1,7 @@
 ---
 title: "Post-Quantum Cryptography: Why Even TLS 1.3 Isn't Safe Forever"
 date: 2026-07-08 12:00:00 +0200
-last_modified_at: 2026-07-08 12:00:00 +0200
+last_modified_at: 2026-07-23 12:00:00 +0200
 categories: [CloudSecurity, CryptographySecurity]
 tags: [pqc, quantum, tls, nist, harvest-now-decrypt-later, ml-kem, ml-dsa, hybrid-tls, crypto-agility, governance, compliance, cissp]
 mermaid: true
@@ -65,7 +65,7 @@ flowchart TD
 
     subgraph WEAKENED["⚠️ Weakened by Grover's Algorithm"]
         W1["AES-128\nEffective security halved to ~64-bit\nNo longer sufficient"]
-        W2["SHA-256\nCollision resistance reduced\nDoubling recommended"]
+        W2["SHA-256\nPreimage resistance halved\nto ~2^128 (Grover's)\nSHA-384/512 recommended\nfor long-term use"]
     end
 
     subgraph SAFE["✅ Resistant to Both"]
@@ -220,6 +220,8 @@ flowchart TD
 
 The hybrid named group **X25519MLKEM768** is the primary deployment today. The browser sends both an X25519 key share and an ML-KEM-768 key share in the ClientHello. The server responds with both. Session keys are derived from both inputs combined — meaning an attacker must break both simultaneously to compromise the session.
 
+> **ML-KEM-768 vs ML-KEM-1024:** ML-KEM-768 targets NIST Security Category 3 (~192-bit classical security equivalent) and is the standard for commercial internet traffic. NSA CNSA 2.0 mandates **ML-KEM-1024** (NIST Security Category 5 / ~256-bit level) for national security systems — a higher bar than X25519MLKEM768 provides. If your environment is governed by CNSA 2.0, X25519MLKEM768 is not sufficient; you need an ML-KEM-1024 hybrid group.
+
 **Current adoption (mid-2026):**
 - Cloudflare Radar: PQ-capable client traffic exceeded 60% in February 2026
 - Chrome: PQ hybrid enabled by default since April 2024
@@ -239,6 +241,10 @@ Despite the progress above, significant gaps remain — and understanding them i
 **PKI and Certificates:** Current X.509 certificates use RSA or ECDSA signatures. Post-quantum certificates using ML-DSA do not yet have broad CA support, browser trust store integration, or OCSP/CRL infrastructure. The hybrid TLS deployments above use PQC for *key exchange only* — the certificate and server authentication chain remains classical. Full PQC migration requires updating the entire certificate lifecycle.
 
 **Hardware Security Modules:** Most commercial HSMs — including many cloud-managed HSMs — do not yet support ML-KEM or ML-DSA key operations natively. HSM firmware updates are complex, validation timelines (FIPS 140-3) are long, and some older HSM hardware may not support PQC algorithms at all. This creates a specific constraint for organisations using HSMs for TLS private key protection.
+
+**ClientHello packet bloat and fragmentation:** ML-KEM-768 public keys are 1,184 bytes — compared to 32 bytes for X25519. A hybrid ClientHello carrying both key shares, plus standard TLS extensions, easily exceeds the typical TCP Maximum Segment Size of ~1,460 bytes, forcing IP fragmentation or multi-record ClientHellos. Legacy middleboxes — firewalls, deep packet inspection engines, and some load balancers — frequently drop fragmented ClientHellos silently, causing handshake failures with no clear error. Testing hybrid PQC in enterprise network environments requires explicit validation against in-path network devices, not just client-server endpoint testing.
+
+**TLS 1.3 0-RTT Early Data:** If your application uses TLS 1.3 0-RTT resumption via Pre-Shared Keys (PSK), the 0-RTT data is encrypted using a secret derived from the *previous* session — not the current handshake. If that previous session's key exchange was classical (pre-hybrid PQC), the PSK material carries the HNDL risk regardless of whether the new session negotiates X25519MLKEM768. Enabling 0-RTT on TLS channels handling sensitive data requires verifying that the entire PSK chain back to session establishment used quantum-resistant key exchange — not just the current connection.
 
 **Platform support gaps:**
 

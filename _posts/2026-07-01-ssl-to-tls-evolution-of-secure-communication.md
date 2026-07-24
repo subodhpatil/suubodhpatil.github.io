@@ -126,7 +126,7 @@ TLS 1.2 supports over 300 cipher suites — including many that should never be 
 | Cipher Suite / Algorithm | Problem | Attack |
 |---|---|---|
 | `RC4` | Statistical biases in keystream | Plaintext recovery over many sessions |
-| `3DES` (Triple-DES) | 64-bit block size | SWEET32 (birthday attack, CVE-2016-2183) |
+| `3DES` (Triple-DES) | 64-bit block size — birthday collision reachable after ~32GB of data encrypted under the same key (not a key length flaw) | SWEET32 (birthday attack, CVE-2016-2183) |
 | `NULL` ciphers | No encryption at all | Trivial interception |
 | `EXPORT` suites | 40-bit/56-bit keys (US 1990s export rules) | FREAK (CVE-2015-0204), LOGJAM (CVE-2015-4000) |
 | `RSA` key exchange | No forward secrecy | Historical session decryption if key later compromised |
@@ -180,7 +180,7 @@ TLS 1.3 (RFC 8446, 2018) was not built by patching TLS 1.2. It was a ground-up r
 ```mermaid
 flowchart TD
     subgraph REMOVED["❌ Removed in TLS 1.3"]
-        R1["RSA key exchange\nNo forward secrecy —\nany recorded session\ndecryptable if private key\ncompromised later"]
+        R1["Static RSA key transport\nClient encrypts premaster secret\nwith server public key —\nno forward secrecy.\nNote: RSA certificates for\nauthentication still valid in TLS 1.3"]
         R2["CBC cipher modes\nTarget of BEAST and POODLE —\nreplaced with AEAD only"]
         R3["RC4, 3DES, MD5, SHA-1\nAll cryptographically\nbroken or weak"]
         R4["Export cipher suites\nLegacy 40-bit / 56-bit key strength\n(FREAK and LOGJAM targets)"]
@@ -198,6 +198,8 @@ flowchart TD
 ```
 
 **The forward secrecy point deserves emphasis.** In TLS 1.2 with RSA key exchange, the client encrypted the session key with the server's public key. Anyone who recorded that traffic and later obtained the private key could decrypt the entire historical session archive. In TLS 1.3, ephemeral ECDHE is mandatory for every session — session keys are derived and discarded, never stored, never recoverable even with the server's private key. This is not an option you configure; it is the only mode that exists.
+
+A common point of confusion worth clarifying: **TLS 1.3 removed static RSA key transport — it did not remove RSA certificates.** Servers running TLS 1.3 can still present RSA 2048 or RSA 4096 certificates; RSA is used for the server's digital signature (RSASSA-PSS) during authentication, which is a different operation entirely. What TLS 1.3 removed is the mechanism where the client encrypts the pre-master secret with the server's RSA public key and sends it over the wire. If you are planning a TLS 1.3 migration, you do not need to replace RSA certificates — you need to ensure your key exchange is ECDHE, which TLS 1.3 mandates automatically.
 
 **The cipher suite simplification is equally significant for governance.** TLS 1.2 offered over 300 cipher suites. TLS 1.3 offers five — all of them strong, all of them using AEAD construction. An organisation running TLS 1.3 cannot accidentally enable RC4 or 3DES. The secure configuration is not a choice you make; it is the default you inherit.
 
