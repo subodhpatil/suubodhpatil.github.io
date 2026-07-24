@@ -1,7 +1,7 @@
 ---
 title: "From SSL 2.0 to TLS 1.3: The Evolution of Secure Communication"
 date: 2026-07-01 12:00:00 +0200
-last_modified_at: 2026-07-01 12:00:00 +0200
+last_modified_at: 2026-07-23 12:00:00 +0200
 categories: [WebSecurity, NetworkSecurity]
 tags: [tls, ssl, cipher-suites, poodle, beast, heartbleed, tls13, pci-dss, vulnerabilities, governance, compliance]
 mermaid: true
@@ -55,17 +55,17 @@ flowchart LR
 
     SSL2 --> SSL3 --> TLS10 --> TLS11 --> TLS12 --> TLS13
 
-    POODLE["⚠️ POODLE 2014\nSSL 3.0 CBC\npadding oracle"]
-    BEAST["⚠️ BEAST 2011\nTLS 1.0 CBC\nIV prediction"]
-    HEART["⚠️ Heartbleed 2014\nOpenSSL memory\nleak bug"]
-    FREAK["⚠️ FREAK 2015\nExport-grade\ncipher downgrade"]
-    DROWN["⚠️ DROWN 2016\nSSLv2 oracle\ncross-protocol"]
+    POODLE["⚠️ POODLE 2014\nSSL 3.0 CBC\npadding oracle\nProtocol flaw"]
+    BEAST["⚠️ BEAST 2011\nTLS 1.0 CBC\nIV prediction\nProtocol flaw"]
+    HEART["⚠️ Heartbleed 2014\nOpenSSL memory\nleak — impl. bug\nNot a protocol flaw"]
+    FREAK["⚠️ FREAK 2015\nExport-grade\ncipher downgrade\nConfig weakness"]
+    DROWN["⚠️ DROWN 2016\nSSLv2 oracle\nDecrypts TLS via\nshared RSA key"]
 
-    SSL3 -. "exploited by" .-> POODLE
-    TLS10 -. "exploited by" .-> BEAST
-    TLS12 -. "cross-protocol" .-> DROWN
-    TLS12 -. "implementation" .-> HEART
+    SSL3 -. "protocol flaw" .-> POODLE
+    TLS10 -. "protocol flaw" .-> BEAST
+    SSL2 -. "SSLv2 oracle\nshared-key vector" .-> DROWN
     TLS12 -. "config weakness" .-> FREAK
+    TLS10 -. "OpenSSL impl. bug\naffects TLS 1.0-1.2" .-> HEART
 ```
 
 ---
@@ -92,7 +92,7 @@ TLS 1.0 was essentially SSL 3.0 with minor modifications and a new name. It reta
 
 TLS 1.1, released in 2006, fixed this by using random IVs — but TLS 1.1 saw almost no adoption, so TLS 1.0 with the BEAST vulnerability remained the dominant protocol for years after the fix existed.
 
-**Business impact:** Session token theft against any TLS 1.0 connection where an attacker could control adjacent JavaScript (MITM + XSS combination). The attack required some attacker capability, but in 2011 it was considered fully practical.
+**Business impact:** Session token theft against any TLS 1.0 connection where an attacker held a Man-in-the-Middle network position and could execute malicious client-side script in the victim's browser — delivered via an unencrypted HTTP advertisement, a malicious iframe, or a separate compromised page. XSS was not required; any mechanism to force the browser to send predictable plaintext to the HTTPS origin was sufficient. The attack required meaningful attacker capability, but in 2011 it was considered fully practical.
 
 ### TLS 1.1 (2006): The Fix Nobody Used
 
@@ -200,6 +200,8 @@ flowchart TD
 **The forward secrecy point deserves emphasis.** In TLS 1.2 with RSA key exchange, the client encrypted the session key with the server's public key. Anyone who recorded that traffic and later obtained the private key could decrypt the entire historical session archive. In TLS 1.3, ephemeral ECDHE is mandatory for every session — session keys are derived and discarded, never stored, never recoverable even with the server's private key. This is not an option you configure; it is the only mode that exists.
 
 **The cipher suite simplification is equally significant for governance.** TLS 1.2 offered over 300 cipher suites. TLS 1.3 offers five — all of them strong, all of them using AEAD construction. An organisation running TLS 1.3 cannot accidentally enable RC4 or 3DES. The secure configuration is not a choice you make; it is the default you inherit.
+
+> **Wire compatibility note:** On the wire, TLS 1.3 deliberately sets the `ClientHello` version field to `0x0303` (TLS 1.2) and carries the actual version negotiation inside the `supported_versions` extension. This was intentional — many legacy firewalls and deep packet inspection appliances rejected `ClientHello` messages advertising versions above TLS 1.2, breaking connections before they started. TLS 1.3 is architecturally a redesign; on the wire it disguises itself as TLS 1.2 to get through these middleboxes.
 
 ### A Note on 0-RTT Resumption
 
