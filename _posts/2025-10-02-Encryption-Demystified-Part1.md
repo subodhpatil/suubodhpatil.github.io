@@ -8,10 +8,29 @@ mermaid: true
 description: "An introduction to data-at-rest encryption in the cloud, covering how AES-256 and key management actually work. Lays out the key control spectrum, from Microsoft-Managed Keys to Bring Your Own HSM, and why regulators like PCI DSS, HIPAA, and GDPR are pushing toward customer-controlled keys."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
->
-> `Summarize this article in 5 bullet points with key takeaways, and flag anything worth double-checking in your own key management or data protection setup: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/`
-{: .prompt-tip }
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/
+
+Summarize the above article in 5 bullet points with key takeaways, and flag anything worth double-checking in your own key management or data protection setup.
+
+Focus on:
+1) Core concepts of encryption at rest and key management
+2) Regulatory requirements and compliance implications  
+3) Key control models (MMK, CMK, BYOK, BYOH)
+
+Be technical and suitable for security architects.">
+  <p><strong>Short on time?</strong> Copy this into ChatGPT, Copilot, Gemini, Claude, or Perplexity for an instant summary — or to decide if it's worth reading in full:</p>
+  <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+    <span style="font-weight: 500;">Summarize with:</span>
+    <select class="ai-selector-dropdown" id="ai-platform-select">
+      <option value="">-- Select an AI --</option>
+      <option value="claude">🤖 Claude</option>
+      <option value="chatgpt">✨ ChatGPT</option>
+      <option value="gemini">🔮 Gemini</option>
+      <option value="perplexity">🌐 Perplexity</option>
+      <option value="copilot">⚡ Copilot</option>
+    </select>
+  </div>
+</div>
 
 > **Series:** **Part 1** · [Part 2: Inside Azure — How Encryption at Rest Works →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/) · [Part 3: Advanced Key Management →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/)
 
