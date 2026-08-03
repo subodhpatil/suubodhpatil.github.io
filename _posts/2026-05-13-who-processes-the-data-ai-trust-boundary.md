@@ -8,10 +8,35 @@ mermaid: true
 description: "Breaks down the split between the control plane and data plane in cloud AI platforms, showing how the same model can carry very different trust profiles depending on where inference actually runs. Looks at the limits of Zero Data Retention and why trust-boundary review has to be an ongoing process, not a one-time audit."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
->
-> `Summarize this article in 5 bullet points with key takeaways, and flag anything relevant to AI vendor risk, procurement, or governance decisions: https://blog.suubodhpatil.com/posts/who-processes-the-data-ai-trust-boundary/`
-{: .prompt-tip }
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/who-processes-the-data-ai-trust-boundary/
+
+Summarize the above article in 5 bullet points focusing on:
+1) Control plane vs data plane split in cloud AI platforms and why it matters for trust
+2) How the same AI model carries different trust profiles depending on hosting - Claude on Azure vs AWS Bedrock example
+3) Cloud security controls (CMK, Data Boundary, sovereign clouds) and their limitations at the inference layer
+4) Zero Data Retention (ZDR) - what it covers, what it doesn't, and GDPR implications
+5) Trust boundary evaluation as an ongoing governance process, not a one-time audit
+
+Be practical for CISOs, privacy teams, and platform leaders evaluating AI vendor risk.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">(after ai window opens paste the auto copied prompt manually)</p>
+  </div>
+</div>
 
 > **Written for:** CISOs, cloud architects, privacy and legal teams, and SaaS vendors building AI-powered products on managed cloud platforms.
 
@@ -302,6 +327,8 @@ The trust boundary question will not stay answered. As models shift between host
 ---
 
 > 💡 **Pro Tip:** The sub-processor list is a starting point, not a trust boundary map — Anthropic appears on Microsoft's list for M365 Copilot, yet inference still runs on Anthropic infrastructure outside Azure. To find the actual boundary, check the service-specific DPA for who is named as processor for prompts and completions, and verify whether deploying the model triggered click-through acceptance of the model provider's own terms. Remember: cloud providers often maintain multiple sub-processor lists — global, service-specific, and product-specific — which can contradict each other; only the service-specific list is authoritative for a given integration, lists may lag behind actual architecture changes, and neither substitutes for reading the service-level DPA — the rule is simple: list = who *may* process, DPA = who is *responsible*, architecture = where data *actually* goes.
+
+{% include ai-selector-init.html %}
 
 ---
 

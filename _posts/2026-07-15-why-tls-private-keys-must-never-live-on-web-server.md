@@ -9,10 +9,35 @@ mermaid: true
 description: "Most TLS security conversations focus on certificates. The real crown jewel is the private key — the one component that, if compromised, exposes every past and future session. This post explains what a TLS private key actually controls, how they routinely end up on disk, and the architectural patterns — NGINX + HSM, F5 + HSM, Cloudflare Keyless SSL — that keep them truly safe."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
->
-> `Summarize this article in 5 bullet points with key takeaways, and flag any architecture or compliance gaps I should check in my own TLS setup: https://blog.suubodhpatil.com/posts/why-tls-private-keys-must-never-live-on-web-server/`
-{: .prompt-tip }
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/why-tls-private-keys-must-never-live-on-web-server/
+
+Summarize the above article in 5 bullet points focusing on:
+1) Why TLS private keys are the crown jewel - what they control and the scope of compromise
+2) How private keys end up at risk on disk - exfiltration vectors including VM compromise, backups, git leaks, CI/CD
+3) Hardware Security Modules (HSM) - non-exportable keys, PKCS#11 integration, cryptographic signing inside HSM
+4) Azure-specific guidance - Application Gateway vs NGINX+HSM vs F5 BIG-IP, and why not all secure options are equal
+5) Quantum threat implications - retroactive session decryption risk for exported keys, HSM as exfiltration prevention
+
+Be practical for infrastructure engineers and CISOs responsible for TLS security and compliance.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">(after ai window opens paste the auto copied prompt manually)</p>
+  </div>
+</div>
 
 > **Written for:** Security architects, infrastructure engineers, and compliance leads responsible for TLS configuration in production environments — particularly those subject to PCI DSS, ISO 27001, RBI, MAS, or financial services regulations.
 
@@ -311,6 +336,8 @@ If quantum computing capability materialises within the credible window (widely 
 - If quantum computing capability materialises, a key that was ever on disk and potentially harvested years ago could enable retroactive decryption of TLS 1.2 RSA sessions. An HSM-bound non-exportable key removes this vector before it exists.
 
 > The TLS certificate is the identity. The private key is the proof. How you protect the proof determines whether the entire trust chain means anything.
+
+{% include ai-selector-init.html %}
 
 ---
 

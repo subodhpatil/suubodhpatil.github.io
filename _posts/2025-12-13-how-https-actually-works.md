@@ -8,10 +8,35 @@ mermaid: true
 description: "A practical walkthrough of how HTTPS actually secures a connection: the TLS handshake, certificate trust chains, and how symmetric and asymmetric encryption work together. Also covers what HTTPS does not protect, like the destination domain and IP address, and what compliance auditors actually check."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
->
-> `Summarize this article in 5 bullet points with key takeaways, and note anything commonly misunderstood about this topic that's worth double-checking: https://blog.suubodhpatil.com/posts/how-https-actually-works/`
-{: .prompt-tip }
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/how-https-actually-works/
+
+Summarize the above article in 5 bullet points focusing on:
+1) The three guarantees of HTTPS - confidentiality, integrity, and authentication - and why all three matter
+2) How the TLS handshake works and how session keys are derived (Diffie-Hellman key exchange)
+3) Forward secrecy, ephemeral keys, and TLS 1.3 improvements
+4) What HTTPS does NOT protect - domain names (SNI), IP addresses, traffic patterns
+5) What compliance auditors check regarding HTTPS - TLS versions, cipher suites, certificate chain validity
+
+Be technical and practical for engineers responsible for application security.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">(after ai window opens paste the auto copied prompt manually)</p>
+  </div>
+</div>
 
 > **Also worth reading:** From SSL 2.0 to TLS 1.3 · Post-Quantum Cryptography and TLS · Why TLS Private Keys Must Never Live on Your Web Server
 
@@ -256,6 +281,8 @@ Standard TLS authenticates only the server — any client can connect. **Mutual 
 ---
 
 > 💡 **Pro Tip:** Run your domain through [Qualys SSL Labs](https://www.ssllabs.com/ssltest/) — it takes 60 seconds and produces a detailed grade covering TLS versions, cipher suites, certificate chain, and known vulnerabilities. An A grade is the minimum bar for any system handling sensitive data. A B or below is very likely a finding in a PCI DSS or ISO 27001 audit.
+
+{% include ai-selector-init.html %}
 
 ---
 

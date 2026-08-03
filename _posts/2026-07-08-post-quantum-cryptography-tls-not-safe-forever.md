@@ -8,10 +8,35 @@ mermaid: true
 description: "Why TLS 1.3 alone isn't enough in a post-quantum world. Explains Shor's algorithm, the Harvest Now Decrypt Later threat, NIST PQC standards, hybrid TLS deployment, and what the quantum timeline means for your cryptographic migration planning."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
->
-> `Summarize this article in 5 bullet points with key takeaways, and flag any compliance or security implications for long-term data protection: https://blog.suubodhpatil.com/posts/post-quantum-cryptography-tls-not-safe-forever/`
-{: .prompt-tip }
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/post-quantum-cryptography-tls-not-safe-forever/
+
+Summarize the above article in 5 bullet points focusing on:
+1) Why TLS 1.3 is vulnerable to quantum computing - Shor's algorithm and ECDH key exchange
+2) Harvest Now, Decrypt Later (HNDL) threat - recording encrypted traffic now for future decryption
+3) NIST post-quantum cryptography standards - ML-KEM, ML-DSA, SLH-DSA (finalized August 2024)
+4) Hybrid TLS deployment - X25519MLKEM768, current production status, browser and platform support
+5) Migration timeline - 2029-2032 quantum threat window, NSA CNSA 2.0 mandate from 2027, planning urgency
+
+Be practical for security architects and CISOs planning quantum-safe cryptographic transitions.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">(after ai window opens paste the auto copied prompt manually)</p>
+  </div>
+</div>
 
 > **Written for:** Security architects, CISOs, compliance leads, and engineers responsible for TLS infrastructure or systems handling long-lived sensitive data — anyone who needs to understand the quantum threat timeline and what to do about it now.
 
@@ -315,6 +340,8 @@ The transition to post-quantum TLS requires that your private keys — both clas
 ---
 
 > 💡 **Pro Tip:** Start your PQC readiness programme with a cryptographic inventory, not a product purchase. The first deliverable should be a map of every system that uses RSA or ECDH — where it is, what data it protects, and how long that data needs to remain confidential. The gap between your longest data retention requirement and the CRQC credible window defines your urgency. Systems protecting data that must stay confidential past 2030 should already be in active migration planning.
+
+{% include ai-selector-init.html %}
 
 ---
 

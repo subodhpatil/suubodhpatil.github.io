@@ -7,10 +7,35 @@ tags: [encryption, azure, key-management, byoh, hsm, governance, saas]
 description: "Covers the advanced end of Azure key management: Bring Your Own HSM, neutral escrow models, and governance at scale across RBAC, rotation, and audit logging. Closes with a decision framework for choosing a key control model and a look at what comes next, from confidential computing to post-quantum cryptography."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
->
-> `Summarize this article in 5 bullet points with key takeaways, and flag anything worth double-checking in your own key management or data protection setup: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/`
-{: .prompt-tip }
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/
+
+Summarize the above article in 5 bullet points focusing on:
+1) Bring Your Own HSM (BYOH) architecture, use cases, and operational trade-offs
+2) Neutral escrow models and third-party key custodian patterns
+3) Practical decision framework for choosing between CMK, BYOK, BYOH, and escrow
+4) Governance at scale - RBAC, rotation policies, audit logging, and anomaly detection
+5) Emerging encryption frontiers - confidential computing, post-quantum cryptography, multi-cloud key management
+
+Be technical and geared toward architects designing encryption and key management strategies.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">(after ai window opens paste the auto copied prompt manually)</p>
+  </div>
+</div>
 
 > **Series:** [← Part 1: Building the Foundation](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/) · [← Part 2: Inside Azure — How Encryption at Rest Works](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/) · **Part 3**
 
@@ -129,3 +154,5 @@ Advanced encryption is as much a governance problem as a technical one. At scale
 ---
 
 > 💡 **Pro Tip:** Don't adopt BYOH or escrow because they sound more secure. Adopt them if — and only if — they align with your target customer base, compliance requirements, and go-to-market strategy. For most SaaS vendors, CMK with strong governance, automated rotation, and customer-visible audit logs is the right investment. It delivers the compliance signal buyers need without the operational burden that slows you down.
+
+{% include ai-selector-init.html %}

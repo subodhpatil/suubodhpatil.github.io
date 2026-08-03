@@ -7,10 +7,35 @@ tags: [ai, azure, anthropic, openai, trust-boundary, data-protection, zero-data-
 description: "Microsoft Foundry reached general availability for Claude on June 29, 2026, adding a new Hosted on Azure option. Breaks down what actually changed, why Anthropic remains an independent data processor either way, and how that differs from Azure OpenAI's single-processor model — including who governs Zero Data Retention in each case."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
->
-> `Summarize this article in 5 bullet points with key takeaways, and flag anything relevant to AI vendor risk, procurement, or governance decisions: https://blog.suubodhpatil.com/posts/microsoft-foundry-ga-claude-vs-azure-openai/`
-{: .prompt-tip }
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/microsoft-foundry-ga-claude-vs-azure-openai/
+
+Summarize the above article in 5 bullet points focusing on:
+1) What changed with Microsoft Foundry GA on June 29, 2026 - the new Hosted on Azure option
+2) Infrastructure changes vs legal changes - where compute runs vs who processes data
+3) Why Claude on Foundry is fundamentally different from Azure OpenAI (processor independence)
+4) Data processor role - Anthropic as independent processor for Claude vs Microsoft for Azure OpenAI
+5) Zero Data Retention (ZDR) governance - who approves and manages ZDR for each model option
+
+Be practical for CISOs, compliance teams, and platform leaders evaluating Claude vs Azure OpenAI.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">(after ai window opens paste the auto copied prompt manually)</p>
+  </div>
+</div>
 
 > **Also worth reading:** This post is a companion update to [Who Processes the Data? Trust, Responsibility, and AI Inference Beyond the Cloud](/posts/who-processes-the-data-ai-trust-boundary/) — read that one first for the full control-plane/data-plane framework this post builds on.
 
@@ -112,6 +137,8 @@ Nothing about the original post's three-part evaluation framework — inference 
 - [Who Processes the Data? Trust, Responsibility, and AI Inference Beyond the Cloud](/posts/who-processes-the-data-ai-trust-boundary/)
 
 ---
+
+{% include ai-selector-init.html %}
 
 ## Disclaimer
 

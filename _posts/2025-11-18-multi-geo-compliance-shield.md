@@ -8,10 +8,35 @@ mermaid: true
 description: "Explains how Multi-Geo in Power BI and Microsoft Fabric lets SaaS vendors keep customer workspace data in a specific region instead of the tenant's home region. Covers the licensing prerequisites, what metadata still stays home-region, and when a full multi-tenant architecture is needed instead."
 ---
 
-> 🤖 **Short on time?** Copy this into ChatGPT, Copilot, Gemini, or Claude for an instant summary — or to decide if it's worth reading in full:
->
-> `Summarize this article in 5 bullet points with key takeaways, and flag any compliance or audit implications worth noting: https://blog.suubodhpatil.com/posts/multi-geo-compliance-shield/`
-{: .prompt-tip }
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/multi-geo-compliance-shield/
+
+Summarize the above article in 5 bullet points focusing on:
+1) What Multi-Geo does in Power BI and Microsoft Fabric and why it matters for data residency
+2) Data residency obligations under GDPR, DPDP, PIPL, LGPD and how Multi-Geo addresses them
+3) Licensing prerequisites and the 5% user threshold requirement for enabling Multi-Geo
+4) What metadata stays home-region and compliance implications for SaaS vendors
+5) Multi-tenant architecture as an alternative approach and when to use it
+
+Be practical and geared toward SaaS product teams and compliance officers building on Microsoft platform services.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">(after ai window opens paste the auto copied prompt manually)</p>
+  </div>
+</div>
 
 > **Written for:** SaaS vendors, cloud architects, and compliance leads building analytics products on Power BI or Microsoft Fabric for regulated markets.
 
@@ -200,3 +225,5 @@ A multi-tenant architecture is a significant operational and cost commitment —
 ---
 
 > 💡 **Pro Tip:** Before committing to a single-tenant + Multi-Geo architecture, map your largest customers' regulatory requirements against what Multi-Geo actually covers. For most customers, Multi-Geo is sufficient. But if you have customers in jurisdictions with strict data localization laws who ask "where does *any* of my data live?" — including metadata — the honest answer may point you toward a multi-tenant design.
+
+{% include ai-selector-init.html %}
