@@ -143,3 +143,5 @@ Part 2 covers MMK, CMK, and BYOK in detail. Part 3 covers BYOH and escrow models
 ---
 
 > 💡 **Pro Tip:** Map your regulatory obligations to key management models early in your design phase — before selecting a cloud service or architecture pattern. Retrofitting key management controls into an existing deployment is significantly more complex and costly than designing for them upfront.
+
+{% include ai-selector-init.html %}
