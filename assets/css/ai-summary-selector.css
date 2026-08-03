@@ -1,0 +1,118 @@
+/* AI Summary Selector Styles */
+
+.ai-summary-section {
+  background: linear-gradient(135deg, #f0f4ff 0%, #f9faff 100%);
+  border-left: 4px solid #0066cc;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.ai-summary-section p {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.ai-summary-section strong {
+  color: #0066cc;
+  font-weight: 600;
+}
+
+.ai-summary-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.ai-selector-label {
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+
+.ai-selector-dropdown {
+  padding: 0.625rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 0.375rem;
+  background-color: #ffffff;
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 200px;
+}
+
+.ai-selector-dropdown:hover {
+  border-color: #0066cc;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
+  transform: translateY(-1px);
+}
+
+.ai-selector-dropdown:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.ai-selector-dropdown option {
+  padding: 0.5rem;
+  color: #333;
+}
+
+/* Feedback notification */
+.ai-selector-feedback {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #0066cc;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  font-size: 0.9rem;
+  animation: slideIn 0.3s ease-out;
+}
+
+.ai-selector-feedback.fade-out {
+  animation: fadeOut 0.3s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ai-summary-selector {
+    flex-wrap: wrap;
+  }
+
+  .ai-selector-feedback {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+}
