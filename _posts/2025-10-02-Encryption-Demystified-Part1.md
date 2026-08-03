@@ -18,17 +18,20 @@ Focus on:
 3) Key control models (MMK, CMK, BYOK, BYOH)
 
 Be technical and suitable for security architects.">
-  <p><strong>Short on time?</strong> Copy this into ChatGPT, Copilot, Gemini, Claude, or Perplexity for an instant summary — or to decide if it's worth reading in full:</p>
-  <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
-    <span style="font-weight: 500;">Summarize with:</span>
-    <select class="ai-selector-dropdown" id="ai-platform-select">
-      <option value="">-- Select an AI --</option>
-      <option value="claude">🤖 Claude</option>
-      <option value="chatgpt">✨ ChatGPT</option>
-      <option value="gemini">🔮 Gemini</option>
-      <option value="perplexity">🌐 Perplexity</option>
-      <option value="copilot">⚡ Copilot</option>
-    </select>
+  <div class="ai-summary-section-icon">📍</div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">(after ai window opens paste the auto copied prompt manually)</p>
   </div>
 </div>
 
