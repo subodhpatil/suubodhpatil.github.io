@@ -3,63 +3,16 @@
  * Allows users to open their preferred AI platform with a pre-filled summary prompt
  */
 
-class AISummarySelector {
-  constructor(promptText) {
-    this.promptText = promptText;
-    this.platforms = {
-      claude: {
-        name: 'Claude',
-        url: 'https://claude.ai',
-        icon: '🤖'
-      },
-      chatgpt: {
-        name: 'ChatGPT',
-        url: 'https://chat.openai.com',
-        icon: '✨'
-      },
-      gemini: {
-        name: 'Gemini',
-        url: 'https://gemini.google.com/chat',
-        icon: '🔮'
-      },
-      perplexity: {
-        name: 'Perplexity',
-        url: 'https://www.perplexity.ai',
-        icon: '🌐'
-      },
-      copilot: {
-        name: 'Copilot',
-        url: 'https://copilot.microsoft.com',
-        icon: '⚡'
-      }
-    };
-  }
+(function() {
+  const platforms = {
+    claude: { name: 'Claude', url: 'https://claude.ai' },
+    chatgpt: { name: 'ChatGPT', url: 'https://chat.openai.com' },
+    gemini: { name: 'Gemini', url: 'https://gemini.google.com/chat' },
+    perplexity: { name: 'Perplexity', url: 'https://www.perplexity.ai' },
+    copilot: { name: 'Copilot', url: 'https://copilot.microsoft.com' }
+  };
 
-  async handleSelection(event) {
-    const platformKey = event.target.value;
-    if (!platformKey) return;
-
-    const platform = this.platforms[platformKey];
-
-    try {
-      // Copy prompt to clipboard
-      await navigator.clipboard.writeText(this.promptText);
-
-      // Show feedback
-      this.showFeedback('Prompt copied! Opening ' + platform.name + '...');
-
-      // Open platform in new tab
-      window.open(platform.url, '_blank');
-
-      // Reset dropdown
-      event.target.value = '';
-    } catch (err) {
-      console.error('Failed to copy prompt:', err);
-      this.showFeedback('Failed to copy. Please try again.');
-    }
-  }
-
-  showFeedback(message) {
+  function showFeedback(message) {
     const feedback = document.createElement('div');
     feedback.className = 'ai-selector-feedback';
     feedback.textContent = message;
@@ -70,21 +23,57 @@ class AISummarySelector {
       setTimeout(() => feedback.remove(), 300);
     }, 2000);
   }
-}
 
-// Auto-initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-  const promptElement = document.querySelector('[data-ai-prompt]');
-  if (promptElement) {
+  async function handlePlatformSelect(event) {
+    const platformKey = event.target.value;
+    if (!platformKey) return;
+
+    const platform = platforms[platformKey];
+    const promptElement = document.querySelector('[data-ai-prompt]');
+
+    if (!promptElement) {
+      console.error('No prompt element found');
+      return;
+    }
+
     const prompt = promptElement.getAttribute('data-ai-prompt');
-    const selector = new AISummarySelector(prompt);
 
-    // Wire up existing dropdown
-    const existingSelect = document.querySelector('.ai-selector-dropdown');
-    if (existingSelect) {
-      existingSelect.addEventListener('change', (e) => {
-        selector.handleSelection(e);
-      });
+    try {
+      // Copy prompt to clipboard
+      await navigator.clipboard.writeText(prompt);
+      showFeedback('Prompt copied! Opening ' + platform.name + '...');
+
+      // Open platform in new tab
+      setTimeout(() => {
+        window.open(platform.url, '_blank');
+      }, 300);
+
+      // Reset dropdown
+      event.target.value = '';
+    } catch (err) {
+      console.error('Clipboard failed:', err);
+      showFeedback('Failed to copy. Paste manually or try another method.');
+      window.open(platform.url, '_blank');
     }
   }
-});
+
+  // Initialize when DOM is ready
+  function init() {
+    const selectors = document.querySelectorAll('.ai-selector-dropdown');
+    console.log('Found ' + selectors.length + ' AI selector dropdowns');
+
+    selectors.forEach((select) => {
+      select.addEventListener('change', handlePlatformSelect);
+    });
+  }
+
+  // Run on DOMContentLoaded and also as fallback
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Also try to init on window load
+  window.addEventListener('load', init);
+})();

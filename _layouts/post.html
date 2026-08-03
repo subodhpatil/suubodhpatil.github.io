@@ -1,0 +1,20 @@
+---
+# Extend Chirpy post layout with AI selector
+layout: default
+---
+
+<link rel="stylesheet" href="{{ '/assets/css/ai-summary-selector.css' | relative_url }}">
+
+<div class="post">
+  <div class="post-content">
+    {% include post-nav.html %}
+
+    {{ content }}
+
+    {% include post-footer.html %}
+
+    {% include post-script.html %}
+  </div>
+</div>
+
+<script src="{{ '/assets/js/ai-summary-selector.js' | relative_url }}"></script>
