@@ -18,7 +18,10 @@ Focus on:
 3) Key control models (MMK, CMK, BYOK, BYOH)
 
 Be technical and suitable for security architects.">
-  <div class="ai-summary-section-icon">📍</div>
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
   <div class="ai-summary-section-content">
     <p><strong>Short on time?</strong> Summarize this article with</p>
     <div class="ai-summary-selector">
