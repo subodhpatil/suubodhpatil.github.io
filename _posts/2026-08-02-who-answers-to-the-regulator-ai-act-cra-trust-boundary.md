@@ -10,7 +10,14 @@ description: "Most EU AI Act provisions apply from August 2, 2026 — and the Cy
 
 <div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/who-answers-to-the-regulator-ai-act-cra-trust-boundary/
 
-Summarize the above article in 5 bullet points with key takeaways, and flag anything relevant to AI vendor risk, procurement, or governance decisions.">
+Summarize the above article in 5 bullet points focusing on:
+1) EU AI Act provisions effective August 2, 2026 - applicability and value-chain roles (GPAI provider, provider, deployer)
+2) Cyber Resilience Act (CRA) and 24-hour vulnerability reporting requirements from September 11, 2026
+3) How the cloud AI trust boundary (control plane vs data plane) maps onto EU AI Act compliance obligations
+4) Why hosting choice (on-premises vs cloud region) changes GDPR answers but not regulatory ones
+5) Practical implications for SaaS vendors, cloud platforms, and model providers navigating dual regulation
+
+Be practical for CISOs and compliance teams managing EU AI Act and CRA compliance.">
   <div class="ai-summary-section-icons">
     <span class="ai-summary-section-icon">📍</span>
     <span class="ai-summary-section-icon">📋</span>
@@ -239,6 +246,8 @@ The first post argued that the model is not the trust boundary — the platform 
 ---
 
 > 💡 **Pro Tip:** For each AI integration, write down three names: the *processor* for prompts and completions (the DPA tells you — the GDPR answer), the *GPAI model provider* (the AI Act answer — the same name on every platform), and the *provider of the AI system* your users actually touch (very possibly you). When the three names differ — and in cloud AI they usually do — each owes different duties to a different authority on a different clock. A vendor-risk review that records only the first name is one-third complete.
+
+{% include ai-selector-init.html %}
 
 ---
 
