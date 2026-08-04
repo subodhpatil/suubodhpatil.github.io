@@ -38,7 +38,7 @@ Be practical and geared toward SaaS product teams and compliance officers buildi
   </div>
 </div>
 
-> **Written for:** SaaS vendors, cloud architects, and compliance leads building analytics products on Power BI or Microsoft Fabric for regulated markets.
+> **Written for:** SaaS vendors, cloud architects, and compliance leads implementing data residency controls on Power BI and Microsoft Fabric.
 
 ---
 

@@ -38,6 +38,8 @@ Be technical and suitable for security architects.">
   </div>
 </div>
 
+> **Written for:** CISOs, compliance leads, and security architects establishing data protection strategy and evaluating cloud encryption controls for regulated environments.
+
 > **Series:** **Part 1** · [Part 2: Inside Azure — How Encryption at Rest Works →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/) · [Part 3: Advanced Key Management →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/)
 
 ---

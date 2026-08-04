@@ -38,6 +38,8 @@ Be technical and actionable for security architects and cloud platform teams.">
   </div>
 </div>
 
+> **Written for:** SaaS platform teams, cloud architects, and platform engineers implementing customer-managed encryption on Azure.
+
 > **Series:** [← Part 1: Building the Foundation](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/) · **Part 2** · [Part 3: Advanced Key Management →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/)
 
 ---

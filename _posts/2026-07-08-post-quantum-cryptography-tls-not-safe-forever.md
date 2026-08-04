@@ -38,7 +38,7 @@ Be practical for security architects and CISOs planning quantum-safe cryptograph
   </div>
 </div>
 
-> **Written for:** Security architects, CISOs, compliance leads, and engineers responsible for TLS infrastructure or systems handling long-lived sensitive data — anyone who needs to understand the quantum threat timeline and what to do about it now.
+> **Written for:** Security architects, CISOs, and engineers responsible for TLS infrastructure and cryptographic migration planning.
 
 > **Also worth reading:** [How HTTPS Actually Works](/posts/how-https-actually-works/) · [From SSL 2.0 to TLS 1.3](/posts/ssl-to-tls-evolution-of-secure-communication/) · Why TLS Private Keys Must Never Live on Your Web Server
 

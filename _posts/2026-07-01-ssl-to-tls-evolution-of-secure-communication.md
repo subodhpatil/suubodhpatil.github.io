@@ -38,20 +38,9 @@ Be practical for security engineers and compliance teams managing TLS configurat
   </div>
 </div>
 
-> **Written for:** Security engineers, architects, and compliance leads who work with TLS configurations — and anyone who needs to explain why TLS version numbers alone don't tell the full security story.
+> **Written for:** Security engineers, architects, and compliance leads responsible for TLS configuration and protocol governance.
 
 > **Also worth reading:** [How HTTPS Actually Works](/posts/how-https-actually-works/) · Post-Quantum Cryptography and TLS · Why TLS Private Keys Must Never Live on Your Web Server
-
----
-
-## Executive Summary
-
-- Every major TLS version exists because the previous one was broken. SSL 3.0 had POODLE, TLS 1.0 had BEAST, and TLS 1.2 shipped with over 300 cipher suites — many of them dangerously weak. The protocol history is a direct record of exploited vulnerabilities.
-- **Cipher suite configuration matters more than TLS version alone.** A server running TLS 1.2 with RSA key exchange and 3DES enabled is a compliance finding regardless of version. PCI DSS 4.0 requires an inventory of all cipher suites in use — not just a protocol version check.
-- **Heartbleed (2014)** was not a protocol flaw — it was an OpenSSL memory safety bug that could expose private keys, session tokens, and passwords from server memory. It was a patch management and dependency governance failure as much as a cryptographic one.
-- TLS 1.2 is still deployed on 100% of major websites as of mid-2026, maintained for backward compatibility. It is compliant under PCI DSS 4.0 with strong cipher suites — but requires active, ongoing cipher management to stay that way.
-- **TLS 1.3 is a redesign, not an upgrade.** It removed RSA key exchange, CBC modes, export ciphers, RC4, 3DES, and TLS renegotiation entirely. The secure configuration is the only configuration — there are only five cipher suites, all of them strong.
-- Compliance frameworks (PCI DSS, NIST SP 800-52, ISO 27001) require specific disabled protocols and approved cipher suites — not just a TLS version number. Most audit findings are in cipher suites, not protocol versions.
 
 ---
 

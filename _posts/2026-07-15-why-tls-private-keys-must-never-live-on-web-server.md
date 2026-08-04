@@ -39,7 +39,7 @@ Be practical for infrastructure engineers and CISOs responsible for TLS security
   </div>
 </div>
 
-> **Written for:** Security architects, infrastructure engineers, and compliance leads responsible for TLS configuration in production environments — particularly those subject to PCI DSS, ISO 27001, RBI, MAS, or financial services regulations.
+> **Written for:** Security architects, infrastructure engineers, and compliance leads responsible for TLS key management and certificate infrastructure.
 
 > **Also worth reading:** [How HTTPS Actually Works](https://blog.suubodhpatil.com/posts/how-https-actually-works/) · [From SSL 2.0 to TLS 1.3](https://blog.suubodhpatil.com/posts/ssl-to-tls-evolution-of-secure-communication/) · [Post-Quantum Cryptography: Why Even TLS 1.3 Isn't Safe Forever](https://blog.suubodhpatil.com/posts/post-quantum-cryptography-tls-not-safe-forever/)
 

@@ -37,6 +37,8 @@ Be practical for CISOs, compliance teams, and platform leaders evaluating Claude
   </div>
 </div>
 
+> **Written for:** CISOs, cloud architects, and SaaS vendors evaluating Claude versus Azure OpenAI for production deployments.
+
 > **Also worth reading:** This post is a companion update to [Who Processes the Data? Trust, Responsibility, and AI Inference Beyond the Cloud](/posts/who-processes-the-data-ai-trust-boundary/) — read that one first for the full control-plane/data-plane framework this post builds on.
 
 ---

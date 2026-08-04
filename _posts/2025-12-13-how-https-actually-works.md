@@ -38,6 +38,8 @@ Be technical and practical for engineers responsible for application security.">
   </div>
 </div>
 
+> **Written for:** Application and infrastructure engineers responsible for TLS and certificate management, and security architects governing HTTPS configurations.
+
 > **Also worth reading:** From SSL 2.0 to TLS 1.3 · Post-Quantum Cryptography and TLS · Why TLS Private Keys Must Never Live on Your Web Server
 
 ---

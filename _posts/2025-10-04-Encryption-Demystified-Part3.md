@@ -37,6 +37,8 @@ Be technical and geared toward architects designing encryption and key managemen
   </div>
 </div>
 
+> **Written for:** Enterprise architects and SaaS vendors designing encryption governance and key management strategies at scale.
+
 > **Series:** [← Part 1: Building the Foundation](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/) · [← Part 2: Inside Azure — How Encryption at Rest Works](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/) · **Part 3**
 
 ---
