@@ -5,7 +5,7 @@ last_modified_at: 2026-08-02 12:00:00 +0200
 categories: [CloudSecurity, AISecurity]
 tags: [ai, azure, eu-ai-act, cyber-resilience-act, gpai, trust-boundary, governance, compliance, iso-42001, data-protection]
 mermaid: true
-description: "Most EU AI Act provisions apply from August 2, 2026 — and the Cyber Resilience Act's 24-hour vulnerability reporting follows on September 11. This post maps AI Act value-chain roles (GPAI provider, provider, deployer) onto the cloud AI trust-boundary patterns from earlier in this series, and shows why hosting choice changes your GDPR answer but not your regulatory one."
+description: "Most EU AI Act provisions apply from August 2, 2026 — and the Cyber Resilience Act's 24-hour vulnerability reporting follows on September 11. This post maps AI Act value-chain roles (General-Purpose AI (GPAI) provider, provider, deployer) onto the cloud AI trust-boundary patterns from earlier in this series, and shows why hosting choice changes your GDPR answer but not your regulatory one."
 ---
 
 <div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/who-answers-to-the-regulator-ai-act-cra-trust-boundary/
@@ -62,7 +62,7 @@ The AI Act distributes obligations across a value chain of defined roles. Four o
 
 - A **provider** develops an AI system (or has one developed) and places it on the market **under its own name or trademark**. Providers carry the heaviest obligations.
 - A **deployer** uses an AI system under its own authority in a professional context. Deployers have lighter duties — oversight, transparency, and (for high-risk systems, from December 2027) usage controls.
-- A **GPAI model provider** develops a general-purpose AI model — Claude, GPT, Gemini — and places it on the market. Article 53 sets their obligations: technical documentation, information for downstream providers, a copyright policy, and a training-data summary. Models with systemic risk carry additional Article 55 duties.
+- A **GPAI (General-Purpose AI) provider** develops a general-purpose AI model — Claude, GPT, Gemini — and places it on the market. Article 53 sets their obligations: technical documentation, information for downstream providers, a copyright policy, and a training-data summary. Models with systemic risk carry additional Article 55 duties.
 - A **downstream provider** integrates a GPAI model into its own AI system and places *that* on the market. This is most SaaS vendors reading this post.
 
 > **The GDPR reflex to unlearn:** GDPR roles follow the data — whoever processes personal data is a processor, wherever they sit. AI Act roles follow the *product* — whoever puts their name on the marketed system is the provider, wherever inference runs. Different inputs, different role maps.
