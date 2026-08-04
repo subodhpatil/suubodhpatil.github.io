@@ -185,12 +185,13 @@ flowchart LR
         PROD --> BE
     end
     INF["Third-party inference layer
-    functional dependency only —
-    outside manufacturer's CRA perimeter
-    unless designed or commissioned by you"]
+    functional dependency only,
+    outside manufacturer's
+    CRA perimeter unless
+    designed or commissioned
+    by you"]
     BE -.-> INF
-    PERIM ==>|"YOUR 24h / 72h
-    reporting duty"| REG["CSIRT / ENISA"]
+    PERIM ==>|"your 24h / 72h reporting duty"| REG["CSIRT / ENISA"]
 ```
 
 Be precise about who the law binds: **the CRA's reporting obligation falls on you as the manufacturer.** Your 24-hour clock starts when you become *aware* of an actively exploited vulnerability — and for the inference layer, awareness depends on upstream notification for which **the CRA imposes no statutory duty on upstream vendors; only contract terms can create that duty.** This mirrors the GDPR 72-hour breach chain from post one, with a tighter clock and a weaker statutory chain: negotiate the vulnerability-notification commitment explicitly, and subtract it from 24 hours — that's your real margin.
