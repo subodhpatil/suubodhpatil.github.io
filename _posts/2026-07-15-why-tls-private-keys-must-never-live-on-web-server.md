@@ -45,17 +45,6 @@ Be practical for infrastructure engineers and CISOs responsible for TLS security
 
 ---
 
-## Executive Summary
-
-- A TLS private key proves server identity and — in TLS 1.2 with RSA key exchange — directly enables decryption of every recorded session. Most organisations store it in a PEM file on disk, alongside the web server configuration.
-- A private key on disk is a private key at risk: VM compromise, backup extraction, git leaks, and CI/CD secret sprawl are all documented exfiltration vectors — and you may not know it happened.
-- Hardware Security Modules (HSMs) solve this by making keys non-exportable. The cryptographic signing operation happens inside the HSM; the private key never materialises outside it. HSMs reduce exfiltration risk significantly — they do not eliminate all attack surface.
-- In Azure, not all "secure" options are equal. Azure Application Gateway and Azure Front Door retrieve exportable keys from Key Vault and install them on compute at handshake time. Only NGINX or F5 BIG-IP integrated with Azure Managed HSM via PKCS#11 keeps the private key truly non-exportable during the handshake.
-- IIS cannot use Azure Managed HSM. Windows Schannel does not support PKCS#11. If your backend is IIS, the HSM-integrated TLS terminator (NGINX or F5) sits in front of it, forwarding already-decrypted traffic.
-- The quantum threat amplifies private key risk: a key exfiltrated from disk today could enable retroactive decryption of TLS 1.2 RSA sessions if quantum computing capability materialises. An HSM-bound non-exportable key eliminates this exfiltration vector.
-
----
-
 ## Introduction
 
 Most TLS security discussions focus on certificates: is it from a trusted CA? Has it expired? Does the domain match? The certificate is public — it is sent to every browser that connects. By design, anyone can see it.

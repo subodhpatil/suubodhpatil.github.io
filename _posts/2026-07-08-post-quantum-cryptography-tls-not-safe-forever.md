@@ -44,17 +44,6 @@ Be practical for security architects and CISOs planning quantum-safe cryptograph
 
 ---
 
-## Executive Summary
-
-- TLS 1.3 uses ECDH for key exchange — an algorithm a quantum computer running Shor's algorithm can break. Every TLS session recorded today is vulnerable to future quantum decryption.
-- **Harvest Now, Decrypt Later (HNDL)** is active today: adversaries are collecting and archiving encrypted traffic now to decrypt retroactively once quantum computing capability arrives. Organisations with data confidentiality requirements extending past 2030 are already in the threat window.
-- NIST finalised three post-quantum standards in August 2024: **ML-KEM** (FIPS 203) for key exchange, **ML-DSA** (FIPS 204) for digital signatures, and **SLH-DSA** (FIPS 205) as a hash-based signature alternative.
-- **Hybrid TLS (X25519MLKEM768)** is already in production — Chrome, Firefox, Cloudflare, AWS, and Windows Schannel all support it. Key exchange is quantum-resistant today on these platforms; certificate authentication remains classical.
-- The credible window for a cryptographically relevant quantum computer is **2029–2032**. NSA mandates CNSA 2.0 compliance for new national security system acquisitions from January 2027. Enterprise cryptographic migrations take 3–5 years — planning must begin now.
-- Post-quantum migration assumes trustworthy private keys. A TLS private key that may have been exfiltrated years ago undermines the entire quantum-safe posture — making HSM-bound, non-exportable key storage a foundational requirement for any quantum-safe architecture.
-
----
-
 ## Introduction
 
 TLS 1.3 is the strongest version of the web's encryption protocol. Mandatory forward secrecy, no legacy cipher suites, a streamlined handshake built from scratch — it represents the best that classical cryptography has produced for securing internet communications. And it may not be enough.

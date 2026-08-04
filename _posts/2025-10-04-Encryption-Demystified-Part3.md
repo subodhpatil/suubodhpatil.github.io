@@ -41,16 +41,6 @@ Be technical and geared toward architects designing encryption and key managemen
 
 ---
 
-## Executive Summary
-
-- Bring Your Own HSM (BYOH) offers maximum control — keys never enter Microsoft's infrastructure — but at high operational complexity and cost. Adopt it only when your target market explicitly requires it.
-- Neutral escrow models introduce a third-party key custodian for separation of duties, enabling independent audit trails — but add vendor dependency and coordination overhead across three parties.
-- A practical decision framework: CMK is the enterprise baseline; BYOK for regulated industries requiring key chain-of-custody; BYOH and escrow only under specific contractual or regulatory mandate.
-- Governance at scale — RBAC, managed identities, automated rotation, anomaly alerting, and customer-facing audit logs — is as important as the cryptographic model itself.
-- The encryption frontier is expanding: Confidential Computing (data in use), Post-Quantum Cryptography (NIST standards finalized 2024), and multi-cloud key management are the next decisions SaaS vendors need to plan for.
-
----
-
 ## Introduction
 
 [Part 1](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/) established the foundations of encryption and the regulatory landscape. [Part 2](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/) covered Azure's key management models — MMK, CMK, and BYOK. This post addresses the advanced end of the spectrum: Bring Your Own HSM (BYOH), neutral escrow models, and the governance frameworks SaaS providers need to manage encryption at scale across thousands of tenants. It closes with a practical decision framework for selecting the right model.

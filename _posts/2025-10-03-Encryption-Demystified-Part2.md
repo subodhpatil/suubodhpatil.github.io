@@ -42,16 +42,6 @@ Be technical and actionable for security architects and cloud platform teams.">
 
 ---
 
-## Executive Summary
-
-- Azure encrypts all data at rest using AES-256 by default with Microsoft-Managed Keys (MMK) — zero operational overhead, but Microsoft holds the keys to your data.
-- Customer-Managed Keys (CMK) shift key ownership to the customer: Azure services reference a key in Azure Key Vault rather than storing raw key material, meaning revoking the key instantly renders all associated data inaccessible.
-- Key protection level matters for compliance — software-protected keys vs. HSM-protected keys (FIPS 140-2 Level 3) have different implications under PCI DSS, CJIS, and financial services frameworks. Choose explicitly.
-- Bring Your Own Key (BYOK) extends CMK by generating key material outside Azure, providing a provable chain of custody required by stricter regulated industries.
-- For SaaS providers, CMK and BYOK are not just compliance controls — they are platform features that expand addressable market into regulated enterprise buyers.
-
----
-
 ## Introduction
 
 [Part 1](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/) established *why* encryption at rest matters and *what* the regulatory landscape demands. This post goes inside Azure's implementation: how default encryption works, how Customer-Managed Keys (CMK) and Bring Your Own Key (BYOK) extend that baseline, and what SaaS providers need to understand to turn key management into a trust and compliance differentiator.

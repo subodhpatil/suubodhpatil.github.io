@@ -42,16 +42,6 @@ Be practical and geared toward SaaS product teams and compliance officers buildi
 
 ---
 
-## Executive Summary
-
-- Without Multi-Geo, Power BI and Microsoft Fabric store all workspace data in the tenant's home region — regardless of where compute capacity is provisioned — creating a compliance gap for SaaS vendors with data residency obligations.
-- Multi-Geo moves workspace data and most workspace metadata to a satellite Azure region, enabling SaaS vendors to make defensible "data stays in your region" commitments for customers under GDPR, DPDP, PIPL, LGPD, and other data localization frameworks.
-- Enabling Multi-Geo requires a tenant-level licensing prerequisite: at least **5% of eligible users** must hold a Multi-Geo add-on license before Microsoft enables the capability at the tenant level — it is not simply a capacity configuration choice.
-- Tenant-level administrative metadata always remains in the home region regardless of Multi-Geo configuration — compliance commitments must be scoped accordingly.
-- For SaaS vendors where even residual home-region metadata is unacceptable, a **multi-tenant architecture** — with separate Microsoft tenants provisioned per target region — provides complete data sovereignty, at significantly higher operational complexity and cost.
-
----
-
 ## Introduction
 
 For SaaS vendors, data residency is no longer just a technical detail — it's a contractual and regulatory obligation. Customers expect their data to be stored and processed only in the region they select, driven by a growing body of data localization laws and cross-border transfer restrictions:

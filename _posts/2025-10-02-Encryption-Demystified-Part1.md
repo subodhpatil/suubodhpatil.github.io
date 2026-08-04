@@ -42,16 +42,6 @@ Be technical and suitable for security architects.">
 
 ---
 
-## Executive Summary
-
-- Encryption protects data across three states — at rest, in transit, and in use. This series focuses on data-at-rest encryption and key management: who holds the keys to your data, and what that means for compliance and trust.
-- In cloud environments, the primary threats encryption addresses are logical — compromised credentials, insider access, and multi-tenant exposure — not physical media theft.
-- Regulatory frameworks including PCI DSS, HIPAA, GDPR, ISO 27001, and CJIS increasingly mandate **customer-controlled key management**, not just encryption by default.
-- Cloud providers offer a spectrum of key control models — from Microsoft-Managed Keys (MMK) to Bring Your Own HSM (BYOH). The right model depends on your compliance obligations and risk profile.
-- Selecting the wrong key management model at design time is costly to retrofit — mapping regulatory requirements to key control models is a first-principles architectural decision, not an afterthought.
-
----
-
 ## Introduction
 
 Encryption is one of the most foundational controls in cloud security — yet it is frequently misunderstood, underspecified, or treated as something the cloud provider "just handles." This post establishes the conceptual foundation: what encryption actually is, why data-at-rest encryption remains critical even in hyperscale cloud environments, and what the regulatory landscape demands of organizations storing sensitive data in the cloud.

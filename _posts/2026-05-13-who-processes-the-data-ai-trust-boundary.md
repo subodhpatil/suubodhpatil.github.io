@@ -43,16 +43,6 @@ Be practical for CISOs, privacy teams, and platform leaders evaluating AI vendor
 > 📌 **Update — July 2026:** On June 29, 2026, Claude reached **general availability** on Microsoft Foundry, adding a second hosting option — **Hosted on Azure** — alongside the original **Hosted on Anthropic Infrastructure** path (formerly "Foundry Preview") described below. Under Hosted on Azure, request ingress, API services, and GPU inference can now run inside Azure's infrastructure, with data at rest in your selected Azure geography and a new US Data Zone. That narrows the *infrastructure* gap this post describes — but not the *legal* one: Microsoft's own documentation confirms **"Anthropic remains the seller and operator of Claude models... and acts as an independent data processor for prompts and outputs"** under both hosting options. The dual-DPA reality below still holds; it now has two variants instead of one, and it still looks nothing like Azure OpenAI's single-processor model. Full breakdown, including Zero Data Retention governance for each case, in the companion post: [Microsoft Foundry Goes GA: Same Processor, Two Hosting Paths — and Why Claude Still Isn't Azure OpenAI](/posts/microsoft-foundry-ga-claude-vs-azure-openai/).
 {: .prompt-warning }
 
-## Executive Summary
-
-- Cloud AI platforms frequently split the **control plane** (API, auth, billing — owned by the cloud provider) from the **data plane** (inference — which may be owned by an entirely different company under a separate contract).
-- The same model accessed through different platforms carries different trust profiles: Claude on AWS Bedrock stays inside AWS, while Claude on Azure AI Foundry is processed on Anthropic's infrastructure outside Azure — under a separate Anthropic DPA.
-- Common Azure security controls — Customer Managed Keys, EU Data Boundary, sovereign cloud deployments — **do not extend** to Anthropic's inference layer.
-- Zero Data Retention (ZDR) reduces but does not eliminate Anthropic's data retention: User Safety classifier outputs are retained even under ZDR, and whether they constitute personal data under GDPR is an unresolved compliance question.
-- Trust boundary evaluation is a **governance process, not a one-time audit** — platform architectures change, sub-processor lists update, and the answers from six months ago may no longer be correct.
-
----
-
 ## Introduction
 
 In 2026, the cloud you authenticate with is no longer the cloud that processes your data.

@@ -41,17 +41,6 @@ Be practical for CISOs, compliance teams, and platform leaders evaluating Claude
 
 ---
 
-## Executive Summary
-
-- **The core premise from the original post still holds:** Claude is always processed by Anthropic, regardless of which Microsoft Foundry hosting option you choose — Azure hosting changes where compute runs, not who processes your data.
-- On June 29, 2026, Claude reached **general availability** on Microsoft Foundry with a new **Hosted on Azure** option — GPU inference, ingress, and API services now run inside Azure infrastructure, with a new US Data Zone for residency.
-- The new option narrows the *infrastructure* gap between Claude and natively-Azure models, but **not the legal one**: Microsoft's own documentation states Anthropic remains the seller and operator of Claude and **"acts as an independent data processor for prompts and outputs"** under both hosting options.
-- **Azure OpenAI is a fundamentally different category.** Microsoft classifies it as a "Model sold by Azure" — Microsoft is the sole processor, and OpenAI has contractually no access to your prompts or completions. Claude is a "Model from partners and community" — a Non-Microsoft Product — in both Foundry hosting modes.
-- **Zero Data Retention is governed by different companies for each model.** For Claude, ZDR is an Anthropic DPA addendum that must be separately confirmed for Foundry; for Azure OpenAI, the equivalent — "Modified Abuse Monitoring" — is a Microsoft-only approval process with no third-party sign-off.
-- The takeaway for the original post's evaluation checklist doesn't change: check who is named processor for prompts and completions, not just where the hardware sits.
-
----
-
 ## What Actually Changed on June 29, 2026
 
 On June 29, 2026, Claude reached **general availability** on Microsoft Foundry. What was previously called "Foundry Preview" — Anthropic-hosted, outside Azure — is now formally named **Hosted on Anthropic Infrastructure**, and it's joined by a new sibling: **Hosted on Azure**. Under Hosted on Azure, Azure infrastructure performs request ingress, API services, and GPU inference (Anthropic's announcement specifically calls out NVIDIA GB300 GPUs), with data at rest kept in your selected Azure geography, including a new **US Data Zone** for residency-sensitive workloads. Supported regions at GA are **East US2** and **Sweden Central**.

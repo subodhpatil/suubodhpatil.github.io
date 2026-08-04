@@ -42,16 +42,6 @@ Be technical and practical for engineers responsible for application security.">
 
 ---
 
-## Executive Summary
-
-- HTTPS combines three guarantees: confidentiality (data cannot be read in transit), integrity (data cannot be altered without detection), and authentication (you are communicating with the server you believe you are). Encryption without authentication is not HTTPS — it is encryption to an unknown party.
-- The session key is **never transmitted** — both sides independently derive the same secret through Diffie-Hellman key exchange, providing forward secrecy when ephemeral keys are used.
-- TLS 1.3 mandates forward secrecy and eliminates RSA key exchange — previously recorded sessions remain protected even if the server's long-term private key is later compromised.
-- HTTPS does not hide the destination domain (visible via SNI in the ClientHello) or the destination IP address — systems with strict domain confidentiality requirements need controls beyond HTTPS.
-- Compliance frameworks do not just ask "is HTTPS enabled?" — auditors check TLS versions, cipher suites, certificate chain validity, and explicit disablement of weak protocols.
-
----
-
 ## Introduction
 
 The padlock icon in your browser is one of the most trusted symbols in computing — and one of the least understood. Before TLS, HTTP transmitted everything in plaintext: every request, every cookie, every password visible to anyone on the same network. In 2010, a Firefox extension called **Firesheep** made session hijacking a single click — no technical skill required. Hundreds of thousands of downloads in 24 hours forced major sites to move to HTTPS-by-default within months.
