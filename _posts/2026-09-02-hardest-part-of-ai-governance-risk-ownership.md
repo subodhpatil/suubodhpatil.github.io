@@ -223,7 +223,7 @@ Organizations that get this right don't necessarily have better AI policies or s
 
 ---
 
-> 💡 **Pro Tip:** Add one field to your AI intake or review template: *"Residual risk accepted by: ______ (name, role, date)."* Not a committee, not a function — a name. If nobody will put their name in that field, the governance process hasn't failed; it has succeeded early, by surfacing in week one the problem that would otherwise surface in month six.
+> 💡 **Pro Tip:** Add one field to your AI review form: *"Residual risk accepted by: ______ (name, role, date)."* It must be a person — not a committee, not a department. If nobody is willing to sign it, you have just learned something important: the risk has no owner. Better to find that out before go-live than after an incident.
 
 {% include ai-selector-init.html %}
 
