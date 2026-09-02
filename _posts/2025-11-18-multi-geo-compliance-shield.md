@@ -34,7 +34,7 @@ Be practical and geared toward SaaS product teams and compliance officers buildi
         <option value="copilot">⚡ Copilot</option>
       </select>
     </div>
-    <p class="ai-summary-section-hint">(after ai window opens paste the auto copied prompt manually)</p>
+    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
   </div>
 </div>
 

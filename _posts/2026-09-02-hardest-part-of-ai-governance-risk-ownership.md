@@ -2,7 +2,7 @@
 title: "The Hardest Part of AI Governance Isn't AI. It's Risk Ownership"
 date: 2026-09-02 12:00:00 +0200
 last_modified_at: 2026-09-02 12:00:00 +0200
-categories: [AISecurity, Governance]
+categories: [CloudSecurity, AISecurity]
 tags: [ai, governance, risk-ownership, accountability, risk-management, security-leadership, ciso, decision-making]
 mermaid: true
 description: "Most organizations treat AI governance as a technology problem — hallucinations, prompt injection, model security. But the discussions that actually stall are rarely about technology. They stall because nobody has answered a simpler question: who owns and accepts the risk when AI enters a business process? Lessons from enterprise AI governance discussions across industries."
@@ -34,7 +34,7 @@ Be practical for CISOs, security leaders, enterprise architects, and risk practi
         <option value="copilot">⚡ Copilot</option>
       </select>
     </div>
-    <p class="ai-summary-section-hint">(after ai window opens paste the auto copied prompt manually)</p>
+    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
   </div>
 </div>
 
