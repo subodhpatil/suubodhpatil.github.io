@@ -46,15 +46,13 @@ Be practical for CISOs, security leaders, enterprise architects, and risk practi
 
 ## Introduction
 
-Sit through enough enterprise AI governance discussions and a pattern emerges. The meeting starts with technology: hallucinations, model security, prompt injection, data privacy, the latest regulation. Slides are presented. Controls are debated. Everyone is engaged, because these are interesting problems with a growing body of good answers.
+A team wants to add an AI assistant to one of their business processes. A review meeting is called. Twelve people join — security, legal, engineering, compliance, the business sponsor. For an hour, they discuss hallucinations, prompt injection, data privacy, and the latest regulation. The slides are good. The questions are smart. Everyone agrees the topic is important.
 
-Then the meeting ends, and nothing gets decided.
+Then the meeting ends. Nothing is decided. A follow-up is scheduled.
 
-Not because the technical questions were hard — most of them have workable answers today. The meeting ends without a decision because a different question was never asked: **if this AI capability is approved and something goes wrong, who owns the outcome?**
+Three meetings later, the initiative is still "under review." Not because the technical questions were hard — most of them have workable answers today. It is stuck because one question was never asked: **if this AI capability goes live and something goes wrong, who owns the outcome?**
 
 Most organizations treat AI governance as a technology problem. In practice, the hardest part of AI governance isn't the AI. It's determining who owns and accepts risk when AI is introduced into a business process. The technology debates are often a comfortable place to hide from that harder, organizational question.
-
-This post is a distillation of lessons from many such discussions across industries. No company names, no specific incidents — the pattern is generic enough that it doesn't need them. If you have been in these rooms, you will recognize it.
 
 ---
 
