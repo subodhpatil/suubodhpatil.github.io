@@ -1,0 +1,90 @@
+---
+layout: default
+refactor: true
+---
+
+<div id="main-pt-wrapper" class="pt-0">
+  <div id="main-wrapper">
+    <div class="row row-cols-1 row-cols-lg-2 g-4 mb-5">
+      <!-- Main Content Area -->
+      <div id="post-list" class="flex-grow-1">
+        <!-- Credentials Section -->
+        <div class="credentials-section mb-4 p-4 border rounded-3" style="background-color: var(--card-bg); border-color: var(--card-border) !important;">
+          <h5 class="mb-3">Professional Credentials</h5>
+          <div class="credentials-badges d-flex gap-3 flex-wrap">
+            <!-- AAIR Badge -->
+            <a href="https://www.credly.com/badges/ab526718-0dc2-4955-8df1-926729ed2744/linked_in_profile"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="credential-badge"
+               title="Artificial Intelligence & Automation Readiness (AAIR)">
+              <img src="/assets/img/logo_aair.png" alt="AAIR Badge" class="img-fluid" style="max-width: 80px; height: auto;">
+            </a>
+
+            <!-- CISSP Badge -->
+            <a href="https://www.credly.com/badges/d85ea151-f777-42f3-bfa8-e00b4d0f221a/linked_in_profile"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="credential-badge"
+               title="Certified Information Systems Security Professional (CISSP)">
+              <img src="/assets/img/logo_cissp.png" alt="CISSP Badge" class="img-fluid" style="max-width: 80px; height: auto;">
+            </a>
+
+            <!-- Microsoft AI Transformation Leader Badge -->
+            <a href="https://learn.microsoft.com/en-us/users/subodhpatil/credentials/74ee6d07957372fa"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="credential-badge"
+               title="Microsoft Certified: AI Transformation Leader">
+              <img src="/assets/img/logo_ai-transformation-leader.svg" alt="Microsoft AI Transformation Leader Badge" class="img-fluid" style="max-width: 80px; height: auto;">
+            </a>
+          </div>
+        </div>
+
+        <!-- Posts List -->
+        {% include post-list.html %}
+      </div>
+
+      <!-- Sidebar -->
+      {% include sidebar.html %}
+    </div>
+  </div>
+
+  <!-- Tail -->
+  <div id="tail-wrapper" class="d-lg-flex justify-content-between">
+    <div class="flex-grow-1">
+      {% include related-posts.html %}
+    </div>
+    {% include trending-tags.html %}
+  </div>
+</div>
+
+<style>
+  .credentials-section {
+    margin-top: 1rem;
+  }
+
+  .credentials-badges {
+    justify-content: center;
+  }
+
+  .credential-badge {
+    transition: transform 0.2s ease, filter 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .credential-badge:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+  }
+
+  .credential-badge img {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .credential-badge:hover img {
+    filter: brightness(1.1);
+  }
+</style>
