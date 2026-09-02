@@ -82,6 +82,8 @@ The second pattern worth internalizing: AI systems rarely introduce entirely new
 - **Compliance risk.** Regulatory obligations attached to a business process do not relax because a model now performs part of it.
 - **Operational dependency risk.** A workflow that quietly becomes unable to function without an external inference service has a new single point of failure — the same concentration-risk problem enterprises have managed for decades.
 
+There are genuine exceptions — synthetic-media authenticity, autonomous-agent escalation, and model-extraction attacks are closer to new categories than amplifications — but they account for a small fraction of the risk discussions enterprises actually have.
+
 This framing matters for a specific reason: **the introduction of AI often exposes ownership gaps that already existed.** If nobody could tell you who owned the risk of over-broad data access *before* the AI assistant arrived, the AI didn't create that gap — it made the gap impossible to ignore. Organizations frequently experience this as "AI risk" when it is really *deferred ownership debt* coming due.
 
 That is also why buying an "AI risk" tool or writing an "AI policy" so often disappoints. The gap being exposed is not a missing control. It is a missing name.
@@ -127,6 +129,9 @@ flowchart TD
     not our process'"]
     GAP(["❓ Residual risk
     — accepted by no one —"])
+    OWNER["Capability / Business
+    Process Owner
+    ⚠️ role never assigned"]
 
     BIZ -.-> GAP
     SEC -.-> GAP
@@ -134,9 +139,13 @@ flowchart TD
     PROC -.-> GAP
     ENG -.-> GAP
     COMP -.-> GAP
+    OWNER -. "the missing
+    solid line" .-> GAP
+
+    style OWNER stroke-dasharray: 5 5
 ```
 
-The dotted lines are the diagram's point: every function is adjacent to the risk, and none of them is connected to it by a solid line of ownership. This is not a failure of diligence — everyone did their job well. It is a failure of *design*. The process defined six advisory roles and zero deciding ones.
+The dotted lines are the diagram's point: every function is adjacent to the risk, and none of them is connected to it by a solid line of ownership. The missing role has a name — call it the **capability owner** or **business process owner** — and the process never assigned it. This is not a failure of diligence — everyone did their job well. It is a failure of *design*. The process defined six advisory roles and zero deciding ones.
 
 ---
 
@@ -171,9 +180,11 @@ Strong governance ensures unambiguous answers to five questions for every AI cap
 | **Who monitors?** | Operations / risk | Watches whether assumptions made at approval time stay true in production |
 | **Who accepts residual risk?** | Business owner | The name written next to the risk that remains after all controls — the answer that unblocks everything else |
 
+A note on the first and last rows: the decision owner and the risk acceptor are often the *same person* — a business leader who both approves the capability and carries its residual risk — and that is a perfectly sound design. The framework separates the questions, not necessarily the people. What it does not tolerate is either question going unanswered. Similarly, a capability that spans multiple business processes may decompose into multiple residual risks — but each decomposed risk still gets a single name, not a committee. Decompose the risk; never dilute the ownership.
+
 Two observations from applying this in practice.
 
-First, the last row is the one organizations most consistently leave blank — and it is the one that makes the other four meaningful. A decision without risk acceptance is a decision nobody has to stand behind.
+First, the last row is the one organizations most consistently leave blank — and it is the one that makes the other four meaningful. A decision without risk acceptance is a decision nobody has to stand behind. And acceptance is not a one-time signature: models drift, usage expands, and assumptions made at approval time quietly stop being true — the monitor's job is to detect that, and the owner's job is to *re-accept* the risk when it changes.
 
 Second, note what the framework does *not* mention: hallucination rates, model choice, prompt injection defenses. Those matters get resolved *inside* this structure — by the advisors, for the decider. Without the structure, the same technical topics get debated in circles, because a debate with no decider has no way to end.
 
@@ -232,4 +243,4 @@ Organizations that get this right don't necessarily have better AI policies or s
 
 ## Disclaimer
 
-This content reflects general lessons from enterprise AI governance discussions across industries, deliberately kept generic and non-attributable. No specific company, customer, vendor, product, program, or incident is referenced or implied. It is not legal, compliance, or risk advice — organizational structures and regulatory obligations vary, and readers should adapt these principles to their own context. This post does not represent the position of any vendor, regulator, or employer.
+This content reflects general lessons from enterprise AI governance discussions across industries, deliberately kept generic and non-attributable. No specific company, customer, vendor, product, program, or incident is referenced or implied. It is not legal, compliance, or risk advice — organizational structures and regulatory obligations vary, and readers should adapt these principles to their own context. In particular, heavily regulated sectors may legally require multi-party or board-level risk signoff, and internal-only experimentation may warrant lighter-weight ownership models than described here. This post does not represent the position of any vendor, regulator, or employer.
