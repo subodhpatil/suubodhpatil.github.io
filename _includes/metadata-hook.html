@@ -64,7 +64,23 @@
       "publisher": {
         "@id": "https://blog.suubodhpatil.com/#subodhpatil"
       }
-    }
+    }{% if page.layout == 'post' %},
+    {
+      "@type": "BlogPosting",
+      "@id": "{{ page.url | absolute_url }}#article",
+      "headline": {{ page.title | jsonify }},
+      "description": {{ page.description | default: page.excerpt | strip_html | strip_newlines | truncate: 200 | jsonify }},
+      "datePublished": "{{ page.date | date_to_xmlschema }}",
+      "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+      "mainEntityOfPage": "{{ page.url | absolute_url }}",
+      "url": "{{ page.url | absolute_url }}",
+      "author": {
+        "@id": "https://blog.suubodhpatil.com/#subodhpatil"
+      },
+      "publisher": {
+        "@id": "https://blog.suubodhpatil.com/#subodhpatil"
+      }
+    }{% endif %}
   ]
 }
 </script>
