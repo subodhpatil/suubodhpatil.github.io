@@ -24,50 +24,33 @@ faq:
 ---
 
 <style>
-.post-intro-toggle {
-  display: none;
-}
-.post-intro-container {
+details.post-intro-details {
   margin-bottom: 1.5rem;
 }
-.post-intro-toggle-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+details.post-intro-details > summary {
   font-weight: 600;
   color: var(--text-color);
   cursor: pointer;
   user-select: none;
   padding: 0.5rem 0;
-  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   transition: opacity 0.2s;
 }
-.post-intro-toggle-label:hover {
+details.post-intro-details > summary:hover {
   opacity: 0.8;
 }
-.post-intro-toggle-label::before {
-  content: "▶";
-  display: inline-block;
-  transition: transform 0.3s ease;
-  font-size: 0.9em;
+details.post-intro-details > summary::marker {
+  content: "▶ ";
 }
-.post-intro-toggle:checked + .post-intro-toggle-label::before {
-  transform: rotate(90deg);
-}
-.post-intro-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-.post-intro-toggle:checked ~ .post-intro-content {
-  max-height: 2000px;
+details.post-intro-details[open] > summary::marker {
+  content: "▼ ";
 }
 </style>
 
-<input type="checkbox" id="post-intro-toggle" class="post-intro-toggle">
-<label for="post-intro-toggle" class="post-intro-toggle-label">Show intro context (summary, audience, related posts)</label>
-
-<div class="post-intro-content">
+<details class="post-intro-details">
+<summary>Show intro context (summary, audience, related posts)</summary>
 
 <div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/from-zero-trust-to-agent-trust/
 
@@ -106,7 +89,7 @@ Write it for a business decision maker or investor with no security background, 
 
 > **Also worth reading:** This post builds on [The Hardest Part of AI Governance Isn't AI. It's Risk Ownership](/posts/hardest-part-of-ai-governance-risk-ownership/) — which argued that every AI capability needs a named risk owner — and on the trust-boundary series, [Who Processes the Data?](/posts/who-processes-the-data-ai-trust-boundary/) and [Who Answers to the Regulator?](/posts/who-answers-to-the-regulator-ai-act-cra-trust-boundary/). Those posts asked who is accountable *for* the AI. This one asks what happens when the AI starts acting *on its own*.
 
-</div>
+</details>
 
 ---
 
