@@ -82,12 +82,19 @@ Write it for a business decision maker or investor with no security background, 
   </div>
 </div>
 
-> **In short:** For twenty years enterprise security protected three things — people, applications and infrastructure — and every control quietly assumed a human was ultimately behind each action. Autonomous AI agents remove that assumption: given a goal, they choose which systems to touch and act at machine speed without anyone approving each step. Zero Trust's core idea, *never trust, always verify*, still holds; what breaks are the assumptions underneath it. **Agent Trust** means treating every agent like a digital employee: a registered identity with a named owner, limits scoped to its purpose, supervision that lives outside the agent, and an off switch that works. The question for any business decision maker or investor is simple: *can this company list every agent operating in its business, what each is allowed to touch, who owns it, and how it is stopped?* If the answer takes more than a week, that is the finding.
-{: .prompt-info }
+<div class="prompt-info">
+  <blockquote>
+    <p><strong>In short:</strong> For twenty years enterprise security protected three things — people, applications and infrastructure — and every control quietly assumed a human was ultimately behind each action. Autonomous AI agents remove that assumption: given a goal, they choose which systems to touch and act at machine speed without anyone approving each step. Zero Trust's core idea, <em>never trust, always verify</em>, still holds; what breaks are the assumptions underneath it. <strong>Agent Trust</strong> means treating every agent like a digital employee: a registered identity with a named owner, limits scoped to its purpose, supervision that lives outside the agent, and an off switch that works. The question for any business decision maker or investor is simple: <em>can this company list every agent operating in its business, what each is allowed to touch, who owns it, and how it is stopped?</em> If the answer takes more than a week, that is the finding.</p>
+  </blockquote>
+</div>
 
-> **Written for:** Business decision makers, executives and investors who sponsor or evaluate AI agent initiatives — and the CISOs and architects who have to explain the risk to them. No security background assumed.
+<blockquote>
+  <p><strong>Written for:</strong> Business decision makers, executives and investors who sponsor or evaluate AI agent initiatives — and the CISOs and architects who have to explain the risk to them. No security background assumed.</p>
+</blockquote>
 
-> **Also worth reading:** This post builds on [The Hardest Part of AI Governance Isn't AI. It's Risk Ownership](/posts/hardest-part-of-ai-governance-risk-ownership/) — which argued that every AI capability needs a named risk owner — and on the trust-boundary series, [Who Processes the Data?](/posts/who-processes-the-data-ai-trust-boundary/) and [Who Answers to the Regulator?](/posts/who-answers-to-the-regulator-ai-act-cra-trust-boundary/). Those posts asked who is accountable *for* the AI. This one asks what happens when the AI starts acting *on its own*.
+<blockquote>
+  <p><strong>Also worth reading:</strong> This post builds on <a href="/posts/hardest-part-of-ai-governance-risk-ownership/">The Hardest Part of AI Governance Isn't AI. It's Risk Ownership</a> — which argued that every AI capability needs a named risk owner — and on the trust-boundary series, <a href="/posts/who-processes-the-data-ai-trust-boundary/">Who Processes the Data?</a> and <a href="/posts/who-answers-to-the-regulator-ai-act-cra-trust-boundary/">Who Answers to the Regulator?</a> Those posts asked who is accountable <em>for</em> the AI. This one asks what happens when the AI starts acting <em>on its own</em>.</p>
+</blockquote>
 
 </details>
 
