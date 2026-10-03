@@ -39,18 +39,25 @@ details.post-intro-details > summary {
   transition: opacity 0.2s;
 }
 details.post-intro-details > summary:hover {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 details.post-intro-details > summary::marker {
-  content: "▶ ";
+  content: "";
 }
-details.post-intro-details[open] > summary::marker {
-  content: "▼ ";
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
 }
 </style>
 
 <details class="post-intro-details">
-<summary>Show intro context (summary, audience, related posts)</summary>
+<summary>Short on time? >></summary>
 
 <div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/from-zero-trust-to-agent-trust/
 
