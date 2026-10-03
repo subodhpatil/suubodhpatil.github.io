@@ -187,3 +187,28 @@ zero-trust:
   sameAs:
     - https://csrc.nist.gov/pubs/sp/800/207/final
     - https://en.wikipedia.org/wiki/Zero_trust_architecture
+
+ai-agents:
+  name: "Intelligent agent (AI agent)"
+  type: Thing
+  sameAs:
+    - https://en.wikipedia.org/wiki/Intelligent_agent
+
+agentic-ai:
+  name: "Agentic AI"
+  type: Thing
+  sameAs:
+    - https://en.wikipedia.org/wiki/Agentic_AI
+
+least-privilege:
+  name: "Principle of least privilege"
+  type: Thing
+  sameAs:
+    - https://en.wikipedia.org/wiki/Principle_of_least_privilege
+    - https://csrc.nist.gov/glossary/term/least_privilege
+
+identity:
+  name: "Identity and access management"
+  type: Thing
+  sameAs:
+    - https://en.wikipedia.org/wiki/Identity_management
