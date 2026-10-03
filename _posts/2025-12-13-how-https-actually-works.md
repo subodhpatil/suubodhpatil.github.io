@@ -44,6 +44,37 @@ details.post-intro-details[open] > summary::before {
 <details class="post-intro-details">
 <summary>Short on time? >></summary>
 
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/how-https-actually-works/
+
+Summarize the above article in 5 bullet points focusing on:
+1) The three guarantees of HTTPS - confidentiality, integrity, and authentication - and why all three matter
+2) How the TLS handshake works and how session keys are derived (Diffie-Hellman key exchange)
+3) Forward secrecy, ephemeral keys, and TLS 1.3 improvements
+4) What HTTPS does NOT protect - domain names (SNI), IP addresses, traffic patterns
+5) What compliance auditors check regarding HTTPS - TLS versions, cipher suites, certificate chain validity
+
+Be technical and practical for engineers responsible for application security.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
+  </div>
+</div>
+
+
 <blockquote>
 <p><strong>Written for:</strong> Application and infrastructure engineers responsible for TLS and certificate management, and security architects governing HTTPS configurations.</p>
 </blockquote>

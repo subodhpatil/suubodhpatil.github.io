@@ -44,6 +44,37 @@ details.post-intro-details[open] > summary::before {
 <details class="post-intro-details">
 <summary>Short on time? >></summary>
 
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/
+
+Summarize the above article in 5 bullet points focusing on:
+1) How Azure's default encryption (MMK) works and its limitations
+2) Customer-Managed Keys (CMK) architecture and the role of Azure Key Vault
+3) Bring Your Own Key (BYOK) and chain of custody implications
+4) Key protection levels (software vs HSM) and compliance requirements
+5) Business implications for SaaS providers leveraging key management as a differentiator
+
+Be technical and actionable for security architects and cloud platform teams.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
+  </div>
+</div>
+
+
 <blockquote>
 <p><strong>Written for:</strong> SaaS platform teams, cloud architects, and platform engineers implementing customer-managed encryption on Azure.</p>
 </blockquote>

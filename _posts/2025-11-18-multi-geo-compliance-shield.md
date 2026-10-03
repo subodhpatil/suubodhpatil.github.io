@@ -44,6 +44,37 @@ details.post-intro-details[open] > summary::before {
 <details class="post-intro-details">
 <summary>Short on time? >></summary>
 
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/multi-geo-compliance-shield/
+
+Summarize the above article in 5 bullet points focusing on:
+1) What Multi-Geo does in Power BI and Microsoft Fabric and why it matters for data residency
+2) Data residency obligations under GDPR, DPDP, PIPL, LGPD and how Multi-Geo addresses them
+3) Licensing prerequisites and the 5% user threshold requirement for enabling Multi-Geo
+4) What metadata stays home-region and compliance implications for SaaS vendors
+5) Multi-tenant architecture as an alternative approach and when to use it
+
+Be practical and geared toward SaaS product teams and compliance officers building on Microsoft platform services.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
+  </div>
+</div>
+
+
 <blockquote class="prompt-info">
 <p><strong>In short:</strong> By default, Power BI and Microsoft Fabric store workspace data and metadata in the Microsoft 365 tenant's <em>home region</em>, regardless of where capacity is provisioned — a residency gap for SaaS vendors serving regulated markets from a single tenant. Multi-Geo lets you assign workspaces to a capacity in a satellite region so their data (OneLake files, warehouse tables, datasets, reports) is stored there. It is gated by a tenant-level licensing prerequisite (at least 5% of eligible users on Multi-Geo add-on licences), and certain tenant-level administrative metadata still stays in the home region. When a customer's localisation requirement covers <em>all</em> data, only a separate tenant per region closes the gap.</p>
 </blockquote>

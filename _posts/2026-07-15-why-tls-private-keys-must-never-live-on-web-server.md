@@ -45,6 +45,37 @@ details.post-intro-details[open] > summary::before {
 <details class="post-intro-details">
 <summary>Short on time? >></summary>
 
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/why-tls-private-keys-must-never-live-on-web-server/
+
+Summarize the above article in 5 bullet points focusing on:
+1) Why TLS private keys are the crown jewel - what they control and the scope of compromise
+2) How private keys end up at risk on disk - exfiltration vectors including VM compromise, backups, git leaks, CI/CD
+3) Hardware Security Modules (HSM) - non-exportable keys, PKCS#11 integration, cryptographic signing inside HSM
+4) Azure-specific guidance - Application Gateway vs NGINX+HSM vs F5 BIG-IP, and why not all secure options are equal
+5) Quantum threat implications - retroactive session decryption risk for exported keys, HSM as exfiltration prevention
+
+Be practical for infrastructure engineers and CISOs responsible for TLS security and compliance.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
+  </div>
+</div>
+
+
 <blockquote>
 <p><strong>Written for:</strong> Security architects, infrastructure engineers, and compliance leads responsible for TLS key management and certificate infrastructure.</p>
 </blockquote>

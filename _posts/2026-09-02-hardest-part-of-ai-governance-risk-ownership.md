@@ -59,6 +59,37 @@ details.post-intro-details[open] > summary::before {
 <details class="post-intro-details">
 <summary>Short on time? >></summary>
 
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/hardest-part-of-ai-governance-risk-ownership/
+
+Summarize the above article in 5 bullet points focusing on:
+1) Why AI governance stalls on organizational accountability, not on technical questions like hallucinations or prompt injection
+2) The approval myth - why 'security approved it' does not mean risk has been accepted or eliminated
+3) How AI amplifies existing risk categories (data access, third-party, IP, compliance, operational dependency) and exposes pre-existing ownership gaps
+4) Security's real role - identify risks, evaluate controls, recommend mitigations, document residual risk - without becoming the owner of every business decision
+5) Governance as an accountability framework: who decides, who advises, who implements, who monitors, who accepts residual risk
+
+Be practical for CISOs, security leaders, enterprise architects, and risk practitioners establishing AI governance.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
+  </div>
+</div>
+
+
 <blockquote class="prompt-info">
 <p><strong>In short:</strong> AI governance stalls on accountability, not technology. A security review produces an <em>assessment</em> of residual risk; it does not <em>accept</em> it — that transfer only happens when a named business owner signs. Five questions define a working AI governance structure: who decides, who advises, who implements, who monitors, and who accepts residual risk. The last one is the one most organisations leave blank — ask it first.</p>
 </blockquote>

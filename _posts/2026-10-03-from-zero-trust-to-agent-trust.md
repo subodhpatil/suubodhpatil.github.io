@@ -59,6 +59,37 @@ details.post-intro-details[open] > summary::before {
 <details class="post-intro-details">
 <summary>Short on time? >></summary>
 
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/from-zero-trust-to-agent-trust/
+
+Summarize the above article in 5 bullet points focusing on:
+1) Why an AI agent is a fundamentally new kind of actor inside an enterprise - different from a user, an application or a server
+2) Which assumptions behind Zero Trust ('never trust, always verify') break when the actor is an autonomous agent rather than a human
+3) The four Agent Trust principles - identity, limits, external supervision, off switch - and the human-workforce equivalent of each
+4) Why 'an agent with access to everything' and 'security through prompt instructions' are the two most common and most dangerous shortcuts
+5) The one question a business decision maker or investor should ask of any company deploying agents, and the five follow-up questions for the CISO
+
+Write it for a business decision maker or investor with no security background, and flag anything relevant to AI vendor risk, procurement, or governance decisions.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
+  </div>
+</div>
+
+
 <blockquote class="prompt-info">
 <p><strong>In short:</strong> For twenty years enterprise security protected three things — people, applications and infrastructure — and every control quietly assumed a human was ultimately behind each action. Autonomous AI agents remove that assumption: given a goal, they choose which systems to touch and act at machine speed without anyone approving each step. Zero Trust's core idea, <em>never trust, always verify</em>, still holds; what breaks are the assumptions underneath it. <strong>Agent Trust</strong> means treating every agent like a digital employee: a registered identity with a named owner, limits scoped to its purpose, supervision that lives outside the agent, and an off switch that works. The question for any business decision maker or investor is simple: <em>can this company list every agent operating in its business, what each is allowed to touch, who owns it, and how it is stopped?</em> If the answer takes more than a week, that is the finding.</p>
 </blockquote>

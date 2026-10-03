@@ -43,6 +43,37 @@ details.post-intro-details[open] > summary::before {
 <details class="post-intro-details">
 <summary>Short on time? >></summary>
 
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/
+
+Summarize the above article in 5 bullet points focusing on:
+1) Bring Your Own HSM (BYOH) architecture, use cases, and operational trade-offs
+2) Neutral escrow models and third-party key custodian patterns
+3) Practical decision framework for choosing between CMK, BYOK, BYOH, and escrow
+4) Governance at scale - RBAC, rotation policies, audit logging, and anomaly detection
+5) Emerging encryption frontiers - confidential computing, post-quantum cryptography, multi-cloud key management
+
+Be technical and geared toward architects designing encryption and key management strategies.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
+  </div>
+</div>
+
+
 <blockquote class="prompt-info">
 <p><strong>In short:</strong> Azure offers a spectrum of key-control models — Microsoft-Managed Keys (MMK), Customer-Managed Keys in Key Vault (CMK), Bring Your Own Key (BYOK), Bring Your Own HSM (BYOH) and neutral key escrow. Control rises along that spectrum, and so does operational complexity. For most SaaS vendors the right baseline is CMK with strong governance (RBAC, managed identities, automated rotation, anomaly alerting, customer-visible audit logs); BYOK is for regulated customers who must own key material; BYOH and escrow only where a contract or regulator explicitly demands separation of duties from the cloud provider.</p>
 </blockquote>

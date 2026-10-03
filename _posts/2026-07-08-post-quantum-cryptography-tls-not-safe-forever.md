@@ -59,6 +59,37 @@ details.post-intro-details[open] > summary::before {
 <details class="post-intro-details">
 <summary>Short on time? >></summary>
 
+<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/post-quantum-cryptography-tls-not-safe-forever/
+
+Summarize the above article in 5 bullet points focusing on:
+1) Why TLS 1.3 is vulnerable to quantum computing - Shor's algorithm and ECDH key exchange
+2) Harvest Now, Decrypt Later (HNDL) threat - recording encrypted traffic now for future decryption
+3) NIST post-quantum cryptography standards - ML-KEM, ML-DSA, SLH-DSA (finalized August 2024)
+4) Hybrid TLS deployment - X25519MLKEM768, current production status, browser and platform support
+5) Migration timeline - 2029-2032 quantum threat window, NSA CNSA 2.0 mandate from 2027, planning urgency
+
+Be practical for security architects and CISOs planning quantum-safe cryptographic transitions.">
+  <div class="ai-summary-section-icons">
+    <span class="ai-summary-section-icon">📍</span>
+    <span class="ai-summary-section-icon">📋</span>
+  </div>
+  <div class="ai-summary-section-content">
+    <p><strong>Short on time?</strong> Summarize this article with</p>
+    <div class="ai-summary-selector">
+      <select class="ai-selector-dropdown" id="ai-platform-select">
+        <option value="">-- Select an AI --</option>
+        <option value="claude">🤖 Claude</option>
+        <option value="chatgpt">✨ ChatGPT</option>
+        <option value="gemini">🔮 Gemini</option>
+        <option value="perplexity">🌐 Perplexity</option>
+        <option value="copilot">⚡ Copilot</option>
+      </select>
+    </div>
+    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
+  </div>
+</div>
+
+
 <blockquote class="prompt-info">
 <p><strong>In short:</strong> TLS 1.3 is the strongest TLS ever shipped, and its key exchange (ECDH) and server authentication (RSA/ECDSA) are exactly what Shor's algorithm breaks; AES-256 survives. The threat is active today through <em>Harvest Now, Decrypt Later</em>: traffic recorded now can be decrypted once a cryptographically relevant quantum computer (CRQC) exists — credible window 2029–2032. NIST finalised ML-KEM (FIPS 203), ML-DSA (FIPS 204) and SLH-DSA (FIPS 205) in August 2024, and hybrid key exchange (X25519MLKEM768) is already in production in Chrome, Firefox, Cloudflare, AWS and Windows. Certificates remain classical for now. Start with a cryptographic inventory and crypto-agility, not a product purchase.</p>
 </blockquote>
