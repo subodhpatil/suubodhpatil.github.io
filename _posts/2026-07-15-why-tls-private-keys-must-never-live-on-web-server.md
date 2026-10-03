@@ -9,39 +9,51 @@ mermaid: true
 description: "Most TLS security conversations focus on certificates. The real crown jewel is the private key — the one component that, if compromised, exposes every past and future session. This post explains what a TLS private key actually controls, how they routinely end up on disk, and the architectural patterns — NGINX + HSM, F5 + HSM, Cloudflare Keyless SSL — that keep them truly safe."
 ---
 
-<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/why-tls-private-keys-must-never-live-on-web-server/
+<style>
+details.post-intro-details {
+  margin-bottom: 1.5rem;
+}
+details.post-intro-details > summary {
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+details.post-intro-details > summary:hover {
+  opacity: 0.7;
+}
+details.post-intro-details > summary::marker {
+  content: "";
+}
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+</style>
 
-Summarize the above article in 5 bullet points focusing on:
-1) Why TLS private keys are the crown jewel - what they control and the scope of compromise
-2) How private keys end up at risk on disk - exfiltration vectors including VM compromise, backups, git leaks, CI/CD
-3) Hardware Security Modules (HSM) - non-exportable keys, PKCS#11 integration, cryptographic signing inside HSM
-4) Azure-specific guidance - Application Gateway vs NGINX+HSM vs F5 BIG-IP, and why not all secure options are equal
-5) Quantum threat implications - retroactive session decryption risk for exported keys, HSM as exfiltration prevention
+<details class="post-intro-details">
+<summary>Short on time? >></summary>
 
-Be practical for infrastructure engineers and CISOs responsible for TLS security and compliance.">
-  <div class="ai-summary-section-icons">
-    <span class="ai-summary-section-icon">📍</span>
-    <span class="ai-summary-section-icon">📋</span>
-  </div>
-  <div class="ai-summary-section-content">
-    <p><strong>Short on time?</strong> Summarize this article with</p>
-    <div class="ai-summary-selector">
-      <select class="ai-selector-dropdown" id="ai-platform-select">
-        <option value="">-- Select an AI --</option>
-        <option value="claude">🤖 Claude</option>
-        <option value="chatgpt">✨ ChatGPT</option>
-        <option value="gemini">🔮 Gemini</option>
-        <option value="perplexity">🌐 Perplexity</option>
-        <option value="copilot">⚡ Copilot</option>
-      </select>
-    </div>
-    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
-  </div>
-</div>
+<blockquote>
+<p><strong>Written for:</strong> Security architects, infrastructure engineers, and compliance leads responsible for TLS key management and certificate infrastructure.</p>
+</blockquote>
 
-> **Written for:** Security architects, infrastructure engineers, and compliance leads responsible for TLS key management and certificate infrastructure.
+<blockquote>
+<p><strong>Also worth reading:</strong> <a href="https://blog.suubodhpatil.com/posts/how-https-actually-works/">How HTTPS Actually Works</a> · <a href="https://blog.suubodhpatil.com/posts/ssl-to-tls-evolution-of-secure-communication/">From SSL 2.0 to TLS 1.3</a> · <a href="https://blog.suubodhpatil.com/posts/post-quantum-cryptography-tls-not-safe-forever/">Post-Quantum Cryptography: Why Even TLS 1.3 Isn't Safe Forever</a></p>
+</blockquote>
 
-> **Also worth reading:** [How HTTPS Actually Works](https://blog.suubodhpatil.com/posts/how-https-actually-works/) · [From SSL 2.0 to TLS 1.3](https://blog.suubodhpatil.com/posts/ssl-to-tls-evolution-of-secure-communication/) · [Post-Quantum Cryptography: Why Even TLS 1.3 Isn't Safe Forever](https://blog.suubodhpatil.com/posts/post-quantum-cryptography-tls-not-safe-forever/)
+</details>
 
 ---
 

@@ -8,39 +8,51 @@ mermaid: true
 description: "A practical walkthrough of how HTTPS actually secures a connection: the TLS handshake, certificate trust chains, and how symmetric and asymmetric encryption work together. Also covers what HTTPS does not protect, like the destination domain and IP address, and what compliance auditors actually check."
 ---
 
-<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/how-https-actually-works/
+<style>
+details.post-intro-details {
+  margin-bottom: 1.5rem;
+}
+details.post-intro-details > summary {
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+details.post-intro-details > summary:hover {
+  opacity: 0.7;
+}
+details.post-intro-details > summary::marker {
+  content: "";
+}
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+</style>
 
-Summarize the above article in 5 bullet points focusing on:
-1) The three guarantees of HTTPS - confidentiality, integrity, and authentication - and why all three matter
-2) How the TLS handshake works and how session keys are derived (Diffie-Hellman key exchange)
-3) Forward secrecy, ephemeral keys, and TLS 1.3 improvements
-4) What HTTPS does NOT protect - domain names (SNI), IP addresses, traffic patterns
-5) What compliance auditors check regarding HTTPS - TLS versions, cipher suites, certificate chain validity
+<details class="post-intro-details">
+<summary>Short on time? >></summary>
 
-Be technical and practical for engineers responsible for application security.">
-  <div class="ai-summary-section-icons">
-    <span class="ai-summary-section-icon">📍</span>
-    <span class="ai-summary-section-icon">📋</span>
-  </div>
-  <div class="ai-summary-section-content">
-    <p><strong>Short on time?</strong> Summarize this article with</p>
-    <div class="ai-summary-selector">
-      <select class="ai-selector-dropdown" id="ai-platform-select">
-        <option value="">-- Select an AI --</option>
-        <option value="claude">🤖 Claude</option>
-        <option value="chatgpt">✨ ChatGPT</option>
-        <option value="gemini">🔮 Gemini</option>
-        <option value="perplexity">🌐 Perplexity</option>
-        <option value="copilot">⚡ Copilot</option>
-      </select>
-    </div>
-    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
-  </div>
-</div>
+<blockquote>
+<p><strong>Written for:</strong> Application and infrastructure engineers responsible for TLS and certificate management, and security architects governing HTTPS configurations.</p>
+</blockquote>
 
-> **Written for:** Application and infrastructure engineers responsible for TLS and certificate management, and security architects governing HTTPS configurations.
+<blockquote>
+<p><strong>Also worth reading:</strong> From SSL 2.0 to TLS 1.3 · Post-Quantum Cryptography and TLS · Why TLS Private Keys Must Never Live on Your Web Server</p>
+</blockquote>
 
-> **Also worth reading:** From SSL 2.0 to TLS 1.3 · Post-Quantum Cryptography and TLS · Why TLS Private Keys Must Never Live on Your Web Server
+</details>
 
 ---
 

@@ -8,39 +8,51 @@ mermaid: true
 description: "A look inside Azure's encryption-at-rest implementation, from default Microsoft-Managed Keys to Customer-Managed Keys in Azure Key Vault and Bring Your Own Key. Explains how key protection levels and rotation policies affect compliance, and why key control matters for SaaS vendors."
 ---
 
-<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/
+<style>
+details.post-intro-details {
+  margin-bottom: 1.5rem;
+}
+details.post-intro-details > summary {
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+details.post-intro-details > summary:hover {
+  opacity: 0.7;
+}
+details.post-intro-details > summary::marker {
+  content: "";
+}
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+</style>
 
-Summarize the above article in 5 bullet points focusing on:
-1) How Azure's default encryption (MMK) works and its limitations
-2) Customer-Managed Keys (CMK) architecture and the role of Azure Key Vault
-3) Bring Your Own Key (BYOK) and chain of custody implications
-4) Key protection levels (software vs HSM) and compliance requirements
-5) Business implications for SaaS providers leveraging key management as a differentiator
+<details class="post-intro-details">
+<summary>Short on time? >></summary>
 
-Be technical and actionable for security architects and cloud platform teams.">
-  <div class="ai-summary-section-icons">
-    <span class="ai-summary-section-icon">📍</span>
-    <span class="ai-summary-section-icon">📋</span>
-  </div>
-  <div class="ai-summary-section-content">
-    <p><strong>Short on time?</strong> Summarize this article with</p>
-    <div class="ai-summary-selector">
-      <select class="ai-selector-dropdown" id="ai-platform-select">
-        <option value="">-- Select an AI --</option>
-        <option value="claude">🤖 Claude</option>
-        <option value="chatgpt">✨ ChatGPT</option>
-        <option value="gemini">🔮 Gemini</option>
-        <option value="perplexity">🌐 Perplexity</option>
-        <option value="copilot">⚡ Copilot</option>
-      </select>
-    </div>
-    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
-  </div>
-</div>
+<blockquote>
+<p><strong>Written for:</strong> SaaS platform teams, cloud architects, and platform engineers implementing customer-managed encryption on Azure.</p>
+</blockquote>
 
-> **Written for:** SaaS platform teams, cloud architects, and platform engineers implementing customer-managed encryption on Azure.
+<blockquote>
+<p><strong>Series:</strong> <a href="https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/">← Part 1: Building the Foundation</a> · <strong>Part 2</strong> · <a href="https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/">Part 3: Advanced Key Management →</a></p>
+</blockquote>
 
-> **Series:** [← Part 1: Building the Foundation](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/) · **Part 2** · [Part 3: Advanced Key Management →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/)
+</details>
 
 ---
 

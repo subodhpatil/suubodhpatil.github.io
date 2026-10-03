@@ -18,42 +18,55 @@ faq:
     a: "\"Modified Abuse Monitoring\": a Microsoft Limited Access process in which, once approved, Microsoft disables the human-review data store used for abuse detection. It is a Microsoft-only decision because Microsoft is the sole processor."
 ---
 
-<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/microsoft-foundry-ga-claude-vs-azure-openai/
+<style>
+details.post-intro-details {
+  margin-bottom: 1.5rem;
+}
+details.post-intro-details > summary {
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+details.post-intro-details > summary:hover {
+  opacity: 0.7;
+}
+details.post-intro-details > summary::marker {
+  content: "";
+}
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+</style>
 
-Summarize the above article in 5 bullet points focusing on:
-1) What changed with Microsoft Foundry GA on June 29, 2026 - the new Hosted on Azure option
-2) Infrastructure changes vs legal changes - where compute runs vs who processes data
-3) Why Claude on Foundry is fundamentally different from Azure OpenAI (processor independence)
-4) Data processor role - Anthropic as independent processor for Claude vs Microsoft for Azure OpenAI
-5) Zero Data Retention (ZDR) governance - who approves and manages ZDR for each model option
+<details class="post-intro-details">
+<summary>Short on time? >></summary>
 
-Be practical for CISOs, compliance teams, and platform leaders evaluating Claude vs Azure OpenAI.">
-  <div class="ai-summary-section-icons">
-    <span class="ai-summary-section-icon">📍</span>
-    <span class="ai-summary-section-icon">📋</span>
-  </div>
-  <div class="ai-summary-section-content">
-    <p><strong>Short on time?</strong> Summarize this article with</p>
-    <div class="ai-summary-selector">
-      <select class="ai-selector-dropdown" id="ai-platform-select">
-        <option value="">-- Select an AI --</option>
-        <option value="claude">🤖 Claude</option>
-        <option value="chatgpt">✨ ChatGPT</option>
-        <option value="gemini">🔮 Gemini</option>
-        <option value="perplexity">🌐 Perplexity</option>
-        <option value="copilot">⚡ Copilot</option>
-      </select>
-    </div>
-    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
-  </div>
-</div>
+<blockquote class="prompt-info">
+<p><strong>In short:</strong> Since June 29, 2026, Claude in Microsoft Foundry comes in two hosting paths — <em>Hosted on Anthropic Infrastructure</em> (outside Azure, no region enforcement, full feature set) and <em>Hosted on Azure</em> (Azure GPUs, region/data-zone enforcement, narrower feature set for now). In <strong>both</strong> paths Anthropic remains the independent data processor for prompts and completions. That is the structural difference from Azure OpenAI, where Microsoft is the sole processor: Zero Data Retention for Claude is granted by Anthropic under Anthropic's terms, while Azure OpenAI's equivalent ("Modified Abuse Monitoring") is a Microsoft-only process. Same marketplace, two different vendors, two different contracts.</p>
+</blockquote>
 
-> **In short:** Since June 29, 2026, Claude in Microsoft Foundry comes in two hosting paths — *Hosted on Anthropic Infrastructure* (outside Azure, no region enforcement, full feature set) and *Hosted on Azure* (Azure GPUs, region/data-zone enforcement, narrower feature set for now). In **both** paths Anthropic remains the independent data processor for prompts and completions. That is the structural difference from Azure OpenAI, where Microsoft is the sole processor: Zero Data Retention for Claude is granted by Anthropic under Anthropic's terms, while Azure OpenAI's equivalent ("Modified Abuse Monitoring") is a Microsoft-only process. Same marketplace, two different vendors, two different contracts.
-{: .prompt-info }
+<blockquote>
+<p><strong>Written for:</strong> CISOs, cloud architects, and SaaS vendors evaluating Claude versus Azure OpenAI for production deployments.</p>
+</blockquote>
 
-> **Written for:** CISOs, cloud architects, and SaaS vendors evaluating Claude versus Azure OpenAI for production deployments.
+<blockquote>
+<p><strong>Also worth reading:</strong> This post is a companion update to <a href="/posts/who-processes-the-data-ai-trust-boundary/">Who Processes the Data? Trust, Responsibility, and AI Inference Beyond the Cloud</a> — read that one first for the full control-plane/data-plane framework this post builds on.</p>
+</blockquote>
 
-> **Also worth reading:** This post is a companion update to [Who Processes the Data? Trust, Responsibility, and AI Inference Beyond the Cloud](/posts/who-processes-the-data-ai-trust-boundary/) — read that one first for the full control-plane/data-plane framework this post builds on.
+</details>
 
 ---
 

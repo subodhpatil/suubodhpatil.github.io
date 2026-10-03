@@ -7,42 +7,55 @@ tags: [encryption, azure, key-management, byoh, hsm, governance, saas]
 description: "Covers the advanced end of Azure key management: Bring Your Own HSM, neutral escrow models, and governance at scale across RBAC, rotation, and audit logging. Closes with a decision framework for choosing a key control model and a look at what comes next, from confidential computing to post-quantum cryptography."
 ---
 
-<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/
+<style>
+details.post-intro-details {
+  margin-bottom: 1.5rem;
+}
+details.post-intro-details > summary {
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+details.post-intro-details > summary:hover {
+  opacity: 0.7;
+}
+details.post-intro-details > summary::marker {
+  content: "";
+}
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+</style>
 
-Summarize the above article in 5 bullet points focusing on:
-1) Bring Your Own HSM (BYOH) architecture, use cases, and operational trade-offs
-2) Neutral escrow models and third-party key custodian patterns
-3) Practical decision framework for choosing between CMK, BYOK, BYOH, and escrow
-4) Governance at scale - RBAC, rotation policies, audit logging, and anomaly detection
-5) Emerging encryption frontiers - confidential computing, post-quantum cryptography, multi-cloud key management
+<details class="post-intro-details">
+<summary>Short on time? >></summary>
 
-Be technical and geared toward architects designing encryption and key management strategies.">
-  <div class="ai-summary-section-icons">
-    <span class="ai-summary-section-icon">📍</span>
-    <span class="ai-summary-section-icon">📋</span>
-  </div>
-  <div class="ai-summary-section-content">
-    <p><strong>Short on time?</strong> Summarize this article with</p>
-    <div class="ai-summary-selector">
-      <select class="ai-selector-dropdown" id="ai-platform-select">
-        <option value="">-- Select an AI --</option>
-        <option value="claude">🤖 Claude</option>
-        <option value="chatgpt">✨ ChatGPT</option>
-        <option value="gemini">🔮 Gemini</option>
-        <option value="perplexity">🌐 Perplexity</option>
-        <option value="copilot">⚡ Copilot</option>
-      </select>
-    </div>
-    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
-  </div>
-</div>
+<blockquote class="prompt-info">
+<p><strong>In short:</strong> Azure offers a spectrum of key-control models — Microsoft-Managed Keys (MMK), Customer-Managed Keys in Key Vault (CMK), Bring Your Own Key (BYOK), Bring Your Own HSM (BYOH) and neutral key escrow. Control rises along that spectrum, and so does operational complexity. For most SaaS vendors the right baseline is CMK with strong governance (RBAC, managed identities, automated rotation, anomaly alerting, customer-visible audit logs); BYOK is for regulated customers who must own key material; BYOH and escrow only where a contract or regulator explicitly demands separation of duties from the cloud provider.</p>
+</blockquote>
 
-> **In short:** Azure offers a spectrum of key-control models — Microsoft-Managed Keys (MMK), Customer-Managed Keys in Key Vault (CMK), Bring Your Own Key (BYOK), Bring Your Own HSM (BYOH) and neutral key escrow. Control rises along that spectrum, and so does operational complexity. For most SaaS vendors the right baseline is CMK with strong governance (RBAC, managed identities, automated rotation, anomaly alerting, customer-visible audit logs); BYOK is for regulated customers who must own key material; BYOH and escrow only where a contract or regulator explicitly demands separation of duties from the cloud provider.
-{: .prompt-info }
+<blockquote>
+<p><strong>Written for:</strong> Enterprise architects and SaaS vendors designing encryption governance and key management strategies at scale.</p>
+</blockquote>
 
-> **Written for:** Enterprise architects and SaaS vendors designing encryption governance and key management strategies at scale.
+<blockquote>
+<p><strong>Series:</strong> <a href="https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/">← Part 1: Building the Foundation</a> · <a href="https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/">← Part 2: Inside Azure — How Encryption at Rest Works</a> · <strong>Part 3</strong></p>
+</blockquote>
 
-> **Series:** [← Part 1: Building the Foundation](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/) · [← Part 2: Inside Azure — How Encryption at Rest Works](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/) · **Part 3**
+</details>
 
 ---
 

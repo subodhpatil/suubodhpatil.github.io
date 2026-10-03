@@ -8,39 +8,51 @@ mermaid: true
 description: "An introduction to data-at-rest encryption in the cloud, covering how AES-256 and key management actually work. Lays out the key control spectrum, from Microsoft-Managed Keys to Bring Your Own HSM, and why regulators like PCI DSS, HIPAA, and GDPR are pushing toward customer-controlled keys."
 ---
 
-<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part1/
+<style>
+details.post-intro-details {
+  margin-bottom: 1.5rem;
+}
+details.post-intro-details > summary {
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+details.post-intro-details > summary:hover {
+  opacity: 0.7;
+}
+details.post-intro-details > summary::marker {
+  content: "";
+}
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+</style>
 
-Summarize the above article in 5 bullet points with key takeaways, and flag anything worth double-checking in your own key management or data protection setup.
+<details class="post-intro-details">
+<summary>Short on time? >></summary>
 
-Focus on:
-1) Core concepts of encryption at rest and key management
-2) Regulatory requirements and compliance implications  
-3) Key control models (MMK, CMK, BYOK, BYOH)
+<blockquote>
+<p><strong>Written for:</strong> CISOs, compliance leads, and security architects establishing data protection strategy and evaluating cloud encryption controls for regulated environments.</p>
+</blockquote>
 
-Be technical and suitable for security architects.">
-  <div class="ai-summary-section-icons">
-    <span class="ai-summary-section-icon">📍</span>
-    <span class="ai-summary-section-icon">📋</span>
-  </div>
-  <div class="ai-summary-section-content">
-    <p><strong>Short on time?</strong> Summarize this article with</p>
-    <div class="ai-summary-selector">
-      <select class="ai-selector-dropdown" id="ai-platform-select">
-        <option value="">-- Select an AI --</option>
-        <option value="claude">🤖 Claude</option>
-        <option value="chatgpt">✨ ChatGPT</option>
-        <option value="gemini">🔮 Gemini</option>
-        <option value="perplexity">🌐 Perplexity</option>
-        <option value="copilot">⚡ Copilot</option>
-      </select>
-    </div>
-    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
-  </div>
-</div>
+<blockquote>
+<p><strong>Series:</strong> <strong>Part 1</strong> · <a href="https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/">Part 2: Inside Azure — How Encryption at Rest Works →</a> · <a href="https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/">Part 3: Advanced Key Management →</a></p>
+</blockquote>
 
-> **Written for:** CISOs, compliance leads, and security architects establishing data protection strategy and evaluating cloud encryption controls for regulated environments.
-
-> **Series:** **Part 1** · [Part 2: Inside Azure — How Encryption at Rest Works →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part2/) · [Part 3: Advanced Key Management →](https://blog.suubodhpatil.com/posts/Encryption-Demystified-Part3/)
+</details>
 
 ---
 

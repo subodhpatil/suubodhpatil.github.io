@@ -25,43 +25,55 @@ faq:
     a: "Treat it as a recurring governance process: at minimum quarterly, and whenever a hosting option, sub-processor list, DPA, or region availability changes. The evaluation questions stay stable; the answers do not."
 ---
 
-<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/who-processes-the-data-ai-trust-boundary/
+<style>
+details.post-intro-details {
+  margin-bottom: 1.5rem;
+}
+details.post-intro-details > summary {
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+details.post-intro-details > summary:hover {
+  opacity: 0.7;
+}
+details.post-intro-details > summary::marker {
+  content: "";
+}
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+</style>
 
-Summarize the above article in 5 bullet points focusing on:
-1) Control plane vs data plane split in cloud AI platforms and why it matters for trust
-2) How the same AI model carries different trust profiles depending on hosting - Claude on Azure vs AWS Bedrock example
-3) Cloud security controls (CMK, Data Boundary, sovereign clouds) and their limitations at the inference layer
-4) Zero Data Retention (ZDR) - what it covers, what it doesn't, and GDPR implications
-5) Trust boundary evaluation as an ongoing governance process, not a one-time audit
+<details class="post-intro-details">
+<summary>Short on time? >></summary>
 
-Be practical for CISOs, privacy teams, and platform leaders evaluating AI vendor risk.">
-  <div class="ai-summary-section-icons">
-    <span class="ai-summary-section-icon">📍</span>
-    <span class="ai-summary-section-icon">📋</span>
-  </div>
-  <div class="ai-summary-section-content">
-    <p><strong>Short on time?</strong> Summarize this article with</p>
-    <div class="ai-summary-selector">
-      <select class="ai-selector-dropdown" id="ai-platform-select">
-        <option value="">-- Select an AI --</option>
-        <option value="claude">🤖 Claude</option>
-        <option value="chatgpt">✨ ChatGPT</option>
-        <option value="gemini">🔮 Gemini</option>
-        <option value="perplexity">🌐 Perplexity</option>
-        <option value="copilot">⚡ Copilot</option>
-      </select>
-    </div>
-    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
-  </div>
-</div>
+<blockquote class="prompt-info">
+<p><strong>In short:</strong> In cloud AI platforms the <em>control plane</em> (API, identity, billing — run by the cloud provider) and the <em>data plane</em> (inference — where your prompts are actually processed) can belong to different companies under different contracts. The same model therefore carries different trust profiles on different platforms: Claude in Azure AI Foundry is processed by Anthropic under a separate DPA (split trust); Claude in AWS Bedrock or GCP Vertex is processed by the cloud provider (unified trust); Claude in M365 Copilot reaches Anthropic as a Microsoft sub-processor. Region selection, customer-managed keys and data-boundary commitments do not automatically extend across that boundary. <strong>The model is not the trust boundary — the platform is.</strong></p>
+</blockquote>
 
-> **In short:** In cloud AI platforms the *control plane* (API, identity, billing — run by the cloud provider) and the *data plane* (inference — where your prompts are actually processed) can belong to different companies under different contracts. The same model therefore carries different trust profiles on different platforms: Claude in Azure AI Foundry is processed by Anthropic under a separate DPA (split trust); Claude in AWS Bedrock or GCP Vertex is processed by the cloud provider (unified trust); Claude in M365 Copilot reaches Anthropic as a Microsoft sub-processor. Region selection, customer-managed keys and data-boundary commitments do not automatically extend across that boundary. **The model is not the trust boundary — the platform is.**
-{: .prompt-info }
+<blockquote>
+<p><strong>Written for:</strong> CISOs, cloud architects, privacy teams, and SaaS vendors evaluating AI vendor trust and data processing responsibility.</p>
+</blockquote>
 
-> **Written for:** CISOs, cloud architects, privacy teams, and SaaS vendors evaluating AI vendor trust and data processing responsibility.
+<blockquote class="prompt-warning">
+<p>📌 <strong>Update — July 2026:</strong> On June 29, 2026, Claude reached <strong>general availability</strong> on Microsoft Foundry, adding a second hosting option — <strong>Hosted on Azure</strong> — alongside the original <strong>Hosted on Anthropic Infrastructure</strong> path (formerly "Foundry Preview") described below. Under Hosted on Azure, request ingress, API services, and GPU inference can now run inside Azure's infrastructure, with data at rest in your selected Azure geography and a new US Data Zone. That narrows the <em>infrastructure</em> gap this post describes — but not the <em>legal</em> one: Microsoft's own documentation confirms <strong>"Anthropic remains the seller and operator of Claude models... and acts as an independent data processor for prompts and outputs"</strong> under both hosting options. The dual-DPA reality below still holds; it now has two variants instead of one, and it still looks nothing like Azure OpenAI's single-processor model. Full breakdown, including Zero Data Retention governance for each case, in the companion post: <a href="/posts/microsoft-foundry-ga-claude-vs-azure-openai/">Microsoft Foundry Goes GA: Same Processor, Two Hosting Paths — and Why Claude Still Isn't Azure OpenAI</a>.</p>
+</blockquote>
 
-> 📌 **Update — July 2026:** On June 29, 2026, Claude reached **general availability** on Microsoft Foundry, adding a second hosting option — **Hosted on Azure** — alongside the original **Hosted on Anthropic Infrastructure** path (formerly "Foundry Preview") described below. Under Hosted on Azure, request ingress, API services, and GPU inference can now run inside Azure's infrastructure, with data at rest in your selected Azure geography and a new US Data Zone. That narrows the *infrastructure* gap this post describes — but not the *legal* one: Microsoft's own documentation confirms **"Anthropic remains the seller and operator of Claude models... and acts as an independent data processor for prompts and outputs"** under both hosting options. The dual-DPA reality below still holds; it now has two variants instead of one, and it still looks nothing like Azure OpenAI's single-processor model. Full breakdown, including Zero Data Retention governance for each case, in the companion post: [Microsoft Foundry Goes GA: Same Processor, Two Hosting Paths — and Why Claude Still Isn't Azure OpenAI](/posts/microsoft-foundry-ga-claude-vs-azure-openai/).
-{: .prompt-warning }
+</details>
 
 ## Introduction
 

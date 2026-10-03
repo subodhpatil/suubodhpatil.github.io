@@ -8,39 +8,51 @@ mermaid: true
 description: "A 25-year history of TLS security failures — POODLE, BEAST, Heartbleed, DROWN — and what drove each protocol transition. Explains cipher suites, why TLS 1.2 is still everywhere, and why TLS 1.3 is a redesign rather than an upgrade. Includes the compliance table auditors actually use."
 ---
 
-<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/ssl-to-tls-evolution-of-secure-communication/
+<style>
+details.post-intro-details {
+  margin-bottom: 1.5rem;
+}
+details.post-intro-details > summary {
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+details.post-intro-details > summary:hover {
+  opacity: 0.7;
+}
+details.post-intro-details > summary::marker {
+  content: "";
+}
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+</style>
 
-Summarize the above article in 5 bullet points focusing on:
-1) The 25-year history of TLS - SSL 3.0, TLS 1.0, 1.2, 1.3 - and why each version was created to fix the previous one
-2) Major vulnerabilities and exploits - POODLE, BEAST, Heartbleed, DROWN - and their causes
-3) Cipher suite configuration and why it matters more than TLS version alone
-4) TLS 1.3 as a redesign (not upgrade) - removed weak modes, simplified to 5 strong cipher suites
-5) Compliance implications - PCI DSS 4.0, NIST SP 800-52, ISO 27001 requirements for TLS configuration
+<details class="post-intro-details">
+<summary>Short on time? >></summary>
 
-Be practical for security engineers and compliance teams managing TLS configurations.">
-  <div class="ai-summary-section-icons">
-    <span class="ai-summary-section-icon">📍</span>
-    <span class="ai-summary-section-icon">📋</span>
-  </div>
-  <div class="ai-summary-section-content">
-    <p><strong>Short on time?</strong> Summarize this article with</p>
-    <div class="ai-summary-selector">
-      <select class="ai-selector-dropdown" id="ai-platform-select">
-        <option value="">-- Select an AI --</option>
-        <option value="claude">🤖 Claude</option>
-        <option value="chatgpt">✨ ChatGPT</option>
-        <option value="gemini">🔮 Gemini</option>
-        <option value="perplexity">🌐 Perplexity</option>
-        <option value="copilot">⚡ Copilot</option>
-      </select>
-    </div>
-    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
-  </div>
-</div>
+<blockquote>
+<p><strong>Written for:</strong> Security engineers, architects, and compliance leads responsible for TLS configuration and protocol governance.</p>
+</blockquote>
 
-> **Written for:** Security engineers, architects, and compliance leads responsible for TLS configuration and protocol governance.
+<blockquote>
+<p><strong>Also worth reading:</strong> <a href="/posts/how-https-actually-works/">How HTTPS Actually Works</a> · Post-Quantum Cryptography and TLS · Why TLS Private Keys Must Never Live on Your Web Server</p>
+</blockquote>
 
-> **Also worth reading:** [How HTTPS Actually Works](/posts/how-https-actually-works/) · Post-Quantum Cryptography and TLS · Why TLS Private Keys Must Never Live on Your Web Server
+</details>
 
 ---
 

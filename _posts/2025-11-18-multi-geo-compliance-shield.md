@@ -8,40 +8,51 @@ mermaid: true
 description: "Explains how Multi-Geo in Power BI and Microsoft Fabric lets SaaS vendors keep customer workspace data in a specific region instead of the tenant's home region. Covers the licensing prerequisites, what metadata still stays home-region, and when a full multi-tenant architecture is needed instead."
 ---
 
-<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/multi-geo-compliance-shield/
+<style>
+details.post-intro-details {
+  margin-bottom: 1.5rem;
+}
+details.post-intro-details > summary {
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+details.post-intro-details > summary:hover {
+  opacity: 0.7;
+}
+details.post-intro-details > summary::marker {
+  content: "";
+}
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+</style>
 
-Summarize the above article in 5 bullet points focusing on:
-1) What Multi-Geo does in Power BI and Microsoft Fabric and why it matters for data residency
-2) Data residency obligations under GDPR, DPDP, PIPL, LGPD and how Multi-Geo addresses them
-3) Licensing prerequisites and the 5% user threshold requirement for enabling Multi-Geo
-4) What metadata stays home-region and compliance implications for SaaS vendors
-5) Multi-tenant architecture as an alternative approach and when to use it
+<details class="post-intro-details">
+<summary>Short on time? >></summary>
 
-Be practical and geared toward SaaS product teams and compliance officers building on Microsoft platform services.">
-  <div class="ai-summary-section-icons">
-    <span class="ai-summary-section-icon">📍</span>
-    <span class="ai-summary-section-icon">📋</span>
-  </div>
-  <div class="ai-summary-section-content">
-    <p><strong>Short on time?</strong> Summarize this article with</p>
-    <div class="ai-summary-selector">
-      <select class="ai-selector-dropdown" id="ai-platform-select">
-        <option value="">-- Select an AI --</option>
-        <option value="claude">🤖 Claude</option>
-        <option value="chatgpt">✨ ChatGPT</option>
-        <option value="gemini">🔮 Gemini</option>
-        <option value="perplexity">🌐 Perplexity</option>
-        <option value="copilot">⚡ Copilot</option>
-      </select>
-    </div>
-    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
-  </div>
-</div>
+<blockquote class="prompt-info">
+<p><strong>In short:</strong> By default, Power BI and Microsoft Fabric store workspace data and metadata in the Microsoft 365 tenant's <em>home region</em>, regardless of where capacity is provisioned — a residency gap for SaaS vendors serving regulated markets from a single tenant. Multi-Geo lets you assign workspaces to a capacity in a satellite region so their data (OneLake files, warehouse tables, datasets, reports) is stored there. It is gated by a tenant-level licensing prerequisite (at least 5% of eligible users on Multi-Geo add-on licences), and certain tenant-level administrative metadata still stays in the home region. When a customer's localisation requirement covers <em>all</em> data, only a separate tenant per region closes the gap.</p>
+</blockquote>
 
-> **In short:** By default, Power BI and Microsoft Fabric store workspace data and metadata in the Microsoft 365 tenant's *home region*, regardless of where capacity is provisioned — a residency gap for SaaS vendors serving regulated markets from a single tenant. Multi-Geo lets you assign workspaces to a capacity in a satellite region so their data (OneLake files, warehouse tables, datasets, reports) is stored there. It is gated by a tenant-level licensing prerequisite (at least 5% of eligible users on Multi-Geo add-on licences), and certain tenant-level administrative metadata still stays in the home region. When a customer's localisation requirement covers *all* data, only a separate tenant per region closes the gap.
-{: .prompt-info }
+<blockquote>
+<p><strong>Written for:</strong> SaaS vendors, cloud architects, and compliance leads implementing data residency controls on Power BI and Microsoft Fabric.</p>
+</blockquote>
 
-> **Written for:** SaaS vendors, cloud architects, and compliance leads implementing data residency controls on Power BI and Microsoft Fabric.
+</details>
 
 ---
 

@@ -23,42 +23,55 @@ faq:
     a: "No. ISO/IEC 42001 is a management-system standard: it assigns no AI Act roles and starts no regulatory clocks. A vendor's certificate signals that a management system exists; it does not tell you who processes your prompts or who is the provider of the system your users touch."
 ---
 
-<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/who-answers-to-the-regulator-ai-act-cra-trust-boundary/
+<style>
+details.post-intro-details {
+  margin-bottom: 1.5rem;
+}
+details.post-intro-details > summary {
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+details.post-intro-details > summary:hover {
+  opacity: 0.7;
+}
+details.post-intro-details > summary::marker {
+  content: "";
+}
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+</style>
 
-Summarize the above article in 5 bullet points focusing on:
-1) EU AI Act provisions effective August 2, 2026 - applicability and value-chain roles (GPAI provider, provider, deployer)
-2) Cyber Resilience Act (CRA) and 24-hour vulnerability reporting requirements from September 11, 2026
-3) How the cloud AI trust boundary (control plane vs data plane) maps onto EU AI Act compliance obligations
-4) Why hosting choice (on-premises vs cloud region) changes GDPR answers but not regulatory ones
-5) Practical implications for SaaS vendors, cloud platforms, and model providers navigating dual regulation
+<details class="post-intro-details">
+<summary>Short on time? >></summary>
 
-Be practical for CISOs and compliance teams managing EU AI Act and CRA compliance.">
-  <div class="ai-summary-section-icons">
-    <span class="ai-summary-section-icon">📍</span>
-    <span class="ai-summary-section-icon">📋</span>
-  </div>
-  <div class="ai-summary-section-content">
-    <p><strong>Short on time?</strong> Summarize this article with</p>
-    <div class="ai-summary-selector">
-      <select class="ai-selector-dropdown" id="ai-platform-select">
-        <option value="">-- Select an AI --</option>
-        <option value="claude">🤖 Claude</option>
-        <option value="chatgpt">✨ ChatGPT</option>
-        <option value="gemini">🔮 Gemini</option>
-        <option value="perplexity">🌐 Perplexity</option>
-        <option value="copilot">⚡ Copilot</option>
-      </select>
-    </div>
-    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
-  </div>
-</div>
+<blockquote class="prompt-info">
+<p><strong>In short:</strong> EU AI Act roles follow the <em>product</em>, not the data: whoever places an AI system on the market under their own name is its <strong>provider</strong>, whoever uses it under their own authority is a <strong>deployer</strong>, and the company that developed the underlying model (Anthropic, OpenAI, Google, Meta) is the <strong>GPAI provider</strong> on every platform — regardless of where inference runs. Hosting choice changes your GDPR answer (who processes the data) but not your AI Act answer. From August 2, 2026 the Article 50 transparency duties and GPAI enforcement are live; Annex III high-risk obligations were deferred to December 2, 2027. The Cyber Resilience Act adds a second clock from September 11, 2026 — 24-hour vulnerability reporting for a product that may depend on an inference layer you don't operate.</p>
+</blockquote>
 
-> **In short:** EU AI Act roles follow the *product*, not the data: whoever places an AI system on the market under their own name is its **provider**, whoever uses it under their own authority is a **deployer**, and the company that developed the underlying model (Anthropic, OpenAI, Google, Meta) is the **GPAI provider** on every platform — regardless of where inference runs. Hosting choice changes your GDPR answer (who processes the data) but not your AI Act answer. From August 2, 2026 the Article 50 transparency duties and GPAI enforcement are live; Annex III high-risk obligations were deferred to December 2, 2027. The Cyber Resilience Act adds a second clock from September 11, 2026 — 24-hour vulnerability reporting for a product that may depend on an inference layer you don't operate.
-{: .prompt-info }
+<blockquote>
+<p><strong>Written for:</strong> CISOs, cloud architects, compliance teams, and SaaS vendors evaluating EU AI Act and CRA compliance obligations.</p>
+</blockquote>
 
-> **Written for:** CISOs, cloud architects, compliance teams, and SaaS vendors evaluating EU AI Act and CRA compliance obligations.
+<blockquote>
+<p><strong>Part of a series:</strong> This post builds on <a href="/posts/who-processes-the-data-ai-trust-boundary/">Who Processes the Data?</a> and <a href="/posts/microsoft-foundry-ga-claude-vs-azure-openai/">Microsoft Foundry Goes GA</a>. Those posts asked <em>who processes the data</em> — the GDPR lens. This one asks <em>who answers to the regulator</em> — and the answers split differently.</p>
+</blockquote>
 
-> **Part of a series:** This post builds on [Who Processes the Data?](/posts/who-processes-the-data-ai-trust-boundary/) and [Microsoft Foundry Goes GA](/posts/microsoft-foundry-ga-claude-vs-azure-openai/). Those posts asked *who processes the data* — the GDPR lens. This one asks *who answers to the regulator* — and the answers split differently.
+</details>
 
 ---
 

@@ -23,42 +23,55 @@ faq:
     a: "Both make accountability a first-class requirement rather than a technical control: the NIST AI RMF GOVERN function calls for defined roles, responsibilities and documented risk tolerance, and ISO/IEC 42001 requires top-management accountability and assigned responsibilities within the AI management system. Neither names the owner for you — that remains an organizational decision."
 ---
 
-<div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/hardest-part-of-ai-governance-risk-ownership/
+<style>
+details.post-intro-details {
+  margin-bottom: 1.5rem;
+}
+details.post-intro-details > summary {
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+details.post-intro-details > summary:hover {
+  opacity: 0.7;
+}
+details.post-intro-details > summary::marker {
+  content: "";
+}
+details.post-intro-details > summary::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  margin-right: 0.3rem;
+}
+details.post-intro-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+</style>
 
-Summarize the above article in 5 bullet points focusing on:
-1) Why AI governance stalls on organizational accountability, not on technical questions like hallucinations or prompt injection
-2) The approval myth - why 'security approved it' does not mean risk has been accepted or eliminated
-3) How AI amplifies existing risk categories (data access, third-party, IP, compliance, operational dependency) and exposes pre-existing ownership gaps
-4) Security's real role - identify risks, evaluate controls, recommend mitigations, document residual risk - without becoming the owner of every business decision
-5) Governance as an accountability framework: who decides, who advises, who implements, who monitors, who accepts residual risk
+<details class="post-intro-details">
+<summary>Short on time? >></summary>
 
-Be practical for CISOs, security leaders, enterprise architects, and risk practitioners establishing AI governance.">
-  <div class="ai-summary-section-icons">
-    <span class="ai-summary-section-icon">📍</span>
-    <span class="ai-summary-section-icon">📋</span>
-  </div>
-  <div class="ai-summary-section-content">
-    <p><strong>Short on time?</strong> Summarize this article with</p>
-    <div class="ai-summary-selector">
-      <select class="ai-selector-dropdown" id="ai-platform-select">
-        <option value="">-- Select an AI --</option>
-        <option value="claude">🤖 Claude</option>
-        <option value="chatgpt">✨ ChatGPT</option>
-        <option value="gemini">🔮 Gemini</option>
-        <option value="perplexity">🌐 Perplexity</option>
-        <option value="copilot">⚡ Copilot</option>
-      </select>
-    </div>
-    <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
-  </div>
-</div>
+<blockquote class="prompt-info">
+<p><strong>In short:</strong> AI governance stalls on accountability, not technology. A security review produces an <em>assessment</em> of residual risk; it does not <em>accept</em> it — that transfer only happens when a named business owner signs. Five questions define a working AI governance structure: who decides, who advises, who implements, who monitors, and who accepts residual risk. The last one is the one most organisations leave blank — ask it first.</p>
+</blockquote>
 
-> **In short:** AI governance stalls on accountability, not technology. A security review produces an *assessment* of residual risk; it does not *accept* it — that transfer only happens when a named business owner signs. Five questions define a working AI governance structure: who decides, who advises, who implements, who monitors, and who accepts residual risk. The last one is the one most organisations leave blank — ask it first.
-{: .prompt-info }
+<blockquote>
+<p><strong>Written for:</strong> CISOs, security leaders, enterprise architects, engineering leaders, compliance and risk practitioners, and product leaders evaluating AI adoption.</p>
+</blockquote>
 
-> **Written for:** CISOs, security leaders, enterprise architects, engineering leaders, compliance and risk practitioners, and product leaders evaluating AI adoption.
+<blockquote>
+<p><strong>Also worth reading:</strong> This post is standalone, but pairs well with the trust-boundary series — <a href="/posts/who-processes-the-data-ai-trust-boundary/">Who Processes the Data?</a> and <a href="/posts/who-answers-to-the-regulator-ai-act-cra-trust-boundary/">Who Answers to the Regulator?</a>. Those posts map <em>where</em> responsibility sits in the AI value chain. This one asks the question that comes before either: <em>who inside your organization accepts the risk at all?</em></p>
+</blockquote>
 
-> **Also worth reading:** This post is standalone, but pairs well with the trust-boundary series — [Who Processes the Data?](/posts/who-processes-the-data-ai-trust-boundary/) and [Who Answers to the Regulator?](/posts/who-answers-to-the-regulator-ai-act-cra-trust-boundary/). Those posts map *where* responsibility sits in the AI value chain. This one asks the question that comes before either: *who inside your organization accepts the risk at all?*
+</details>
 
 ---
 
