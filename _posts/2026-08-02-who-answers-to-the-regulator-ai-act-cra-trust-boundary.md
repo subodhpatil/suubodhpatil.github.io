@@ -2,10 +2,25 @@
 title: "Who Answers to the Regulator? Mapping the EU AI Act and CRA onto the Cloud AI Trust Boundary"
 date: 2026-08-02 12:00:00 +0200
 last_modified_at: 2026-08-02 12:00:00 +0200
-categories: [CloudSecurity, AISecurity]
+categories: ["AI Risk & Governance", "AI Regulation"]
 tags: [ai, azure, eu-ai-act, cyber-resilience-act, gpai, trust-boundary, governance, compliance, iso-42001, data-protection]
 mermaid: true
 description: "Most EU AI Act provisions apply from August 2, 2026 — and the Cyber Resilience Act's 24-hour vulnerability reporting follows on September 11. This post maps AI Act value-chain roles (General-Purpose AI (GPAI) provider, provider, deployer) onto the cloud AI trust-boundary patterns from earlier in this series, and shows why hosting choice changes your GDPR answer but not your regulatory one."
+faq:
+  - q: "Am I a provider or a deployer under the EU AI Act if I ship a feature built on Claude or GPT?"
+    a: "If you place the AI feature on the market under your own name or trademark, you are the provider of that AI system (a \"downstream provider\" relative to the GPAI model). If you only use someone else's AI system internally under your own authority, you are a deployer. The hosting platform does not change this."
+  - q: "Who is the GPAI provider for Claude on Azure, AWS Bedrock or Google Vertex AI?"
+    a: "Anthropic, on every platform. GPAI-provider status follows who developed and placed the model on the market, not who operates inference. The same logic applies to GPT (OpenAI), Gemini (Google) and Llama (Meta)."
+  - q: "Does hosting a model in an EU region change my AI Act obligations?"
+    a: "No. Region and hosting choice change the GDPR answer (who processes the data, where) but not the AI Act role you hold or the obligations attached to it."
+  - q: "What EU AI Act obligations applied from August 2, 2026?"
+    a: "Article 50 transparency obligations (for example, informing people that they are interacting with an AI system and marking synthetic content) and the Commission's enforcement powers over GPAI providers. Annex III high-risk obligations were deferred by the Digital Omnibus to December 2, 2027 (Annex I to August 2028)."
+  - q: "What does the Cyber Resilience Act require from September 11, 2026?"
+    a: "Manufacturers of products with digital elements must report actively exploited vulnerabilities and severe incidents to ENISA/the CSIRT within 24 hours of becoming aware (with follow-ups at 72 hours and 14 days). The duty is yours as manufacturer even where the vulnerable component is an inference service you do not operate."
+  - q: "Does the CRA oblige my model provider or cloud platform to notify me of vulnerabilities?"
+    a: "No. The CRA creates no upstream duty to notify downstream manufacturers. Only your contract can — negotiate vulnerability-notification commitments that fit a 24-hour reporting clock."
+  - q: "Does an ISO/IEC 42001 certificate answer the trust-boundary or AI Act question?"
+    a: "No. ISO/IEC 42001 is a management-system standard: it assigns no AI Act roles and starts no regulatory clocks. A vendor's certificate signals that a management system exists; it does not tell you who processes your prompts or who is the provider of the system your users touch."
 ---
 
 <div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/who-answers-to-the-regulator-ai-act-cra-trust-boundary/
@@ -37,6 +52,9 @@ Be practical for CISOs and compliance teams managing EU AI Act and CRA complianc
     <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
   </div>
 </div>
+
+> **In short:** EU AI Act roles follow the *product*, not the data: whoever places an AI system on the market under their own name is its **provider**, whoever uses it under their own authority is a **deployer**, and the company that developed the underlying model (Anthropic, OpenAI, Google, Meta) is the **GPAI provider** on every platform — regardless of where inference runs. Hosting choice changes your GDPR answer (who processes the data) but not your AI Act answer. From August 2, 2026 the Article 50 transparency duties and GPAI enforcement are live; Annex III high-risk obligations were deferred to December 2, 2027. The Cyber Resilience Act adds a second clock from September 11, 2026 — 24-hour vulnerability reporting for a product that may depend on an inference layer you don't operate.
+{: .prompt-info }
 
 > **Written for:** CISOs, cloud architects, compliance teams, and SaaS vendors evaluating EU AI Act and CRA compliance obligations.
 
@@ -246,9 +264,13 @@ The first post argued that the model is not the trust boundary — the platform 
 
 ---
 
-> 💡 **Pro Tip:** For each AI integration, write down three names: the *processor* for prompts and completions (the DPA tells you — the GDPR answer), the *GPAI model provider* (the AI Act answer — the same name on every platform), and the *provider of the AI system* your users actually touch (very possibly you). When the three names differ — and in cloud AI they usually do — each owes different duties to a different authority on a different clock. A vendor-risk review that records only the first name is one-third complete.
+> 💡 **Pro Tip — the Three-Names Rule:** For each AI integration, write down three names: the *processor* for prompts and completions (the DPA tells you — the GDPR answer), the *GPAI model provider* (the AI Act answer — the same name on every platform), and the *provider of the AI system* your users actually touch (very possibly you). When the three names differ — and in cloud AI they usually do — each owes different duties to a different authority on a different clock. A vendor-risk review that records only the first name is one-third complete.
 
 {% include ai-selector-init.html %}
+
+---
+
+{% include faq.html %}
 
 ---
 

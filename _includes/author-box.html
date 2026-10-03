@@ -1,0 +1,67 @@
+{%- comment -%}
+  Author box + "Cite this article" block, rendered after post content
+  (mounted from _layouts/post.html). Pure presentation — no post edits needed.
+{%- endcomment -%}
+{%- assign post_url = page.url | absolute_url -%}
+{%- assign pub_year = page.date | date: '%Y' -%}
+{%- assign mod_date = page.last_modified_at | default: page.date -%}
+{%- capture avatar_url -%}{% include media-url.html src=site.avatar %}{%- endcapture -%}
+{%- assign bib_key = page.url | split: '/' | last | slugify | replace: '-', '' | truncate: 24, '' -%}
+
+<section class="author-box" aria-label="About the author">
+  <div class="author-box__header">
+    <img class="author-box__avatar" src="{{ avatar_url | strip }}" alt="Subodh Patil" width="64" height="64" loading="lazy">
+    <div>
+      <p class="author-box__name">
+        Written by <a href="{{ '/about/' | relative_url }}" rel="author">Subodh Patil</a>
+      </p>
+      <p class="author-box__creds">
+        CISSP · ISACA Advanced in AI Risk (AAIR) · Microsoft Certified: AI Transformation Leader &amp; Cybersecurity Architect Expert
+      </p>
+    </div>
+  </div>
+  <p class="author-box__bio">
+    Principal security architect writing about AI risk management and governance, cloud AI trust boundaries,
+    EU AI Act and CRA compliance, encryption and key management, and post-quantum cryptography.
+    Independent, practitioner-written, no sponsorship. Corrections welcome via
+    <a href="mailto:{{ site.social.email }}">email</a>.
+    <a href="{{ '/about/' | relative_url }}">More about the author →</a>
+  </p>
+
+  <details class="author-box__cite">
+    <summary>Cite this article</summary>
+    <p class="author-box__cite-label">APA</p>
+    <pre class="author-box__cite-text">Patil, S. ({{ page.date | date: '%Y, %B %-d' }}). <em>{{ page.title }}</em>. Subodh Patil. {{ post_url }}</pre>
+    <p class="author-box__cite-label">BibTeX</p>
+    <pre class="author-box__cite-text">@misc{patil{{ pub_year }}{{ bib_key }},
+  author       = {Patil, Subodh},
+  title        = { {{- page.title -}} },
+  year         = { {{- pub_year -}} },
+  month        = { {{- page.date | date: '%b' | downcase -}} },
+  howpublished = {\url{ {{- post_url -}} }},
+  note         = {Last modified {{ mod_date | date: '%Y-%m-%d' }}. Licensed CC BY 4.0.}
+}</pre>
+    <p class="author-box__cite-label">Permalink (stable): <code>{{ post_url }}</code></p>
+  </details>
+</section>
+
+<style>
+  .author-box {
+    margin: 2.5rem 0 1rem;
+    padding: 1.25rem 1.4rem;
+    border: 1px solid var(--card-border-color, rgba(128, 128, 128, 0.25));
+    border-radius: 10px;
+    background: var(--card-bg, transparent);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  .author-box__header { display: flex; align-items: center; gap: 0.9rem; }
+  .author-box__avatar { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+  .author-box__name { margin: 0; font-weight: 600; font-size: 1rem; }
+  .author-box__creds { margin: 0.15rem 0 0; color: var(--text-muted-color, #888); font-size: 0.82rem; }
+  .author-box__bio { margin: 0.9rem 0 0; }
+  .author-box__cite { margin-top: 0.9rem; }
+  .author-box__cite summary { cursor: pointer; font-weight: 600; }
+  .author-box__cite-label { margin: 0.7rem 0 0.2rem; font-size: 0.8rem; color: var(--text-muted-color, #888); text-transform: uppercase; letter-spacing: 0.04em; }
+  .author-box__cite-text { white-space: pre-wrap; word-break: break-word; font-size: 0.8rem; margin: 0; padding: 0.6rem 0.8rem; }
+</style>

@@ -2,7 +2,7 @@
 title: "From Risk to Trust: Multi-Geo as a SaaS Vendor's Compliance Shield"
 date: 2025-11-18 12:00:00 +0200
 last_modified_at: 2025-11-18 12:00:00 +0200
-categories: [Compliance, DataResidency]
+categories: ["Compliance & Data Residency", "Microsoft Fabric"]
 tags: [data-residency, azure, power-bi, microsoft-fabric, saas, compliance]
 mermaid: true
 description: "Explains how Multi-Geo in Power BI and Microsoft Fabric lets SaaS vendors keep customer workspace data in a specific region instead of the tenant's home region. Covers the licensing prerequisites, what metadata still stays home-region, and when a full multi-tenant architecture is needed instead."
@@ -37,6 +37,9 @@ Be practical and geared toward SaaS product teams and compliance officers buildi
     <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
   </div>
 </div>
+
+> **In short:** By default, Power BI and Microsoft Fabric store workspace data and metadata in the Microsoft 365 tenant's *home region*, regardless of where capacity is provisioned — a residency gap for SaaS vendors serving regulated markets from a single tenant. Multi-Geo lets you assign workspaces to a capacity in a satellite region so their data (OneLake files, warehouse tables, datasets, reports) is stored there. It is gated by a tenant-level licensing prerequisite (at least 5% of eligible users on Multi-Geo add-on licences), and certain tenant-level administrative metadata still stays in the home region. When a customer's localisation requirement covers *all* data, only a separate tenant per region closes the gap.
+{: .prompt-info }
 
 > **Written for:** SaaS vendors, cloud architects, and compliance leads implementing data residency controls on Power BI and Microsoft Fabric.
 
@@ -215,5 +218,16 @@ A multi-tenant architecture is a significant operational and cost commitment —
 ---
 
 > 💡 **Pro Tip:** Before committing to a single-tenant + Multi-Geo architecture, map your largest customers' regulatory requirements against what Multi-Geo actually covers. For most customers, Multi-Geo is sufficient. But if you have customers in jurisdictions with strict data localization laws who ask "where does *any* of my data live?" — including metadata — the honest answer may point you toward a multi-tenant design.
+
+---
+
+## References
+
+- [Configure Multi-Geo support for Fabric — Microsoft Learn](https://learn.microsoft.com/en-us/fabric/admin/service-admin-premium-multi-geo)
+- [Multi-Geo Capabilities in Microsoft 365 — Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-365/enterprise/microsoft-365-multi-geo)
+- [Find the default region for your organization — Microsoft Learn](https://learn.microsoft.com/en-us/fabric/admin/find-fabric-home-region)
+- [OneLake overview — Microsoft Learn](https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview)
+- [Microsoft Fabric licenses and capacities — Microsoft Learn](https://learn.microsoft.com/en-us/fabric/enterprise/licenses)
+- [Microsoft Trust Center — Where your data is located](https://www.microsoft.com/en-us/trust-center/privacy/data-location)
 
 {% include ai-selector-init.html %}

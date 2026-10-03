@@ -2,10 +2,25 @@
 title: "Post-Quantum Cryptography: Why Even TLS 1.3 Isn't Safe Forever"
 date: 2026-07-08 12:00:00 +0200
 last_modified_at: 2026-07-23 12:00:00 +0200
-categories: [CloudSecurity, CryptographySecurity]
+categories: ["Cryptography & TLS", "Post-Quantum"]
 tags: [pqc, quantum, tls, nist, harvest-now-decrypt-later, ml-kem, ml-dsa, hybrid-tls, crypto-agility, governance, compliance, cissp]
 mermaid: true
 description: "Why TLS 1.3 alone isn't enough in a post-quantum world. Explains Shor's algorithm, the Harvest Now Decrypt Later threat, NIST PQC standards, hybrid TLS deployment, and what the quantum timeline means for your cryptographic migration planning."
+faq:
+  - q: "Is TLS 1.3 quantum-safe?"
+    a: "Not by default. TLS 1.3's classical key exchange (X25519/ECDH) and certificate signatures (RSA/ECDSA) are broken by Shor's algorithm. TLS 1.3 becomes quantum-resistant for key exchange when a hybrid group such as X25519MLKEM768 is negotiated; certificate authentication is still classical."
+  - q: "What is \"Harvest Now, Decrypt Later\"?"
+    a: "An adversary records encrypted traffic today and stores it until a quantum computer can recover the session keys. Any data that must stay confidential beyond roughly 2030 is already inside the threat window, even though no cryptographically relevant quantum computer exists yet."
+  - q: "When will a quantum computer be able to break RSA-2048?"
+    a: "Nobody knows exactly. The median expert estimate is around 2030; the credible window used for planning is 2029–2032. Research since 2025 has reduced the qubits required from about 20 million to under one million, which shortened earlier estimates."
+  - q: "Which NIST post-quantum standards are final?"
+    a: "FIPS 203 (ML-KEM, key encapsulation), FIPS 204 (ML-DSA, signatures) and FIPS 205 (SLH-DSA, hash-based signatures), all finalised in August 2024. NIST selected HQC in 2025 as a second key-encapsulation mechanism for algorithmic diversity."
+  - q: "What is hybrid TLS key exchange?"
+    a: "The client and server exchange both a classical (X25519) and a post-quantum (ML-KEM-768) key share and derive the session key from both. An attacker must break both to recover the session, so security is at least that of the stronger component. X25519MLKEM768 is the deployed hybrid today."
+  - q: "Does AES-256 need to be replaced for the quantum era?"
+    a: "No. Grover's algorithm only halves the effective key strength, leaving AES-256 at roughly 128-bit security, which remains adequate. Symmetric encryption and hash functions (prefer SHA-384/512 for long-term use) are not the urgent migration."
+  - q: "Where should an organisation start a PQC migration?"
+    a: "With a cryptographic inventory: every system using RSA or ECDH, what data it protects and how long that data must remain confidential. Prioritise by the gap between your longest retention requirement and the CRQC window, enable hybrid TLS where available, and design for crypto-agility so algorithms can be swapped without re-architecting."
 ---
 
 <div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/post-quantum-cryptography-tls-not-safe-forever/
@@ -37,6 +52,9 @@ Be practical for security architects and CISOs planning quantum-safe cryptograph
     <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
   </div>
 </div>
+
+> **In short:** TLS 1.3 is the strongest TLS ever shipped, and its key exchange (ECDH) and server authentication (RSA/ECDSA) are exactly what Shor's algorithm breaks; AES-256 survives. The threat is active today through *Harvest Now, Decrypt Later*: traffic recorded now can be decrypted once a cryptographically relevant quantum computer (CRQC) exists — credible window 2029–2032. NIST finalised ML-KEM (FIPS 203), ML-DSA (FIPS 204) and SLH-DSA (FIPS 205) in August 2024, and hybrid key exchange (X25519MLKEM768) is already in production in Chrome, Firefox, Cloudflare, AWS and Windows. Certificates remain classical for now. Start with a cryptographic inventory and crypto-agility, not a product purchase.
+{: .prompt-info }
 
 > **Written for:** Security architects, CISOs, and engineers responsible for TLS infrastructure and cryptographic migration planning.
 
@@ -331,6 +349,10 @@ The transition to post-quantum TLS requires that your private keys — both clas
 > 💡 **Pro Tip:** Start your PQC readiness programme with a cryptographic inventory, not a product purchase. The first deliverable should be a map of every system that uses RSA or ECDH — where it is, what data it protects, and how long that data needs to remain confidential. The gap between your longest data retention requirement and the CRQC credible window defines your urgency. Systems protecting data that must stay confidential past 2030 should already be in active migration planning.
 
 {% include ai-selector-init.html %}
+
+---
+
+{% include faq.html %}
 
 ---
 

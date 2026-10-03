@@ -2,7 +2,7 @@
 title: "Encryption Demystified (Part 2): Inside Azure — How Encryption at Rest Works and Why Key Control Matters"
 date: 2025-10-03 12:00:00 +0200
 last_modified_at: 2025-10-03 12:00:00 +0200
-categories: [CloudSecurity, DataSecurity]
+categories: ["Cloud Security", "Key Management"]
 tags: [encryption, azure, key-management, cmk, byok, saas, compliance]
 mermaid: true
 description: "A look inside Azure's encryption-at-rest implementation, from default Microsoft-Managed Keys to Customer-Managed Keys in Azure Key Vault and Bring Your Own Key. Explains how key protection levels and rotation policies affect compliance, and why key control matters for SaaS vendors."

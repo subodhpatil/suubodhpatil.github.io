@@ -71,3 +71,32 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      # IndexNow: tell Bing / Copilot / DuckDuckGo / Yandex (and anyone else
+      # on the protocol) that URLs changed, instead of waiting to be crawled.
+      # Key file lives at the site root: /<key>.txt. Non-fatal on failure.
+      - name: Ping IndexNow with sitemap URLs
+        if: success()
+        continue-on-error: true
+        env:
+          SITE_HOST: blog.suubodhpatil.com
+          INDEXNOW_KEY: e9fd672f7370843d8df8beebef671b7c
+        run: |
+          set -u
+          sleep 45  # give the Pages CDN a moment to serve the fresh sitemap
+          SITEMAP="$(curl -fsSL "https://${SITE_HOST}/sitemap.xml" || true)"
+          if [ -z "$SITEMAP" ]; then echo "sitemap not reachable; skipping"; exit 0; fi
+          # Only ping real content URLs: posts, hubs, about, home (skip tag/category pages).
+          URLS="$(printf '%s' "$SITEMAP" \
+            | grep -o '<loc>[^<]*</loc>' \
+            | sed -e 's#<loc>##' -e 's#</loc>##' \
+            | grep -E "https://${SITE_HOST}/(posts/|about/|categories/$|$)" \
+            | sort -u)"
+          COUNT="$(printf '%s\n' "$URLS" | grep -c . || true)"
+          echo "Submitting ${COUNT} URLs to IndexNow"
+          printf '%s\n' "$URLS" > /tmp/urls.txt
+          BODY="$(python3 -c 'import json,os; u=[l.strip() for l in open("/tmp/urls.txt") if l.strip()]; h=os.environ["SITE_HOST"]; k=os.environ["INDEXNOW_KEY"]; print(json.dumps({"host":h,"key":k,"keyLocation":"https://%s/%s.txt"%(h,k),"urlList":u[:10000]}))')"
+          curl -sS -o /dev/null -w "IndexNow HTTP %{http_code}\n" \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            --data "$BODY"

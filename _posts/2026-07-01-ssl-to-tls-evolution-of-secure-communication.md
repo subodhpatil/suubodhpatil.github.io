@@ -2,7 +2,7 @@
 title: "From SSL 2.0 to TLS 1.3: The Evolution of Secure Communication"
 date: 2026-07-01 12:00:00 +0200
 last_modified_at: 2026-07-23 12:00:00 +0200
-categories: [WebSecurity, NetworkSecurity]
+categories: ["Cryptography & TLS", "Web Security"]
 tags: [tls, ssl, cipher-suites, poodle, beast, heartbleed, tls13, pci-dss, vulnerabilities, governance, compliance]
 mermaid: true
 description: "A 25-year history of TLS security failures — POODLE, BEAST, Heartbleed, DROWN — and what drove each protocol transition. Explains cipher suites, why TLS 1.2 is still everywhere, and why TLS 1.3 is a redesign rather than an upgrade. Includes the compliance table auditors actually use."

@@ -14,14 +14,15 @@ timezone: Europe/Berlin
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Subodh Patil 
+title: Subodh Patil
 
-tagline: Cloud Security · Encryption · AI Risk · Zero Trust
+tagline: AI Risk · AI Governance · Cloud Security · Encryption
 
 description: >- # used by seo meta and the atom feed
-  Deep-dive articles on cloud security architecture, encryption, data sovereignty,
-  and AI risk — by Subodh Patil, CISSP | Principal Security Architect at Icertis.
-  
+  Practitioner articles on AI risk management, AI governance, cloud AI trust boundaries,
+  EU AI Act compliance, encryption and key management — by Subodh Patil, CISSP, ISACA AAIR,
+  Principal Security Architect.
+
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
 url: "https://blog.suubodhpatil.com"
@@ -194,6 +195,19 @@ defaults:
     values:
       layout: page
       permalink: /:title/
+  # 2011 "Envision" archive: keep the pages, but keep them out of search/AI
+  # indexes and the sitemap so they don't dilute the site's AI-security topical
+  # focus. `noindex` is honoured by the site override of _includes/head.html.
+  - scope:
+      path: retrospective
+    values:
+      noindex: true
+      sitemap: false
+  - scope:
+      path: _tabs/retrospective.md
+    values:
+      noindex: true
+      sitemap: false
 
 sass:
   style: compressed

@@ -1,10 +1,21 @@
 ---
-title: "Microsoft Foundry Goes GA: Same Processor, Two Hosting Paths — and Why Claude Still Isn't Azure OpenAI"
+title: "Claude in Microsoft Foundry (GA): Two Hosting Paths, One Processor — and Why It Isn't Azure OpenAI"
 date: 2026-07-01 12:00:00 +0200
 last_modified_at: 2026-07-01 12:00:00 +0200
-categories: [CloudSecurity, AISecurity]
+categories: ["AI Risk & Governance", "Cloud AI Trust Boundaries"]
 tags: [ai, azure, anthropic, openai, trust-boundary, data-protection, zero-data-retention, saas, governance, compliance]
 description: "Microsoft Foundry reached general availability for Claude on June 29, 2026, adding a new Hosted on Azure option. Breaks down what actually changed, why Anthropic remains an independent data processor either way, and how that differs from Azure OpenAI's single-processor model — including who governs Zero Data Retention in each case."
+faq:
+  - q: "Is Claude in Microsoft Foundry the same as Azure OpenAI?"
+    a: "No. Azure OpenAI is a Microsoft first-party service with Microsoft as the sole data processor. Claude in Foundry is a marketplace model where Anthropic is the independent data processor for prompts and completions — on both the Anthropic-hosted and Azure-hosted paths."
+  - q: "What changed when Claude reached GA on Microsoft Foundry on June 29, 2026?"
+    a: "The previous Anthropic-hosted preview became \"Hosted on Anthropic Infrastructure\", and a new \"Hosted on Azure\" option was added that runs inference on Azure GPUs with regional/data-zone enforcement. The processor (Anthropic) did not change."
+  - q: "Does \"Hosted on Azure\" mean Microsoft processes my prompts for Claude?"
+    a: "No. Hosted on Azure changes *where* inference runs (Azure infrastructure in the selected geography) but not *who* is the data processor — Anthropic remains the processor under its own data-processing terms."
+  - q: "Who grants Zero Data Retention for Claude on Foundry?"
+    a: "Anthropic. ZDR for Claude is a separately negotiated agreement with Anthropic that must be explicitly confirmed to apply to Foundry deployments. Foundry/Microsoft does not grant it."
+  - q: "What is Azure OpenAI's equivalent of Zero Data Retention?"
+    a: "\"Modified Abuse Monitoring\": a Microsoft Limited Access process in which, once approved, Microsoft disables the human-review data store used for abuse detection. It is a Microsoft-only decision because Microsoft is the sole processor."
 ---
 
 <div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/microsoft-foundry-ga-claude-vs-azure-openai/
@@ -36,6 +47,9 @@ Be practical for CISOs, compliance teams, and platform leaders evaluating Claude
     <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
   </div>
 </div>
+
+> **In short:** Since June 29, 2026, Claude in Microsoft Foundry comes in two hosting paths — *Hosted on Anthropic Infrastructure* (outside Azure, no region enforcement, full feature set) and *Hosted on Azure* (Azure GPUs, region/data-zone enforcement, narrower feature set for now). In **both** paths Anthropic remains the independent data processor for prompts and completions. That is the structural difference from Azure OpenAI, where Microsoft is the sole processor: Zero Data Retention for Claude is granted by Anthropic under Anthropic's terms, while Azure OpenAI's equivalent ("Modified Abuse Monitoring") is a Microsoft-only process. Same marketplace, two different vendors, two different contracts.
+{: .prompt-info }
 
 > **Written for:** CISOs, cloud architects, and SaaS vendors evaluating Claude versus Azure OpenAI for production deployments.
 
@@ -126,6 +140,10 @@ Nothing about the original post's three-part evaluation framework — inference 
 - [Foundry Models sold by Azure abuse monitoring — Microsoft Learn](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/abuse-monitoring)
 - [Anthropic Data Processing Addendum](https://www.anthropic.com/legal/data-processing-addendum)
 - [Who Processes the Data? Trust, Responsibility, and AI Inference Beyond the Cloud](/posts/who-processes-the-data-ai-trust-boundary/)
+
+---
+
+{% include faq.html %}
 
 ---
 

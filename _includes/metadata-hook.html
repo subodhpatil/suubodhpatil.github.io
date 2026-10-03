@@ -1,86 +1,208 @@
-<!-- Author Entity & Credential Schema for Knowledge Graphs & AI Crawlers -->
+{%- comment -%}
+  Canonical structured-data graph for every page (included from head.html).
+  jekyll-seo-tag's own JSON-LD is stripped in head.html so this is the ONLY
+  ld+json block on the page. Entities:
+    Person      — author/publisher, credentials, knowsAbout, sameAs
+    WebSite     — the blog
+    BlogPosting — posts only; links author/publisher by @id, carries
+                  keywords, articleSection, wordCount, license, and
+                  `about` entities resolved from _data/entities.yml
+    BreadcrumbList — posts only
+    ProfilePage — /about/ only
+{%- endcomment -%}
+{%- assign site_url = site.url | append: site.baseurl -%}
+{%- assign person_id = site_url | append: '/#subodhpatil' -%}
+{%- assign website_id = site_url | append: '/#website' -%}
+{%- capture avatar_url -%}{% include media-url.html src=site.avatar absolute=true %}{%- endcapture -%}
+{%- capture preview_url -%}{% include media-url.html src=site.social_preview_image absolute=true %}{%- endcapture -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://blog.suubodhpatil.com/#subodhpatil",
+      "@id": {{ person_id | jsonify }},
       "name": "Subodh Patil",
-      "url": "https://blog.suubodhpatil.com/",
-      "jobTitle": "Cloud & AI Security Architect",
-      "description": "Specialist in Cloud Security, Post-Quantum Cryptography, AI Risk Governance, and Trust Boundary Architecture.",
+      "alternateName": ["suubodhpatil", "Subodh S. Patil"],
+      "url": {{ site_url | append: '/' | jsonify }},
+      "mainEntityOfPage": {{ site_url | append: '/about/' | jsonify }},
+      "image": {{ avatar_url | strip | jsonify }},
+      "jobTitle": "Principal Information Security Architect",
+      "description": "Security architect writing about AI risk management, AI governance, cloud AI trust boundaries, EU AI Act and CRA compliance, encryption and key management, and post-quantum cryptography. CISSP, ISACA Advanced in AI Risk (AAIR).",
+      "homeLocation": { "@type": "Place", "name": "Stuttgart, Germany" },
+      "email": "mailto:{{ site.social.email }}",
       "sameAs": [
         "https://www.linkedin.com/in/subodhpatil/",
         "https://github.com/subodhpatil",
+        "https://www.credly.com/users/subodhpatil/badges",
         "https://www.credly.com/badges/ab526718-0dc2-4955-8df1-926729ed2744/linked_in_profile",
         "https://www.credly.com/badges/d85ea151-f777-42f3-bfa8-e00b4d0f221a/linked_in_profile",
         "https://learn.microsoft.com/en-us/users/subodhpatil/credentials/74ee6d07957372fa"
       ],
       "knowsAbout": [
         "AI Risk Management",
+        "AI Governance",
+        "AI Security",
+        "Responsible AI",
+        "AI Assurance",
+        "AI Compliance",
         "ISO/IEC 42001",
-        "NIST AI RMF",
-        "EU AI Act Compliance",
+        "NIST AI Risk Management Framework",
+        "EU AI Act",
+        "EU Cyber Resilience Act",
         "Cloud AI Trust Boundaries",
+        "Enterprise AI Adoption",
+        "Cloud Security Architecture",
+        "Zero Trust Architecture",
+        "Encryption and Key Management",
+        "Azure Key Vault and Managed HSM",
+        "Transport Layer Security",
         "Post-Quantum Cryptography",
-        "Azure Key Management"
+        "Data Residency and Sovereignty"
       ],
       "hasCredential": [
         {
           "@type": "EducationalOccupationalCredential",
           "name": "ISACA Advanced in AI Risk (AAIR)",
-          "recognizedBy": {
-            "@type": "Organization",
-            "name": "ISACA"
-          },
+          "credentialCategory": "certification",
+          "recognizedBy": { "@type": "Organization", "name": "ISACA", "url": "https://www.isaca.org/" },
           "url": "https://www.credly.com/badges/ab526718-0dc2-4955-8df1-926729ed2744/linked_in_profile"
         },
         {
           "@type": "EducationalOccupationalCredential",
           "name": "Certified Information Systems Security Professional (CISSP)",
-          "recognizedBy": {
-            "@type": "Organization",
-            "name": "ISC2"
-          },
+          "credentialCategory": "certification",
+          "recognizedBy": { "@type": "Organization", "name": "ISC2", "url": "https://www.isc2.org/" },
           "url": "https://www.credly.com/badges/d85ea151-f777-42f3-bfa8-e00b4d0f221a/linked_in_profile"
         },
         {
           "@type": "EducationalOccupationalCredential",
           "name": "Microsoft Certified: AI Transformation Leader",
-          "recognizedBy": {
-            "@type": "Organization",
-            "name": "Microsoft"
-          },
+          "credentialCategory": "certification",
+          "recognizedBy": { "@type": "Organization", "name": "Microsoft", "url": "https://www.microsoft.com/" },
           "url": "https://learn.microsoft.com/en-us/users/subodhpatil/credentials/74ee6d07957372fa"
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Microsoft Certified: Cybersecurity Architect Expert",
+          "credentialCategory": "certification",
+          "recognizedBy": { "@type": "Organization", "name": "Microsoft", "url": "https://www.microsoft.com/" },
+          "url": "https://www.credly.com/users/subodhpatil/badges"
         }
       ]
     },
     {
       "@type": "WebSite",
-      "@id": "https://blog.suubodhpatil.com/#website",
-      "url": "https://blog.suubodhpatil.com/",
-      "name": "Subodh Patil | AI Security & Cloud Risk Architecture",
-      "publisher": {
-        "@id": "https://blog.suubodhpatil.com/#subodhpatil"
-      }
-    }{% if page.layout == 'post' %},
+      "@id": {{ website_id | jsonify }},
+      "url": {{ site_url | append: '/' | jsonify }},
+      "name": "Subodh Patil — AI Risk, AI Governance & Cloud Security Architecture",
+      "alternateName": ["blog.suubodhpatil.com", "Subodh Patil's blog"],
+      "description": {{ site.description | strip_newlines | strip | jsonify }},
+      "inLanguage": "en",
+      "image": {{ preview_url | strip | jsonify }},
+      "author": { "@id": {{ person_id | jsonify }} },
+      "publisher": { "@id": {{ person_id | jsonify }} },
+      "copyrightHolder": { "@id": {{ person_id | jsonify }} },
+      "license": "https://creativecommons.org/licenses/by/4.0/"
+    }
+    {%- if page.layout == 'post' -%}
+    {%- assign post_url = page.url | absolute_url -%}
+    {%- if page.image -%}
+      {%- assign post_img_src = page.image.path | default: page.image -%}
+      {%- capture post_img -%}{% include media-url.html src=post_img_src subpath=page.media_subpath absolute=true %}{%- endcapture -%}
+    {%- else -%}
+      {%- assign post_img = preview_url -%}
+    {%- endif -%}
+    {%- assign word_count = page.content | strip_html | number_of_words -%}
+    ,
     {
       "@type": "BlogPosting",
-      "@id": "{{ page.url | absolute_url }}#article",
+      "@id": {{ post_url | append: '#article' | jsonify }},
       "headline": {{ page.title | jsonify }},
-      "description": {{ page.description | default: page.excerpt | strip_html | strip_newlines | truncate: 200 | jsonify }},
+      "name": {{ page.title | jsonify }},
+      "description": {{ page.description | default: page.excerpt | strip_html | strip_newlines | truncate: 300 | jsonify }},
+      "url": {{ post_url | jsonify }},
+      "mainEntityOfPage": { "@type": "WebPage", "@id": {{ post_url | jsonify }} },
+      "isPartOf": { "@id": {{ website_id | jsonify }} },
+      "image": {{ post_img | strip | jsonify }},
       "datePublished": "{{ page.date | date_to_xmlschema }}",
       "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
-      "mainEntityOfPage": "{{ page.url | absolute_url }}",
-      "url": "{{ page.url | absolute_url }}",
-      "author": {
-        "@id": "https://blog.suubodhpatil.com/#subodhpatil"
-      },
-      "publisher": {
-        "@id": "https://blog.suubodhpatil.com/#subodhpatil"
-      }
-    }{% endif %}
+      "author": { "@id": {{ person_id | jsonify }} },
+      "publisher": { "@id": {{ person_id | jsonify }} },
+      "copyrightHolder": { "@id": {{ person_id | jsonify }} },
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "wordCount": {{ word_count }},
+      "keywords": {{ page.tags | join: ', ' | jsonify }},
+      "articleSection": {{ page.categories | jsonify }}
+      {%- assign about_count = 0 -%}
+      {%- for tag in page.tags -%}
+        {%- assign ent = site.data.entities[tag] -%}
+        {%- if ent -%}
+          {%- if about_count == 0 %},
+      "about": [
+          {%- else -%},{%- endif %}
+        {
+          "@type": {{ ent.type | default: 'Thing' | jsonify }},
+          "name": {{ ent.name | jsonify }},
+          "sameAs": {{ ent.sameAs | jsonify }}
+        }
+          {%- assign about_count = about_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if about_count > 0 %}
+      ]
+      {%- endif %}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": {{ site_url | append: '/' | jsonify }} },
+        {%- if page.categories.size > 0 -%}
+        {%- assign cat = page.categories | first -%}
+        {%- assign cat_slug = cat | slugify -%}
+        {%- assign cat_url = site_url | append: '/categories/' | append: cat_slug | append: '/' -%}
+        { "@type": "ListItem", "position": 2, "name": {{ cat | jsonify }}, "item": {{ cat_url | jsonify }} },
+        { "@type": "ListItem", "position": 3, "name": {{ page.title | jsonify }}, "item": {{ post_url | jsonify }} }
+        {%- else -%}
+        { "@type": "ListItem", "position": 2, "name": {{ page.title | jsonify }}, "item": {{ post_url | jsonify }} }
+        {%- endif %}
+      ]
+    }
+    {%- if page.faq and page.faq.size > 0 -%}
+    ,
+    {
+      "@type": "FAQPage",
+      "@id": {{ post_url | append: '#faq' | jsonify }},
+      "url": {{ post_url | append: '#faq' | jsonify }},
+      "isPartOf": { "@id": {{ post_url | append: '#article' | jsonify }} },
+      "mainEntity": [
+        {%- for item in page.faq %}
+        {
+          "@type": "Question",
+          "name": {{ item.q | jsonify }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ item.a | markdownify | strip_html | strip_newlines | strip | jsonify }}
+          }
+        }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor %}
+      ]
+    }
+    {%- endif -%}
+    {%- endif -%}
+    {%- if page.url == '/about/' -%}
+    ,
+    {
+      "@type": "ProfilePage",
+      "@id": {{ site_url | append: '/about/#profilepage' | jsonify }},
+      "url": {{ site_url | append: '/about/' | jsonify }},
+      "name": "About Subodh Patil",
+      "mainEntity": { "@id": {{ person_id | jsonify }} },
+      "isPartOf": { "@id": {{ website_id | jsonify }} }
+    }
+    {%- endif %}
   ]
 }
 </script>

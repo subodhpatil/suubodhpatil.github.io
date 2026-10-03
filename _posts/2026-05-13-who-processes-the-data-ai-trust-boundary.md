@@ -2,10 +2,27 @@
 title: "Who Processes the Data? Trust, Responsibility, and AI Inference Beyond the Cloud"
 date: 2026-05-13 12:00:00 +0200
 last_modified_at: 2026-06-29 12:00:00 +0200
-categories: [CloudSecurity, AISecurity]
+categories: ["AI Risk & Governance", "Cloud AI Trust Boundaries"]
 tags: [ai, azure, trust-boundary, data-protection, saas, governance, compliance]
 mermaid: true
 description: "Breaks down the split between the control plane and data plane in cloud AI platforms, showing how the same model can carry very different trust profiles depending on where inference actually runs. Looks at the limits of Zero Data Retention and why trust-boundary review has to be an ongoing process, not a one-time audit."
+faq:
+  - q: "Is Anthropic a Microsoft sub-processor when I use Claude in Azure AI Foundry?"
+    a: "No. In Azure AI Foundry, Anthropic is an independent data processor for prompts and completions under its own data-processing terms, alongside Microsoft's DPA for the platform layer. In Microsoft 365 Copilot, by contrast, Anthropic appears on Microsoft's sub-processor list — a different contractual structure for the same model."
+  - q: "What is the difference between the control plane and the data plane in a cloud AI platform?"
+    a: "The control plane is the API surface, identity, quota, billing and deployment management — operated by the cloud provider. The data plane is where inference actually runs on your prompts. Trust, contracts and controls can differ between the two, and they may belong to different companies."
+  - q: "Does selecting an Azure region keep my prompts in that region when I use Claude?"
+    a: "Not automatically. Region selection constrains Azure-operated resources. Where inference runs on model-provider infrastructure, the region choice does not bind it; check the specific hosting option and the service documentation for where prompts are processed."
+  - q: "Do customer-managed keys (CMK) protect prompts sent to a third-party model?"
+    a: "No. CMK protects data at rest in Azure-operated services. It does not extend to inference performed on the model provider's infrastructure, where prompts are processed in memory under the provider's own controls."
+  - q: "What does Zero Data Retention (ZDR) cover — and what does it not?"
+    a: "ZDR means the inference provider does not persist prompts and completions after the request completes. It does not change who the processor is, does not cover logs you create yourself, and must be granted by the entity that actually operates inference — which is why \"who grants ZDR\" differs by platform."
+  - q: "Which trust pattern applies to Claude on AWS Bedrock or Google Vertex AI?"
+    a: "Pattern B — Unified Trust. The cloud provider operates both the control plane and inference under a single DPA; you have no separate processing relationship with Anthropic for your data."
+  - q: "How do I find out who actually processes my prompts?"
+    a: "Read the service-specific DPA to see who is named as processor for prompts and completions; confirm the hosting option in use; check whether deploying the model triggered click-through acceptance of the model provider's terms. Do not rely on a global sub-processor list — it tells you who *may* process, not who is responsible."
+  - q: "How often should an AI trust-boundary review be repeated?"
+    a: "Treat it as a recurring governance process: at minimum quarterly, and whenever a hosting option, sub-processor list, DPA, or region availability changes. The evaluation questions stay stable; the answers do not."
 ---
 
 <div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/who-processes-the-data-ai-trust-boundary/
@@ -37,6 +54,9 @@ Be practical for CISOs, privacy teams, and platform leaders evaluating AI vendor
     <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
   </div>
 </div>
+
+> **In short:** In cloud AI platforms the *control plane* (API, identity, billing — run by the cloud provider) and the *data plane* (inference — where your prompts are actually processed) can belong to different companies under different contracts. The same model therefore carries different trust profiles on different platforms: Claude in Azure AI Foundry is processed by Anthropic under a separate DPA (split trust); Claude in AWS Bedrock or GCP Vertex is processed by the cloud provider (unified trust); Claude in M365 Copilot reaches Anthropic as a Microsoft sub-processor. Region selection, customer-managed keys and data-boundary commitments do not automatically extend across that boundary. **The model is not the trust boundary — the platform is.**
+{: .prompt-info }
 
 > **Written for:** CISOs, cloud architects, privacy teams, and SaaS vendors evaluating AI vendor trust and data processing responsibility.
 
@@ -205,7 +225,14 @@ One important nuance: even under ZDR, Anthropic retains outputs from its User Sa
 
 ## Three Architectural Patterns
 
-Across today's cloud AI platforms, three distinct trust architectures emerge. Understanding which pattern applies is the first step in evaluating any integration.
+Across today's cloud AI platforms, three distinct trust architectures emerge. I refer to them as the **Cloud AI Trust-Boundary Patterns**. A *trust boundary* in cloud AI is the point at which prompts and completions leave the infrastructure and contract of one legal entity and enter another's; the pattern is determined by who operates the inference data plane and under which data-processing agreement — not by which model you chose. Understanding which pattern applies is the first step in evaluating any integration.
+{: #cloud-ai-trust-boundary-patterns }
+
+- **Pattern A — Split Trust:** control plane and inference are operated by different companies under two separate DPAs (e.g. Claude in Azure AI Foundry).
+- **Pattern B — Unified Trust:** the cloud provider operates both planes under a single DPA (e.g. Claude in AWS Bedrock or GCP Vertex AI).
+- **Pattern C — Sub-processor Chain:** inference runs outside the cloud, but under the SaaS provider's umbrella DPA with the model provider as sub-processor (e.g. Claude in M365 Copilot).
+
+**Table — Cloud AI Trust-Boundary Patterns compared: who hosts inference, DPA structure, your relationship with the model provider, and whether region selection constrains inference.**
 
 | | Pattern A — Split Trust | Pattern B — Unified Trust | Pattern C — Sub-processor Chain |
 |---|---|---|---|
@@ -319,6 +346,10 @@ The trust boundary question will not stay answered. As models shift between host
 > 💡 **Pro Tip:** The sub-processor list is a starting point, not a trust boundary map — Anthropic appears on Microsoft's list for M365 Copilot, yet inference still runs on Anthropic infrastructure outside Azure. To find the actual boundary, check the service-specific DPA for who is named as processor for prompts and completions, and verify whether deploying the model triggered click-through acceptance of the model provider's own terms. Remember: cloud providers often maintain multiple sub-processor lists — global, service-specific, and product-specific — which can contradict each other; only the service-specific list is authoritative for a given integration, lists may lag behind actual architecture changes, and neither substitutes for reading the service-level DPA — the rule is simple: list = who *may* process, DPA = who is *responsible*, architecture = where data *actually* goes.
 
 {% include ai-selector-init.html %}
+
+---
+
+{% include faq.html %}
 
 ---
 

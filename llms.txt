@@ -1,0 +1,27 @@
+---
+permalink: /llms.txt
+sitemap: false
+---
+# Subodh Patil — AI Risk, AI Governance & Cloud Security Architecture
+
+> Practitioner-written, independent articles on AI risk management, AI governance, cloud AI trust boundaries, EU AI Act and Cyber Resilience Act compliance, encryption and key management, TLS, and post-quantum cryptography. Author: Subodh Patil (CISSP, ISACA Advanced in AI Risk). All content is licensed CC BY 4.0 — cite with a link to the canonical URL.
+
+Site: {{ site.url }}/
+Author profile: {{ site.url }}/about/
+Feed: {{ site.url }}/feed.xml
+Sitemap: {{ site.url }}/sitemap.xml
+Last generated: {{ site.time | date: '%Y-%m-%d' }}
+
+## Articles (newest first)
+{% for post in site.posts %}
+- [{{ post.title }}]({{ post.url | absolute_url }}): {{ post.description | default: post.excerpt | strip_html | strip_newlines | strip }} (Published {{ post.date | date: '%Y-%m-%d' }}{% if post.last_modified_at and post.last_modified_at != post.date %}, updated {{ post.last_modified_at | date: '%Y-%m-%d' }}{% endif %}; topics: {{ post.tags | join: ', ' }})
+{%- endfor %}
+
+## Topic hubs
+{% for category in site.categories %}
+- [{{ category[0] }}]({{ site.url }}/categories/{{ category[0] | slugify }}/): {{ category[1] | size }} article(s)
+{%- endfor %}
+
+## Optional
+- [Tags index]({{ site.url }}/tags/)
+- [Archive by date]({{ site.url }}/archives/)

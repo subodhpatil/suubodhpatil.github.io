@@ -3,7 +3,7 @@ title: "Why TLS Private Keys Must Never Live on Your Web Server"
 date: 2026-07-15 12:00:00 +0200
 last_modified_at: 2026-07-23 12:00:00 +0200
 published: false
-categories: [WebSecurity, CloudSecurity]
+categories: ["Cryptography & TLS", "Key Management"]
 tags: [tls, https, pki, hsm, key-management, azure, compliance, cissp, governance, pci-dss, zero-trust]
 mermaid: true
 description: "Most TLS security conversations focus on certificates. The real crown jewel is the private key — the one component that, if compromised, exposes every past and future session. This post explains what a TLS private key actually controls, how they routinely end up on disk, and the architectural patterns — NGINX + HSM, F5 + HSM, Cloudflare Keyless SSL — that keep them truly safe."

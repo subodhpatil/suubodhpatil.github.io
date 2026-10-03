@@ -2,7 +2,7 @@
 title: "How HTTPS Actually Works: A Practical Deep Dive for Engineers"
 date: 2025-12-13 12:00:00 +0200
 last_modified_at: 2025-12-13 12:00:00 +0200
-categories: [WebSecurity, NetworkSecurity]
+categories: ["Cryptography & TLS", "Web Security"]
 tags: [tls, https, encryption, pki, certificates, handshake, symmetric, asymmetric, governance, compliance]
 mermaid: true
 description: "A practical walkthrough of how HTTPS actually secures a connection: the TLS handshake, certificate trust chains, and how symmetric and asymmetric encryption work together. Also covers what HTTPS does not protect, like the destination domain and IP address, and what compliance auditors actually check."

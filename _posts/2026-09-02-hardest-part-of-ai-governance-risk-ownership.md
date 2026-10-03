@@ -2,10 +2,25 @@
 title: "The Hardest Part of AI Governance Isn't AI. It's Risk Ownership"
 date: 2026-09-02 12:00:00 +0200
 last_modified_at: 2026-09-02 12:00:00 +0200
-categories: [CloudSecurity, AISecurity]
+categories: ["AI Risk & Governance", "Accountability"]
 tags: [ai, governance, risk-ownership, accountability, risk-management, security-leadership, ciso, decision-making]
 mermaid: true
 description: "Most organizations treat AI governance as a technology problem — hallucinations, prompt injection, model security. But the discussions that actually stall are rarely about technology. They stall because nobody has answered a simpler question: who owns and accepts the risk when AI enters a business process? Lessons from enterprise AI governance discussions across industries."
+faq:
+  - q: "Who should own AI risk in an organization?"
+    a: "The business owner of the process the AI capability changes — a named person, not a committee or a function. Security, legal, compliance and architecture advise; the business owner decides and accepts the residual risk."
+  - q: "Does a security sign-off mean the risk has been accepted?"
+    a: "No. A security review produces an assessment: identified risks, controls in place, recommended mitigations and the risk that remains. That residual risk transfers to whoever proceeds with the initiative; it is only \"accepted\" when a named owner explicitly accepts it."
+  - q: "What is residual risk in AI governance?"
+    a: "The risk that remains after all agreed controls and mitigations are applied. It is an output of the security assessment and an input to the business owner's decision; it does not disappear because the assessment is complete."
+  - q: "Can a committee or an AI governance board accept residual risk?"
+    a: "A board can set risk appetite, approve the process and escalate disputes, but acceptance of a specific residual risk should still be attributed to a named individual with authority over the affected business process. \"Accepted by the committee\" usually means nobody will stand behind the outcome."
+  - q: "What is security's role in AI governance?"
+    a: "Four things: identify risks in terms of the business process, evaluate what controls actually provide, recommend proportionate mitigations with their cost stated honestly, and document residual risk in language a business owner can act on. Security should not quietly become the owner of every business decision with a technology component."
+  - q: "Does AI create new categories of risk?"
+    a: "Rarely. AI amplifies risk categories organizations already carry — data access, third-party, intellectual property, compliance and operational dependency — and in doing so exposes ownership gaps that existed before the AI arrived."
+  - q: "How do NIST AI RMF and ISO/IEC 42001 treat risk ownership?"
+    a: "Both make accountability a first-class requirement rather than a technical control: the NIST AI RMF GOVERN function calls for defined roles, responsibilities and documented risk tolerance, and ISO/IEC 42001 requires top-management accountability and assigned responsibilities within the AI management system. Neither names the owner for you — that remains an organizational decision."
 ---
 
 <div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/hardest-part-of-ai-governance-risk-ownership/
@@ -37,6 +52,9 @@ Be practical for CISOs, security leaders, enterprise architects, and risk practi
     <p class="ai-summary-section-hint">Your prompt is copied automatically — just paste it once the AI opens.</p>
   </div>
 </div>
+
+> **In short:** AI governance stalls on accountability, not technology. A security review produces an *assessment* of residual risk; it does not *accept* it — that transfer only happens when a named business owner signs. Five questions define a working AI governance structure: who decides, who advises, who implements, who monitors, and who accepts residual risk. The last one is the one most organisations leave blank — ask it first.
+{: .prompt-info }
 
 > **Written for:** CISOs, security leaders, enterprise architects, engineering leaders, compliance and risk practitioners, and product leaders evaluating AI adoption.
 
@@ -168,7 +186,10 @@ The strongest sentence a security leader can say in an AI governance meeting is 
 
 There is a reflex, when "AI governance" lands on the agenda, to start producing documents: an AI policy, an acceptable-use standard, a review checklist. Those artifacts have value — but they are not the substance of governance. An organization can have a beautifully written AI policy and still be unable to launch (or stop) anything, because policies describe *what* should happen and governance is fundamentally about *who*.
 
-Strong governance ensures unambiguous answers to five questions for every AI capability:
+Strong governance ensures unambiguous answers to five questions for every AI capability. I refer to this as the **Five Names of AI Governance**: an AI capability is governed when a named person or role can be written next to each of five verbs — *decide, advise, implement, monitor, accept*.
+{: #five-names-of-ai-governance }
+
+**Table 1 — The Five Names of AI Governance: question, accountable role, and what it means in practice.**
 
 | Question | Role | What it means in practice |
 |---|---|---|
@@ -226,6 +247,10 @@ Organizations that get this right don't necessarily have better AI policies or s
 > 💡 **Pro Tip:** Add one field to your AI review form: *"Residual risk accepted by: ______ (name, role, date)."* It must be a person — not a committee, not a department. If nobody is willing to sign it, you have just learned something important: the risk has no owner. Better to find that out before go-live than after an incident.
 
 {% include ai-selector-init.html %}
+
+---
+
+{% include faq.html %}
 
 ---
 

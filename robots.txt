@@ -1,22 +1,81 @@
+---
+permalink: /robots.txt
+---
+# blog.suubodhpatil.com — all content is CC BY 4.0; crawling, indexing and
+# AI retrieval/citation are welcome. Please attribute: {{ site.url }}
+
 User-agent: *
 Allow: /
 
-User-agent: GPTBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: OAI-SearchBot
+# --- Search engines ---
+User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
-User-agent: Googlebot
+User-agent: DuckDuckBot
 Allow: /
 
-Sitemap: https://blog.suubodhpatil.com/sitemap.xml
+User-agent: Applebot
+Allow: /
+
+# --- AI search / answer engines (retrieval + citation) ---
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+# --- AI training / model crawlers ---
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Internal archive pages are noindex via meta tag; nothing to block here.
+
+Sitemap: {{ site.url }}/sitemap.xml

@@ -1,11 +1,27 @@
 ---
 title: "TITLE — same phrasing style as existing posts: descriptive, colon-split, practitioner-focused"
 date: YYYY-MM-DD 12:00:00 +0200
-categories: [CategoryOne, CategoryTwo]
-tags: [tag-one, tag-two, tag-three]
+categories: ["AI Risk & Governance", "Sub-topic"]   # parent must be one of the 4 hubs below
+tags: [tag-one, tag-two, tag-three]   # lower-case; map notable ones in _data/entities.yml
 mermaid: true   # remove this line if the post has no diagrams
 description: "A plain-language, 2-line summary of what this article actually covers. No AI-prompt text, no TL;DR framing — this is what shows up in the homepage post list and link previews."
+# image: { path: /assets/img/posts/POST-SLUG.png, alt: "One-sentence description" }   # 1200x630; optional
+faq:   # 5–8 real questions people type into search/AI assistants; rendered by {% include faq.html %} and emitted as FAQPage schema
+  - q: "Question in the words a reader would actually type?"
+    a: "40–80 word self-contained answer. Plain text or inline Markdown."
 ---
+
+<!--
+  CATEGORY HUBS (parent category — pick exactly one):
+    "AI Risk & Governance"        children so far: Cloud AI Trust Boundaries, AI Regulation, Accountability
+    "Cloud Security"              children so far: Key Management
+    "Cryptography & TLS"          children so far: Web Security, Post-Quantum, Key Management
+    "Compliance & Data Residency" children so far: Microsoft Fabric
+  Reuse an existing child where it fits; add a new one only for a genuinely new sub-topic.
+-->
+
+> **In short:** 3–5 sentences that answer the post's core question outright — the claim, the mechanism, the one number or date that matters, and the decision the reader should take. Written so it can be quoted standalone. This is the first thing crawlers and AI retrievers read.
+{: .prompt-info }
 
 <!--
   BLOG TEMPLATE — kept in _drafts/ so Jekyll never publishes it (files here need a
@@ -60,10 +76,12 @@ Close with a short, practitioner-facing summary — what to decide, what to chec
 - Always fill in `description:` in the front matter with a real, plain-language 2-line summary. Chirpy's home page, RSS feed, and SEO meta tags all read `description:` — not Jekyll's built-in `excerpt:`. Without it, Chirpy auto-generates the preview from the first bit of body content, which is the AI-summary prompt block, not something a human should see on the homepage.
 - Replace `POST-SLUG` in the AI-summary prompt with the exact permalink slug (matches the filename after the date, e.g. `2026-06-17-how-https-actually-works.md` → slug `how-https-actually-works`).
 - Replace `CATEGORY-CTA-HERE` with the closing ask that matches this post's primary category — pick the first match, top to bottom, from the post's `categories:` list:
-  - **AISecurity** → "flag anything relevant to AI vendor risk, procurement, or governance decisions"
-  - **Compliance** or **DataResidency** → "flag any compliance or audit implications worth noting"
-  - **DataSecurity** → "flag anything worth double-checking in your own key management or data protection setup"
-  - **WebSecurity**, **NetworkSecurity**, or any purely explainer/protocol post → "note anything commonly misunderstood about this topic that's worth double-checking"
+  - **AI Risk & Governance** → "flag anything relevant to AI vendor risk, procurement, or governance decisions"
+  - **Compliance & Data Residency** → "flag any compliance or audit implications worth noting"
+  - **Cloud Security** → "flag anything worth double-checking in your own key management or data protection setup"
+  - **Cryptography & TLS**, or any purely explainer/protocol post → "note anything commonly misunderstood about this topic that's worth double-checking"
+- Name your frameworks. If the post introduces a model, pattern set or checklist, give it a short proper name in bold, define it in one sentence, give that paragraph an anchor (`{: #my-framework-name }`), and caption the table that embodies it (**Table — …**). Named things get cited; unnamed tables don't.
+- Put `{% include faq.html %}` after the Pro Tip and before References. Keep FAQ answers factual and self-contained — they are emitted verbatim as FAQPage schema.
   - No clean match (a genuinely new topic area) → write a one-off closing ask in the same spirit: quick, specific to what a reader in that space would actually want flagged. Don't fall back to the generic "flag anything a security architect should act on" — it doesn't fit every post and reads as templated once a reader sees it twice.
 - Keep the `{: .prompt-tip }` line directly under the blockquote with no blank line in between — that's Chirpy's IAL syntax for the colored tip box.
 - Keep the AI-summary block as the very first thing after front matter, even before the Series/Written-for line — it's the "if you're not going to read this, at least do this" shortcut. The goal is dual-purpose: readers who want the full human-written piece read on below; readers who don't have time get a real summary and, ideally, enough of a hook to come back and read it properly later.
