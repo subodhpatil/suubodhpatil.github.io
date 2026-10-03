@@ -23,6 +23,52 @@ faq:
     a: "Not by that name yet, but the obligations already apply. The EU AI Act requires effective human oversight and the ability to intervene or stop high-risk AI systems. ISO/IEC 42001 requires monitoring and lifecycle control of AI systems within a management system. NIST's AI RMF asks organisations to map, measure and manage AI risk continuously. An ungoverned agent acting on regulated processes is a compliance gap, not just a security one."
 ---
 
+<style>
+.post-intro-toggle {
+  display: none;
+}
+.post-intro-container {
+  margin-bottom: 1.5rem;
+}
+.post-intro-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+  transition: opacity 0.2s;
+}
+.post-intro-toggle-label:hover {
+  opacity: 0.8;
+}
+.post-intro-toggle-label::before {
+  content: "▶";
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 0.9em;
+}
+.post-intro-toggle:checked + .post-intro-toggle-label::before {
+  transform: rotate(90deg);
+}
+.post-intro-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.post-intro-toggle:checked ~ .post-intro-content {
+  max-height: 2000px;
+}
+</style>
+
+<input type="checkbox" id="post-intro-toggle" class="post-intro-toggle">
+<label for="post-intro-toggle" class="post-intro-toggle-label">Show intro context (summary, audience, related posts)</label>
+
+<div class="post-intro-content">
+
 <div class="ai-summary-section" data-ai-prompt="Article URL: https://blog.suubodhpatil.com/posts/from-zero-trust-to-agent-trust/
 
 Summarize the above article in 5 bullet points focusing on:
@@ -59,6 +105,8 @@ Write it for a business decision maker or investor with no security background, 
 > **Written for:** Business decision makers, executives and investors who sponsor or evaluate AI agent initiatives — and the CISOs and architects who have to explain the risk to them. No security background assumed.
 
 > **Also worth reading:** This post builds on [The Hardest Part of AI Governance Isn't AI. It's Risk Ownership](/posts/hardest-part-of-ai-governance-risk-ownership/) — which argued that every AI capability needs a named risk owner — and on the trust-boundary series, [Who Processes the Data?](/posts/who-processes-the-data-ai-trust-boundary/) and [Who Answers to the Regulator?](/posts/who-answers-to-the-regulator-ai-act-cra-trust-boundary/). Those posts asked who is accountable *for* the AI. This one asks what happens when the AI starts acting *on its own*.
+
+</div>
 
 ---
 
