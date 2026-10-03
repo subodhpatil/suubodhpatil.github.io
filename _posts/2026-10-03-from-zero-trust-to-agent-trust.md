@@ -123,6 +123,8 @@ Zero Trust answers *should this identity be allowed to make this request?* Agent
 
 ## Agent Trust: Four Principles
 
+Agent Trust does not replace Zero Trust. It extends Zero Trust principles to systems capable of autonomous decision-making, delegated authority and goal-directed behaviour. Everything that follows assumes Zero Trust is already in place; it addresses what Zero Trust was never asked to cover.
+
 The most useful mental model is one executives already use: **an agent is a digital employee** — not sentimentally, but in a governance sense. Nobody lets a new hire start without a contract, a badge, a job description, a manager and a process for ending the relationship. Applied to agents, that produces four principles.
 
 I refer to this set as **Agent Trust** — the extension of Zero Trust's *never trust, always verify* from people and devices to autonomous agents, through four controls that mirror how organisations already govern a human workforce: every agent has an identity and an owner, every agent has limits scoped to its purpose, no agent supervises itself, and every agent can be stopped.
