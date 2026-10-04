@@ -145,9 +145,11 @@ flowchart LR
         U2["People
         set goals"]
         AG["Autonomous agents
-        interpret goals, choose actions,
-        call systems, call other agents
-        — discretion, speed, no accountability —"]
+        interpret goals
+        choose actions
+        call systems and other agents
+        — discretion, speed —
+        — no accountability —"]
         A2["Applications"]
         I2["Infrastructure"]
         U2 --> AG --> A2 --> I2
@@ -268,10 +270,10 @@ A follow-up post for architects and security leaders will cover the enforcement 
 
 ## Key Takeaways
 
-- Autonomous agents — as distinct from structured copilots with fixed workflows and human approval steps — are the first actor for which the unspoken assumption behind every security control, *a human is ultimately behind this action*, does not hold; and many deployments drift from the first kind to the second.
-- Zero Trust remains the right foundation, but three assumptions break for agents: a verified identity no longer implies an accountable person, access requests can no longer be judged in isolation from the goal, and misuse no longer looks like an anomaly.
-- Agent Trust reuses existing disciplines — identity governance, least privilege, policy enforcement, incident response — and extends them to where they do not reach today: a named owner for a non-human actor, limits on sequences of actions, behaviour-versus-intent monitoring, and attribution across agent chains.
-- The question for anyone who decides, funds or invests: *can this business list every agent, what it can touch, who owns it, and how it is stopped?* The time it takes to answer is itself the first finding.
+- Not every AI tool is the problem. A copilot that follows a fixed script and waits for a human before doing anything important is covered by the controls you already have. The risk is the autonomous agent: you give it a goal, and it decides for itself which systems to use and what to do. Many deployments start as the first kind and quietly turn into the second.
+- Zero Trust is still the right foundation, but it was built for people. It checks who is asking and whether they are allowed. It does not check whether an agent's long chain of individually allowed actions adds up to something nobody intended — and a misbehaving agent looks exactly like a busy one.
+- Agent Trust does not require new security disciplines. It takes four things every organisation already does for employees — give them an identity and a manager, limit what they can access, supervise them from outside, and be able to let them go — and applies them to agents. The new part is where those controls have to reach: a named human owner for something that is not human, limits on what an agent does in sequence, and a record of which agent decided what.
+- One question tells you where any company stands: can it list every agent it runs, what each one can touch, who owns it, and how to stop it? If the answer takes more than a week, that is the finding.
 
 ---
 
