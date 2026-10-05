@@ -28,6 +28,7 @@ Written for security architects, CISOs, engineering leaders and compliance pract
 - **Independent.** This is a personal blog. No sponsorships, no affiliate links, no vendor-funded content. Opinions are my own and do not represent any employer, vendor or regulator.
 - **Practitioner-sourced, non-attributable.** Lessons are drawn from real enterprise work across industries, deliberately generalised. No customer, incident or program is identified or implied.
 - **Sourced and dated.** Posts cite primary sources (standards, regulations, vendor documentation) and carry a publication and last-modified date. Where a claim depends on a vendor's current architecture or a regulatory timeline, the post says so and I update it when the facts change.
+- **AI assistance.** {: #ai-assistance } This blog reflects my own research, analysis, and opinions. AI tools, including Claude, may be used to assist with drafting, editing, formatting, and creating visual illustrations. Final content is reviewed and approved by me. Per EU AI Act Article 50, this disclosure ensures transparency about content creation methodology.
 - **Corrections welcome.** If something is wrong or out of date, email me — I'd rather fix it than defend it. Material corrections are noted in the post.
 - **Reuse.** Everything here is licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Quote it, cite it, build on it — with a link back.
 
