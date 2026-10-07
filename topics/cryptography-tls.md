@@ -14,7 +14,6 @@ This guide connects my writing on **cryptography and secure communications** to 
 
 ## Protect keys and plan for change
 
-- [Why TLS Private Keys Must Never Live on Your Web Server]({% post_url 2026-07-15-why-tls-private-keys-must-never-live-on-web-server %}) — threat-driven patterns for keeping private keys in protected cryptographic systems.
 - [Encryption Demystified (Part 1): Building the Foundation for Data-at-Rest Security in the Cloud]({% post_url 2025-10-02-Encryption-Demystified-Part1 %}), [Part 2]({% post_url 2025-10-03-Encryption-Demystified-Part2 %}), and [Part 3]({% post_url 2025-10-04-Encryption-Demystified-Part3 %}) — cloud encryption and the key-control spectrum.
 - [Post-Quantum Cryptography: Why Even TLS 1.3 Isn't Safe Forever]({% post_url 2026-07-08-post-quantum-cryptography-tls-not-safe-forever %}) — harvest-now-decrypt-later risk, standards, hybrid deployment, and crypto agility.
 
