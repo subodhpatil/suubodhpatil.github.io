@@ -74,7 +74,9 @@
   {% endif %}
 
   <title>
-    {%- unless page.layout == 'home' -%}
+    {%- if page.layout == 'home' -%}
+      AI Risk, AI Governance &amp; Security | Subodh Patil
+    {%- else -%}
       {%- capture title -%}
         {%- if page.collection == 'tabs' -%}
           {%- assign tab_key = page.title | downcase -%}
@@ -84,8 +86,8 @@
         {%- endif -%}
       {%- endcapture -%}
       {{- title | append: ' | ' -}}
-    {%- endunless -%}
-    {{- site.title -}}
+      {{- site.title -}}
+    {%- endif -%}
   </title>
 
   {% include_cached favicons.html %}

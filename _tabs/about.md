@@ -21,6 +21,12 @@ I came to security from the inside of the code: I started as a software develope
 
 Written for security architects, CISOs, engineering leaders and compliance practitioners who want substance over surface-level content.
 
+### Topic guides
+
+- [AI governance and risk management](/topics/ai-governance/) — accountability, risk ownership, and regulatory roles.
+- [Cloud AI trust boundaries](/topics/cloud-ai-trust/) — data flows, providers, hosting, and processing responsibility.
+- [Cryptography, TLS, and key management](/topics/cryptography-tls/) — secure communications, key control, and post-quantum planning.
+
 ---
 
 ## Editorial Policy

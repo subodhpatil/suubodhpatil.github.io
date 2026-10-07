@@ -18,9 +18,14 @@ Last generated: {{ site.time | date: '%Y-%m-%d' }}
 {%- endfor %}
 
 ## Topic hubs
-{% for category in site.categories %}
-- [{{ category[0] }}]({{ site.url }}/categories/{{ category[0] | slugify }}/): {{ category[1] | size }} article(s)
-{%- endfor %}
+- [AI governance and risk management]({{ site.url }}/topics/ai-governance/): accountability, AI risk ownership, governance systems, and regulatory roles.
+- [Cloud AI trust boundaries]({{ site.url }}/topics/cloud-ai-trust/): data flows, inference location, providers, and processing responsibility.
+- [Cryptography, TLS, and key management]({{ site.url }}/topics/cryptography-tls/): HTTPS, TLS, cloud key control, and post-quantum migration.
+
+## Editorial and evidence standards
+- Independent practitioner analysis; no sponsorship or affiliate content.
+- Articles identify the author, publication date, sources, and limitations. Vendor and regulatory details should be checked against cited primary sources because they can change.
+- Content is licensed CC BY 4.0. Attribution and a link to the canonical article are appreciated.
 
 ## Optional
 - [Tags index]({{ site.url }}/tags/)

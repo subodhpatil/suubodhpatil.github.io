@@ -86,11 +86,11 @@ jobs:
           sleep 45  # give the Pages CDN a moment to serve the fresh sitemap
           SITEMAP="$(curl -fsSL "https://${SITE_HOST}/sitemap.xml" || true)"
           if [ -z "$SITEMAP" ]; then echo "sitemap not reachable; skipping"; exit 0; fi
-          # Only ping real content URLs: posts, hubs, about, home (skip tag/category pages).
+          # Only ping real content URLs: posts, topic hubs, about, home (skip tag/category pages).
           URLS="$(printf '%s' "$SITEMAP" \
             | grep -o '<loc>[^<]*</loc>' \
             | sed -e 's#<loc>##' -e 's#</loc>##' \
-            | grep -E "https://${SITE_HOST}/(posts/|about/|categories/$|$)" \
+            | grep -E "https://${SITE_HOST}/(posts/|topics/|about/|$)" \
             | sort -u)"
           COUNT="$(printf '%s\n' "$URLS" | grep -c . || true)"
           echo "Submitting ${COUNT} URLs to IndexNow"

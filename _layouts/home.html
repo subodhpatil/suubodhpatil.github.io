@@ -46,6 +46,16 @@ layout: default
   {% endfor %}
 {% endif %}
 
+<section class="topic-guides mb-4" aria-labelledby="topic-guides-heading">
+  <h2 id="topic-guides-heading">Explore topic guides</h2>
+  <p>Curated starting points for my practitioner writing on AI governance, cloud AI processing, and cryptographic security.</p>
+  <ul>
+    <li><a href="{{ '/topics/ai-governance/' | relative_url }}">AI governance and risk management</a></li>
+    <li><a href="{{ '/topics/cloud-ai-trust/' | relative_url }}">Cloud AI trust boundaries</a></li>
+    <li><a href="{{ '/topics/cryptography-tls/' | relative_url }}">Cryptography, TLS, and key management</a></li>
+  </ul>
+</section>
+
 <div id="post-list" class="flex-grow-1 px-xl-1">
   {% for post in posts %}
     <article class="card-wrapper card">

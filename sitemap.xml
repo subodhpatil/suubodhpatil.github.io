@@ -1,0 +1,30 @@
+---
+layout: null
+permalink: /sitemap.xml
+sitemap: false
+---
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{{ '/' | absolute_url | xml_escape }}</loc>
+  </url>
+  <url>
+    <loc>{{ '/about/' | absolute_url | xml_escape }}</loc>
+  </url>
+  <url>
+    <loc>{{ '/topics/ai-governance/' | absolute_url | xml_escape }}</loc>
+  </url>
+  <url>
+    <loc>{{ '/topics/cloud-ai-trust/' | absolute_url | xml_escape }}</loc>
+  </url>
+  <url>
+    <loc>{{ '/topics/cryptography-tls/' | absolute_url | xml_escape }}</loc>
+  </url>
+  {% for post in site.posts %}
+  {% unless post.noindex or post.sitemap == false or post.hidden %}
+  <url>
+    <loc>{{ post.url | absolute_url | xml_escape }}</loc>
+    <lastmod>{{ post.last_modified_at | default: post.date | date_to_xmlschema }}</lastmod>
+  </url>
+  {% endunless %}
+  {% endfor %}
+</urlset>
