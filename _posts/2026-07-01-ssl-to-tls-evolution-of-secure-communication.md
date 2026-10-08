@@ -1,11 +1,11 @@
 ---
 title: "From SSL 2.0 to TLS 1.3: The Evolution of Secure Communication"
 date: 2026-07-01 12:00:00 +0200
-last_modified_at: 2026-07-23 12:00:00 +0200
+omit_modified_date: true
 categories: ["Cryptography & TLS", "Web Security"]
 tags: [tls, ssl, cipher-suites, poodle, beast, heartbleed, tls13, pci-dss, vulnerabilities, governance, compliance]
 mermaid: true
-description: "A 25-year history of TLS security failures — POODLE, BEAST, Heartbleed, DROWN — and what drove each protocol transition. Explains cipher suites, why TLS 1.2 is still everywhere, and why TLS 1.3 is a redesign rather than an upgrade. Includes the compliance table auditors actually use."
+description: "Trace SSL and TLS from early protocol flaws to TLS 1.3, including POODLE, BEAST, Heartbleed, and DROWN, and learn how key exchange, cipher suites, and compliance scope affect deployment."
 ---
 
 <style>
@@ -80,7 +80,7 @@ Be practical for security engineers and compliance teams managing TLS configurat
 </blockquote>
 
 <blockquote>
-<p><strong>Also worth reading:</strong> <a href="/posts/how-https-actually-works/">How HTTPS Actually Works</a> · Post-Quantum Cryptography and TLS · Why TLS Private Keys Must Never Live on Your Web Server</p>
+<p><strong>Also worth reading:</strong> <a href="/posts/how-https-actually-works/">How HTTPS Actually Works</a> · <a href="/posts/post-quantum-cryptography-tls-not-safe-forever/">Post-Quantum Cryptography and TLS</a> · <a href="/posts/why-tls-private-keys-must-never-live-on-web-server/">Why TLS Private Keys Must Never Live on Your Web Server</a></p>
 </blockquote>
 
 </details>
@@ -89,9 +89,9 @@ Be practical for security engineers and compliance teams managing TLS configurat
 
 ## Introduction
 
-The protocol protecting your bank login today was built on top of one that could be broken in minutes. SSL 2.0, released by Netscape in 1995, was the foundation of web encryption for an era — and it had fundamental cryptographic flaws baked in from day one. The journey from SSL 2.0 to TLS 1.3 is not a story of incremental improvement. It is a 25-year record of vulnerabilities discovered, protocols patched, patches circumvented, and eventually a protocol redesigned from scratch because patching was no longer enough.
+The protocol protecting your bank login today was built on top of one that could be broken in minutes. SSL 2.0, released by Netscape in 1995, was the foundation of web encryption for an era — and it had fundamental cryptographic flaws baked in from day one. The journey from SSL 2.0 to TLS 1.3 is not a story of incremental improvement. It spans more than two decades of vulnerabilities discovered, protocols patched, patches circumvented, and eventually a protocol redesigned because patching was no longer enough.
 
-That history matters directly for governance. PCI DSS 4.0, fully mandatory since March 2025, explicitly prohibits SSL, TLS 1.0, and TLS 1.1. ISO 27001, HIPAA, and most financial regulators follow similar lines. Yet as of mid-2026, every major web server still supports TLS 1.2 — a protocol that is compliant but whose security depends entirely on how it is configured. The version number on your TLS deployment is the least important thing to check. The cipher suites behind it are where most organizations carry real risk.
+That history matters directly for governance. PCI DSS does not treat SSL or early TLS as strong cryptography. Its applicability notes include a limited exception for certain POS/POI terminal connections and their termination points; verify that scope before relying on an exception. Other regulatory and policy requirements vary by sector and jurisdiction. TLS 1.2 remains widely supported, but its security depends on the negotiated cipher suite and key exchange. Adoption percentages change with the measurement date and sample, so use a dated scan or source rather than treating a snapshot as a permanent fact. The version number alone is not enough to assess a deployment.
 
 This post traces the protocol's evolution, explains the vulnerabilities that drove each transition, and connects the technical history to the governance decisions organisations need to make today.
 
@@ -246,7 +246,7 @@ flowchart TD
     end
 
     subgraph ADDED["✅ Mandated in TLS 1.3"]
-        A1["ECDHE for all key exchanges\nForward secrecy is no longer\noptional — it is mandatory"]
+        A1["Public-key key exchanges use ephemeral (EC)DHE\nPSK-only resumption is also allowed\nand has no forward secrecy"]
         A2["AEAD-only cipher suites\nAES-GCM and ChaCha20-Poly1305\nprovide both encryption and integrity"]
         A3["1-RTT handshake\nDown from 2-RTT in TLS 1.2\nFaster connection setup"]
         A4["0-RTT session resumption\nResume connections with\nno round trips (with caveats)"]
@@ -254,9 +254,9 @@ flowchart TD
     end
 ```
 
-**The forward secrecy point deserves emphasis.** In TLS 1.2 with RSA key exchange, the client encrypted the session key with the server's public key. Anyone who recorded that traffic and later obtained the private key could decrypt the entire historical session archive. In TLS 1.3, ephemeral ECDHE is mandatory for every session — session keys are derived and discarded, never stored, never recoverable even with the server's private key. This is not an option you configure; it is the only mode that exists.
+**The forward secrecy point deserves precision.** TLS 1.2 static RSA key exchange let a party with the server's later-compromised RSA private key decrypt recorded sessions that used that mode. TLS 1.3 removed static RSA key transport, and its public-key key exchanges use ephemeral (EC)DHE. TLS 1.3 also supports PSK resumption: PSK combined with ephemeral DH provides forward secrecy, while PSK-only mode does not. The 0-RTT early data sent with a PSK is not fully forward secret and can be replayed. The exact guarantee therefore depends on the negotiated mode, not just the TLS version.
 
-A common point of confusion worth clarifying: **TLS 1.3 removed static RSA key transport — it did not remove RSA certificates.** Servers running TLS 1.3 can still present RSA 2048 or RSA 4096 certificates; RSA is used for the server's digital signature (RSASSA-PSS) during authentication, which is a different operation entirely. What TLS 1.3 removed is the mechanism where the client encrypts the pre-master secret with the server's RSA public key and sends it over the wire. If you are planning a TLS 1.3 migration, you do not need to replace RSA certificates — you need to ensure your key exchange is ECDHE, which TLS 1.3 mandates automatically.
+A common point of confusion worth clarifying: **TLS 1.3 removed static RSA key transport — it did not remove RSA certificates.** Servers running TLS 1.3 can still present RSA 2048 or RSA 4096 certificates; RSA is used for the server's digital signature (RSASSA-PSS) during certificate-based authentication, which is a different operation. What TLS 1.3 removed is the mechanism where the client encrypts the premaster secret with the server's RSA public key and sends it over the wire. If you are planning a TLS 1.3 migration, RSA certificates can still be used for compatible signature schemes; public-key key establishment uses ephemeral (EC)DHE, while PSK modes have their own properties.
 
 **The cipher suite simplification is equally significant for governance.** TLS 1.2 offered over 300 cipher suites. TLS 1.3 offers five — all of them strong, all of them using AEAD construction. An organisation running TLS 1.3 cannot accidentally enable RC4 or 3DES. The secure configuration is not a choice you make; it is the default you inherit.
 
@@ -264,41 +264,39 @@ A common point of confusion worth clarifying: **TLS 1.3 removed static RSA key t
 
 ### A Note on 0-RTT Resumption
 
-TLS 1.3's 0-RTT resumption allows a client to send application data in the very first message of a resumed connection, before any handshake completes. This is significant for performance — particularly for latency-sensitive applications. The caveat is **replay vulnerability**: 0-RTT data can be replayed by an attacker who captures it. It is appropriate for idempotent requests (GET operations, non-sensitive reads) and should not be used for state-changing operations (POST, payments, authentication). Most TLS implementations leave 0-RTT disabled by default for this reason.
+TLS 1.3's 0-RTT resumption allows a client to send application data in the first flight of a resumed connection, before the handshake completes. The data has weaker security properties: it does not have full forward secrecy and can be replayed across connections. Use it only when the application protocol and operation are explicitly designed to be safe under replay; an HTTP method such as GET is not, by itself, proof that an operation is harmless. Avoid early data for state-changing or sensitive operations, and follow the TLS/application profile's anti-replay requirements.
 
 ---
 
-## The Governance View: What Auditors Actually Check
+## The Governance View: Map TLS Configuration to the Applicable Controls
 
-The protocol history above maps directly to what compliance frameworks require today:
+These references have different scopes and should not be treated as interchangeable TLS-version mandates:
 
-| Protocol / Feature | PCI DSS 4.0 | NIST SP 800-52 Rev 2 | ISO 27001 | Status |
-|---|---|---|---|---|
-| SSL 2.0 / SSL 3.0 | ❌ Prohibited | ❌ Not permitted | ❌ Non-compliant | Disable immediately |
-| TLS 1.0 / TLS 1.1 | ❌ Prohibited | ❌ Not permitted | ❌ Non-compliant | Disable immediately |
-| TLS 1.2 (weak ciphers) | ❌ Non-compliant | ❌ Not permitted | ❌ Non-compliant | Disable weak suites |
-| TLS 1.2 (strong ciphers) | ✅ Compliant minimum | ✅ Acceptable | ✅ Acceptable | Requires cipher management |
-| TLS 1.3 | ✅ Preferred | ✅ Preferred | ✅ Preferred | Deploy and enforce |
+| Reference | Scope and TLS guidance |
+|---|---|
+| **PCI DSS v4.0.1, Requirement 4.2.1** | Applies to protecting PAN in transit over open, public networks. It requires strong cryptography and secure protocol configurations; PCI SSC says SSL and early TLS are not strong cryptography, but PCI DSS does not define one universally required TLS version. |
+| **NIST SP 800-52 Rev. 2** | TLS implementation guidance for U.S. federal systems. It requires support for TLS 1.2 with FIPS-based suites and support for TLS 1.3 from January 1, 2024; NIST is reviewing the publication. |
+| **ISO/IEC 27001:2022, Annex A 8.24** | Calls for appropriate use of cryptography under organizational controls; it does not prescribe TLS versions or a cipher-suite list. |
 
-Auditors checking TLS posture do not just run a protocol version scan. They check whether TLS 1.0/1.1 are disabled, whether weak cipher suites remain enabled in TLS 1.2, whether RSA key exchange is still offered, whether 3DES appears in the cipher list, and whether certificates use SHA-1 or MD5 signatures. A server that passes a version check but fails a cipher audit is a finding.
+Assessments should verify the protocols, cipher suites, key exchange groups, and certificate algorithms that endpoints actually negotiate, then map them to the applicable control and scope. A version-only scan cannot show whether a TLS 1.2 endpoint offers weak suites or whether a TLS 1.3 connection used PSK-only resumption.
 
-The fastest way to see your actual posture: Qualys SSL Labs produces a full cipher suite audit in 60 seconds and flags every one of the above issues explicitly.
+Qualys SSL Labs can assess the externally visible TLS configuration of a public HTTPS endpoint. It is useful for an internet-facing check, but it does not replace fleet-wide discovery, internal-path testing, or compliance mapping.
 
 ---
 
 ## Key Takeaways
 
-- Every major TLS version existed because the previous one was broken — SSL 3.0 (POODLE), TLS 1.0 (BEAST), TLS 1.1 (minimal adoption), TLS 1.2 (weak ciphers, Heartbleed). Understanding why each version exists explains what risks remain if it is still in use.
-- Cipher suite configuration matters more than TLS version alone. A TLS 1.2 deployment with RSA key exchange and 3DES enabled is a compliance finding regardless of version. PCI DSS 4.0 requires an inventory of all cipher suites in use.
-- Heartbleed was a patch management failure as much as a cryptographic one. Organisations without software composition visibility could not respond in time. Dependency tracking is a security control, not just a development convenience.
-- TLS 1.3 makes the secure configuration the only configuration — five cipher suites, all strong, mandatory forward secrecy, no legacy modes. The governance burden of maintaining a hardened TLS configuration drops significantly once TLS 1.3 is enforced.
-- As of mid-2026, TLS 1.3 has ~75% server-side adoption among major websites, but 100% of those sites still support TLS 1.2. Backward compatibility is the reason — but it means the cipher suite audit remains relevant for every deployment.
+- TLS revisions addressed a mix of protocol weaknesses and security improvements. POODLE and BEAST are protocol-related attacks; Heartbleed was an OpenSSL implementation vulnerability, not a TLS algorithm break.
+- Protocol version and negotiated parameters both matter. Check key exchange, cipher suite, certificate signature, and fallback behavior against the controls that apply to the system; PCI DSS does not impose a single TLS version for every use.
+- Heartbleed shows why organizations need to identify affected software and patch it promptly. Dependency inventory helps incident response, but Heartbleed itself was an OpenSSL implementation bug.
+- TLS 1.3 removes static RSA key transport and legacy cipher modes. Its public-key key exchanges provide forward secrecy; PSK-only resumption and 0-RTT have important exceptions. The negotiated mode still matters.
+- TLS 1.2 remains supported in many deployments for compatibility. Measure your own endpoints and date any adoption statistic; a fleet that still offers TLS 1.2 needs a cipher-suite and key-exchange audit.
 
-> **Looking ahead:** TLS 1.3 with strong ECDHE cipher suites is the best version of classical TLS we have. The question now is whether "classical" is good enough — because the mathematics underlying ECDHE can be broken by a quantum computer running Shor's algorithm. That threat, and what the industry is doing about it, is the subject of the next post in this series.
+> **Looking ahead:** TLS 1.3 with secure key-establishment and authentication choices is a strong baseline for classical TLS. A future sufficiently capable quantum computer could threaten classical public-key key exchange and signatures; [the next post examines that risk and the migration response](https://blog.suubodhpatil.com/posts/post-quantum-cryptography-tls-not-safe-forever/).
 
 ---
 
-> 💡 **Pro Tip:** When auditing your TLS posture, run two checks, not one. First, check protocol versions (ensure TLS 1.0/1.1/SSL are disabled). Second — and more importantly — check cipher suites: look for RSA key exchange, 3DES, RC4, or NULL ciphers in your TLS 1.2 configuration. Most organisations pass the first check and fail the second. Qualys SSL Labs flags both in a single report.
+> 💡 **Pro Tip:** Check both protocol versions and negotiated parameters. For TLS 1.2 endpoints, review key exchange and cipher-suite configuration; for TLS 1.3, review supported groups, signature schemes, PSK resumption, and 0-RTT policy. Use external scanners for public endpoints and test internal services and proxy paths separately.
 
 {% include ai-selector-init.html %}
 
@@ -306,13 +304,14 @@ The fastest way to see your actual posture: Qualys SSL Labs produces a full ciph
 
 ## References
 
-- [RFC 8446 — TLS 1.3](https://datatracker.ietf.org/doc/html/rfc8446)
+- [RFC 9846 — TLS 1.3](https://www.rfc-editor.org/rfc/rfc9846.html)
 - [RFC 8996 — Deprecating TLS 1.0 and TLS 1.1](https://datatracker.ietf.org/doc/html/rfc8996)
 - [CVE-2014-3566 — POODLE](https://nvd.nist.gov/vuln/detail/CVE-2014-3566)
 - [CVE-2011-3389 — BEAST](https://nvd.nist.gov/vuln/detail/CVE-2011-3389)
 - [CVE-2014-0160 — Heartbleed](https://nvd.nist.gov/vuln/detail/CVE-2014-0160)
 - [CVE-2016-0800 — DROWN](https://nvd.nist.gov/vuln/detail/CVE-2016-0800)
-- [PCI DSS v4.0 — Requirement 4.2](https://www.pcisecuritystandards.org/)
+- [PCI DSS v4.0.1 — Document Library](https://www.pcisecuritystandards.org/document_library/?category=pcidss)
+- [PCI SSC FAQ 1491 — Does PCI DSS define which TLS versions must be used?](https://www.pcisecuritystandards.org/faqs/1491/)
 - [NIST SP 800-52 Rev 2 — Guidelines for TLS Implementations](https://csrc.nist.gov/publications/detail/sp/800-52/rev-2/final)
 - [Qualys SSL Labs — SSL Pulse](https://www.ssllabs.com/ssl-pulse/)
 

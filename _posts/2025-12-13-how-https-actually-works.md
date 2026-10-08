@@ -1,11 +1,11 @@
 ---
 title: "How HTTPS Actually Works: A Practical Deep Dive for Engineers"
 date: 2025-12-13 12:00:00 +0200
-last_modified_at: 2025-12-13 12:00:00 +0200
+omit_modified_date: true
 categories: ["Cryptography & TLS", "Web Security"]
 tags: [tls, https, encryption, pki, certificates, handshake, symmetric, asymmetric, governance, compliance]
 mermaid: true
-description: "A practical walkthrough of how HTTPS actually secures a connection: the TLS handshake, certificate trust chains, and how symmetric and asymmetric encryption work together. Also covers what HTTPS does not protect, like the destination domain and IP address, and what compliance auditors actually check."
+description: "Learn how HTTPS uses TLS certificates and ephemeral key exchange to authenticate servers and protect HTTP data, what connection metadata remains visible, and which settings matter to auditors."
 ---
 
 <style>
@@ -80,7 +80,7 @@ Be technical and practical for engineers responsible for application security.">
 </blockquote>
 
 <blockquote>
-<p><strong>Also worth reading:</strong> From SSL 2.0 to TLS 1.3 · Post-Quantum Cryptography and TLS · Why TLS Private Keys Must Never Live on Your Web Server</p>
+<p><strong>Also worth reading:</strong> <a href="/posts/ssl-to-tls-evolution-of-secure-communication/">From SSL 2.0 to TLS 1.3</a> · <a href="/posts/post-quantum-cryptography-tls-not-safe-forever/">Post-Quantum Cryptography and TLS</a> · <a href="/posts/why-tls-private-keys-must-never-live-on-web-server/">Why TLS Private Keys Must Never Live on Your Web Server</a></p>
 </blockquote>
 
 </details>
@@ -176,7 +176,7 @@ sequenceDiagram
 A few things worth noting:
 
 - **The `CertificateVerify` message is the identity proof.** The server signs a transcript of the handshake with its private key. Having the certificate alone is not enough to impersonate a server — the matching private key is required.
-- **TLS 1.3 makes forward secrecy mandatory.** Each session uses a fresh ephemeral key pair. Compromising the server's private key today does not expose sessions recorded in the past. TLS 1.2 did not enforce this — whether forward secrecy applied depended entirely on which cipher suite was negotiated; RSA key exchange (still common in TLS 1.2 deployments) provided none.
+- **TLS 1.3's public-key key exchanges provide forward secrecy.** A full 1-RTT handshake uses fresh ephemeral (EC)DHE values, so later compromise of the server's certificate private key does not expose completed sessions. TLS 1.3 also permits PSK-only resumption, which does not provide forward secrecy; PSK resumption combined with ephemeral DH does. 0-RTT early data is not fully forward secret and can be replayed. TLS 1.2's forward secrecy likewise depends on the negotiated key exchange; static RSA key exchange provides none and now belongs in legacy configurations.
 - **OCSP stapling improves validation performance and privacy.** Rather than the browser making a separate round trip to the CA's OCSP responder during every handshake, the server pre-fetches and caches the CA's OCSP response and attaches (staples) it directly to the TLS handshake. This eliminates latency and prevents the CA from learning which sites a user visits.
 
 ### How the Session Key Is Derived — The Math Behind It
@@ -185,26 +185,30 @@ This is the part most TLS explanations skip. The session key is never transmitte
 
 The elegant insight: two parties can compute the same shared secret using only **public values** — even if an attacker records every packet.
 
-**Classic DH with small numbers:**
+**A toy finite-field Diffie–Hellman (DH) example:**
 
-Both sides agree upfront on two public parameters — a large prime `p` and a generator `g`. These are not secret; anyone can see them. Each side then picks a private secret and computes a public value to share.
+Both sides use the same public parameters: a prime `p` and a generator `g`. For this deliberately tiny example, `p = 23` and `g = 5`. In plain-text math, `^` is called a **caret** and commonly means “raised to the power of”; the table uses superscripts to make the exponent clear. Each side chooses a private exponent and sends only its resulting public value.
 
 | Who | Action | Value |
 |---|---|---|
 | Both agree | Public parameters | `p = 23`, `g = 5` |
-| Browser | Picks private secret `a` | `a = 6` (never shared) |
-| Server | Picks private secret `b` | `b = 15` (never shared) |
-| Browser → Server | Sends public value `A` | `A = g^a mod p = 5^6 mod 23 = 8` |
-| Server → Browser | Sends public value `B` | `B = g^b mod p = 5^15 mod 23 = 19` |
-| Browser derives shared secret | `K = B^a mod p` | `19^6 mod 23 = **2**` |
-| Server derives shared secret | `K = A^b mod p` | `8^15 mod 23 = **2**` |
-| Attacker sees on the wire | `p, g, A, B` only | `23, 5, 8, 19` — **cannot recover K** |
+| Browser | Chooses private exponent `a` | `a = 6` — stays on the browser |
+| Server | Chooses private exponent `b` | `b = 15` — stays on the server |
+| Browser → Server | Sends public share `A` | A = g<sup>a</sup> mod p = 5<sup>6</sup> mod 23 = 8 |
+| Server → Browser | Sends public share `B` | B = g<sup>b</sup> mod p = 5<sup>15</sup> mod 23 = 19 |
+| Browser (after receiving `B`) | Computes shared secret `K` | K = B<sup>a</sup> mod p = 19<sup>6</sup> mod 23 = **2** |
+| Server (after receiving `A`) | Computes shared secret `K` | K = A<sup>b</sup> mod p = 8<sup>15</sup> mod 23 = **2** |
+| Passive observer | Sees public parameters and shares | `p`, `g`, `A`, `B` — can recover `K` for these tiny values by trying possible exponents |
 
-Both sides independently arrive at `K = 2` — without ever transmitting it. The security rests on the **Discrete Logarithm Problem**: given `g`, `p`, and `A = g^a mod p`, recovering `a` is computationally infeasible for large numbers. In production TLS, `p` is thousands of bits long.
+The browser knows `p`, `g`, its own exponent `a`, both public shares, and computes `K` from `a` and `B`. The server knows `p`, `g`, its own exponent `b`, both public shares, and computes the same `K` from `b` and `A`. The observer sees the public values, not `a` or `b`.
 
-**TLS 1.3 uses ECDH — the same idea, different math**
+This example demonstrates how both endpoints derive the same shared secret; it does **not** demonstrate security. Because `p = 23` is tiny, an observer can try the few possible exponents and recover `a`, `b`, and `K` quickly. Production finite-field DH groups use standardized, much larger parameters so the best-known classical attacks are computationally infeasible. Many TLS connections use elliptic-curve DH instead, which relies on a related but different discrete-log problem.
 
-TLS 1.3 uses **Elliptic Curve Diffie-Hellman (ECDH)** rather than classical DH. The concept is identical — each side has a private scalar and exchanges a public point — but the underlying "hard problem" operates on elliptic curves rather than modular arithmetic. The practical benefit is dramatic: a 256-bit ECDH key provides equivalent security to a 3072-bit classical DH key.
+In TLS, the DH shared secret is input to the TLS key schedule; it is not used directly as the HTTP traffic-encryption key. TLS 1.3 uses HKDF to derive the handshake and application traffic secrets and keys from the handshake inputs.
+
+**TLS 1.3 commonly uses ECDHE — the same idea, different math**
+
+TLS 1.3 commonly uses **Elliptic Curve Diffie–Hellman Ephemeral (ECDHE)**, and it also supports finite-field DHE groups. With ECDHE, each side has a private scalar and exchanges a public point; the hard problem is discrete logarithm on an elliptic curve rather than modular arithmetic. A 256-bit elliptic-curve group such as P-256 or X25519 provides roughly 128-bit classical security, comparable to a 3072-bit finite-field DH group.
 
 The most common curves in TLS 1.3:
 - **X25519** — the default for most modern TLS connections; fast and designed to resist side-channel attacks
@@ -229,9 +233,9 @@ The handshake and the data channel use fundamentally different types of encrypti
 
 **Symmetric encryption** uses the same key to encrypt and decrypt. It is extremely fast — AES-256 can process gigabytes per second on modern hardware. The problem is key distribution: how do two parties who have never met securely share a key over an untrusted network? If you send the key over the wire before encryption is established, anyone intercepting the connection can read it.
 
-**Asymmetric encryption** uses a mathematically linked key pair: a **public key** anyone can see, and a **private key** that never leaves the server. Data encrypted with the public key can only be decrypted with the private key. Think of the public key as a letterbox slot — anyone can post a message through it, but only the owner with the private key can open the box and read the contents. This solves the key distribution problem: two parties who have never met can establish a shared secret using only public information. The trade-off is performance — it is far too slow for encrypting large data streams.
+**Asymmetric cryptography** uses mathematically linked public and private keys. In public-key encryption, data encrypted with the public key can be decrypted with the private key; that is how legacy TLS RSA key transport worked. Modern TLS key agreement uses ephemeral Diffie–Hellman instead: each side contributes a private value and public share to derive a shared secret, rather than encrypting the session key with the server's certificate key. Public-key operations are also more expensive than symmetric encryption, so TLS uses symmetric keys for application data.
 
-TLS uses both in distinct roles. **ECDH handles key agreement** — both sides exchange public values and independently derive the same session key without ever transmitting it or using asymmetric encryption on it. **Asymmetric cryptography (RSA or ECDSA) handles authentication only** — the server signs the handshake transcript with its private key to prove it genuinely holds the certificate. **Symmetric encryption then handles all actual data**, using the derived session key. These three roles are separate: conflating key agreement with asymmetric encryption is one of the most common misconceptions about how TLS actually works.
+In certificate-authenticated handshakes that use ephemeral (EC)DHE, the peers derive a session secret from ephemeral key shares, while the certificate's private key authenticates the handshake with a signature (for example, RSA-PSS, ECDSA, or EdDSA). TLS 1.3 PSK-only resumption instead authenticates with the pre-shared key and does not use a certificate signature. Legacy TLS 1.2 static RSA key exchange used the certificate's RSA public key to transport the premaster secret, rather than to sign the handshake. **Symmetric encryption then protects the application data** using traffic keys derived by the TLS key schedule. These are distinct TLS roles; key agreement is not the same operation as public-key encryption or signing.
 
 ---
 
@@ -307,11 +311,11 @@ Standard TLS authenticates only the server — any client can connect. **Mutual 
 - TLS provides confidentiality, integrity, and authentication. All three are required — encryption without server authentication allows silent MITM attacks.
 - The session key is never transmitted. Both sides derive it independently from the key exchange material, making passive packet capture insufficient to decrypt traffic.
 - Certificates bind a server's public key to a verified domain identity. The CA's signature is the trust anchor — and CA compromise breaks the entire model for every domain that CA issued for. CAA DNS records limit this risk.
-- TLS 1.3 makes forward secrecy mandatory — past sessions remain protected even if the private key is later compromised. In TLS 1.2, forward secrecy depended on cipher suite selection; RSA key exchange, still widely used, provided none.
+- TLS 1.3 public-key key exchange provides forward secrecy, but PSK-only resumption and 0-RTT have weaker guarantees. In TLS 1.2, forward secrecy depends on the negotiated key exchange; legacy static RSA key exchange provides none.
 - HTTPS does not hide the destination domain (SNI) or IP address. Systems with stricter confidentiality requirements need additional controls.
 - Compliance frameworks require more than "HTTPS enabled" — specific TLS versions, cipher suites, and certificate lifecycle management are all in scope.
 
-> **Open questions for the road ahead:** As quantum computing matures, will the asymmetric algorithms underlying TLS key exchange remain secure? And if the private key used in every TLS handshake is the root of all session trust — where exactly should that key live, and who should be able to access it? These questions drive the next posts in this series.
+> **Open questions for the road ahead:** As quantum computing matures, will the classical public-key algorithms underlying TLS key exchange remain secure? [The next post examines that quantum risk](https://blog.suubodhpatil.com/posts/post-quantum-cryptography-tls-not-safe-forever/). The related operational question is how to protect the long-term private key that authenticates certificate-based handshakes; [the final post in this series covers key custody and HSM-backed termination](https://blog.suubodhpatil.com/posts/why-tls-private-keys-must-never-live-on-web-server/).
 
 ---
 
@@ -323,7 +327,7 @@ Standard TLS authenticates only the server — any client can connect. **Mutual 
 
 ## References
 
-- [RFC 8446 — The Transport Layer Security (TLS) Protocol Version 1.3](https://datatracker.ietf.org/doc/html/rfc8446)
+- [RFC 9846 — The Transport Layer Security (TLS) Protocol Version 1.3](https://www.rfc-editor.org/rfc/rfc9846.html)
 - [NIST SP 800-52 Rev 2 — Guidelines for TLS Implementations](https://csrc.nist.gov/publications/detail/sp/800-52/rev-2/final)
 - [PCI DSS v4.0 — Requirement 4.2: Protect PAN with Strong Cryptography During Transmission](https://www.pcisecuritystandards.org/)
 - [OWASP Transport Layer Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html)

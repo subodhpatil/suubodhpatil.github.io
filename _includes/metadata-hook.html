@@ -126,7 +126,9 @@
       "isPartOf": { "@id": {{ website_id | jsonify }} },
       "image": {{ post_img | strip | jsonify }},
       "datePublished": "{{ page.date | date_to_xmlschema }}",
+      {%- unless page.omit_modified_date %}
       "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+      {%- endunless %}
       "author": { "@id": {{ person_id | jsonify }} },
       "publisher": { "@id": {{ person_id | jsonify }} },
       "copyrightHolder": { "@id": {{ person_id | jsonify }} },
