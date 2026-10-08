@@ -212,7 +212,7 @@ sequenceDiagram
     A->>N: Passive interception and storage<br/>of selected encrypted TLS sessions
     Note over A: Cannot decrypt now — retains captured<br/>handshakes, key shares, and ciphertext
 
-    Note over A,S: Future — If a sufficiently capable CRQC becomes practical; timing unknown
+    Note over A,S: Future — If a sufficiently capable CRQC becomes practical, timing unknown
     A->>A: Runs Shor's algorithm on<br/>stored ECDH handshake key shares
     A->>A: Derives historical session keys
     A->>A: May decrypt recorded sessions protected<br/>only by vulnerable classical key establishment
