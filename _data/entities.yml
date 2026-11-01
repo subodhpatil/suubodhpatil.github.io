@@ -212,3 +212,36 @@ identity:
   type: Thing
   sameAs:
     - https://en.wikipedia.org/wiki/Identity_management
+
+oauth:
+  name: "OAuth 2.0"
+  type: Thing
+  sameAs:
+    - https://www.rfc-editor.org/rfc/rfc6749
+    - https://en.wikipedia.org/wiki/OAuth
+
+mcp:
+  name: "Model Context Protocol (MCP)"
+  type: Thing
+  sameAs:
+    - https://modelcontextprotocol.io/
+    - https://en.wikipedia.org/wiki/Model_Context_Protocol
+
+entra-agent-id:
+  name: "Microsoft Entra Agent ID"
+  type: Thing
+  sameAs:
+    - https://learn.microsoft.com/en-us/entra/agent-id/agent-identities
+
+authorization:
+  name: "Authorization (computer security)"
+  type: Thing
+  sameAs:
+    - https://en.wikipedia.org/wiki/Authorization
+    - https://csrc.nist.gov/glossary/term/authorization
+
+delegation:
+  name: "Delegation (computer security)"
+  type: Thing
+  sameAs:
+    - https://en.wikipedia.org/wiki/Delegation_(computer_security)
