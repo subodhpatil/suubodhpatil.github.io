@@ -1,8 +1,10 @@
 ---
 permalink: /robots.txt
 ---
-# blog.suubodhpatil.com — all content is CC BY 4.0; crawling, indexing and
-# AI retrieval/citation are welcome. Please attribute: {{ site.url }}
+# blog.suubodhpatil.com — search and user-requested AI retrieval are welcome.
+# Training crawlers are blocked where they have separate controls; see the
+# Google-Extended exception below for Gemini grounding.
+# Please attribute: {{ site.url }}
 
 User-agent: *
 Allow: /
@@ -45,36 +47,51 @@ Allow: /
 User-agent: YouBot
 Allow: /
 
-# --- AI training / model crawlers ---
-User-agent: GPTBot
+# Amazon retrieval and user-requested fetchers are separate from Amazonbot.
+User-agent: Amzn-SearchBot
 Allow: /
+
+User-agent: Amzn-User
+Allow: /
+
+# Meta separates AI search and user-requested fetches from its mixed-use agent.
+User-agent: Meta-WebIndexer
+Allow: /
+
+User-agent: meta-externalfetcher
+Allow: /
+
+# --- AI training and mixed-use model crawlers ---
+User-agent: GPTBot
+Disallow: /
 
 User-agent: ClaudeBot
-Allow: /
+Disallow: /
 
 User-agent: anthropic-ai
-Allow: /
+Disallow: /
 
+# Kept allowed by request: this also permits Gemini grounding, not only training.
 User-agent: Google-Extended
 Allow: /
 
 User-agent: Applebot-Extended
-Allow: /
+Disallow: /
 
 User-agent: CCBot
-Allow: /
+Disallow: /
 
 User-agent: Amazonbot
-Allow: /
+Disallow: /
 
 User-agent: meta-externalagent
-Allow: /
+Disallow: /
 
 User-agent: cohere-ai
-Allow: /
+Disallow: /
 
 User-agent: Bytespider
-Allow: /
+Disallow: /
 
 # Internal archive pages are noindex via meta tag; nothing to block here.
 
