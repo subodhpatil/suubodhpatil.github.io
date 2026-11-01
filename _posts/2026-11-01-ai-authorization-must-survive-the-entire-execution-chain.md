@@ -14,11 +14,11 @@ faq:
   - q: "Must an AI agent always inherit the originating user's permissions?"
     a: "No. There are three legitimate models: user-delegated authority, where the agent acts for a user and must stay within that user's permissions; agent-owned authority, where an autonomous agent acts under its own approved mandate; and an explicit transition between the two under policy. What is never acceptable is a silent change — authority widening because a tool happened to hold a more powerful credential."
   - q: "Does OAuth token exchange (RFC 8693) solve authorization for AI agents?"
-    a: "Only partly. RFC 8693 standardizes how to represent delegation — a subject acting through an actor — and how to issue tokens scoped to a specific downstream audience. That is essential plumbing. It does not decide whether a particular record, field or transaction should be allowed. A policy decision still has to be made and enforced at the resource, using the subject, actor, action and context the token carries."
+    a: "Only partly. RFC 8693 standardizes token exchange and defines subject and optional actor representation. An authorization server can issue a downstream token carrying both when the deployment supports and permits that exchange. The RFC does not decide whether a particular record, field or transaction should be allowed. A policy decision still has to be made and enforced at the resource, using the subject, actor, action and context available to it."
   - q: "Must authorization be implemented inside every resource service?"
     a: "No. Authorization can be evaluated by a centralized policy decision point and enforced by policy enforcement points in front of tools and APIs, or locally inside the resource. What matters is that the decision uses reliable subject, actor, resource, action and context inputs, that enforcement covers every consequential path, and that no alternate route — another tool, a cache, a search index — bypasses it."
   - q: "Does matching vector-store permissions to source permissions fully close the risk?"
-    a: "It closes the access-control gap but not every inference risk. Embeddings, chunk metadata, summaries and combined retrieval can reveal information that is not obvious in any single source record a user is allowed to see. Permission parity with the source is necessary; retrieval and output composition still need testing against what a user may learn, not only what they may open."
+    a: "It closes the direct permission-parity gap but not every inference risk. Embeddings, chunk metadata, summaries and combined retrieval can reveal information that is not obvious in any single source record a user is allowed to see. Permission parity with the source is necessary; retrieval and output composition still need testing against what a user may learn, not only what they may open."
   - q: "What evidence should an architecture review produce for AI authorization?"
     a: "At minimum: revocation latency across API, cache, index and running-workflow paths; the percentage of consequential paths with a tested policy decision; a count of hops where downstream authority exceeds incoming authority, each with a named owner; allow/deny parity across every route to the same data; and the ability to reconstruct subject, actor, policy version, resource, action and outcome for any sampled action."
 ---
@@ -133,7 +133,7 @@ Each arrow may use a different identity, token, permission model and policy owne
 Most confusion here comes from treating different things as one. *Identity propagation* carries who initiated an action to the next hop; it does not prove the action was permitted. *Delegation* lets one actor exercise bounded authority for another, and *impersonation* lets it act as if it were the subject — at the cost of audit visibility. **Authorization propagation** is the property this post is about: the applicable permissions and conditions survive every hop, whether or not the same credential does.
 {: #authorization-terms }
 
-A useful authorization decision needs five inputs — **the five elements** referred to throughout this post.
+For this article's review framework, evaluate authorization using five inputs — **the five elements** referred to throughout this post. This is a practical checklist, not a claim that every authorization standard defines the same five-part model.
 {: #five-elements }
 
 **Table 1 — The five elements of an authorization decision and the question each answers.**
@@ -148,11 +148,11 @@ A useful authorization decision needs five inputs — **the five elements** refe
 
 Subject and actor are the same thing only when a user calls an API directly, or when an autonomous agent runs under its own mandate. In the common case — an employee asks a copilot to do something — the subject is the employee and the actor is the agent. Keeping them separate is what lets the resource enforce the employee's limits *and* record that an agent, not the employee, performed the action.
 
-OAuth gives you the plumbing for carrying that pair downstream. A token's audience says which service it is for, its scope says which operations it names, and RFC 8693 token exchange lets an agent obtain a token that carries both the user as subject and itself as actor. All of that is about the *token*. None of it knows anything about the *data*. A token scoped `customers.write` for the CRM says nothing about whether this employee may change this customer's bank details. **That record-level decision still has to be made by a policy that sees all five elements** — the token just delivers the inputs.
+OAuth can provide the plumbing for carrying that pair downstream. A token's audience identifies its intended service, while its scope names operations according to that service's definitions. RFC 8693 token exchange can let an agent obtain a token carrying both the user as subject and itself as actor, when the authorization server and deployment support and permit that exchange. All of that is about the *token*. None of it knows anything about the *data*. A token scoped `customers.write` for the CRM says nothing about whether this employee may change this customer's bank details. **That record-level decision still has to be made by a policy that evaluates the relevant five elements** — the token just delivers some of the inputs.
 
 ## Three Ways Authority Can Legitimately Flow
 
-Authorization propagation does not mean every agent must inherit the end user's permissions. There are three legitimate models, and a well-governed estate uses all three.
+Authorization propagation does not mean every agent must inherit the end user's permissions. There are three legitimate models, and a well-governed estate may use each where it fits.
 {: #authority-models }
 
 **Table 2 — The three authority models, when each fits, and what must be true for it to be safe.**
@@ -173,7 +173,7 @@ Forwarding the end-user identity to every hop creates coupling and cross-domain 
 
 ## The Authorization-Collapse Pattern
 
-There is no standard name for what happened in the opening example, so I will call it **authorization collapse**: two or more principals with different permissions reach a resource through one intermediary that has more access than any of them, and their separate boundaries simply fold into its. It is the old confused-deputy weakness (CWE-441), except that in an agent pipeline the deputy is a tool server or a backend credential nobody thinks of as a decision point.
+There is no standard name for what happened in the opening example, so I will call it **authorization collapse**: two or more principals with different permissions reach a resource through one intermediary that has more access than any of them, and their separate boundaries simply fold into its. This is related to the confused-deputy weakness (CWE-441): in an agent pipeline, the deputy may be a tool server or a backend credential that nobody treats as a decision point.
 {: #authorization-collapse }
 
 ```mermaid
@@ -220,7 +220,7 @@ sequenceDiagram
     R-->>U: Return bounded result and audit ID
 ```
 
-Distinct controls are at work: the agent has its own identity, so the actor stays visible; the MCP server accepts only the intended tool scope; a policy decision evaluates the five elements; the CRM enforces record- and field-level rules; and the audit record links user, agent, tool, decision and outcome. Any hand-off to an agent-owned mandate is represented explicitly, not hidden behind a backend credential.
+Distinct controls are at work: the agent has its own identity, so the actor stays visible; the MCP server accepts only the intended tool scope; a policy decision evaluates the relevant elements; the CRM enforces record- and field-level rules; and the audit record links user, agent, tool, decision and outcome. Any hand-off to an agent-owned mandate is represented explicitly, not hidden behind a backend credential. MCP authorization for HTTP transports is a transport-level capability; tool-specific authorization and downstream API enforcement still depend on the system's design and implementation.
 
 ### Where it breaks
 
@@ -256,7 +256,7 @@ flowchart LR
     C["Context<br/>purpose, workflow, risk"] --> PDP
 ```
 
-A PDP may be embedded or central, and may implement RBAC, ABAC, relationship-based (ReBAC, Zanzibar-style) or capability-based models. The important property is not *centralized versus distributed*. It is that the decision has reliable five-element inputs, enforcement covers every consequential path, no other tool or data copy bypasses it, and the resource never accepts authority broader than the decision intended.
+A PDP may be embedded or central, and may implement RBAC, ABAC, relationship-based (ReBAC, Zanzibar-style) or capability-based models. The important property is not *centralized versus distributed*. It is that the decision has reliable inputs for the relevant elements, enforcement covers every consequential path, no other tool or data copy bypasses it, and the resource never accepts authority broader than the decision intended.
 
 Two cautions. A central authorization service is a critical dependency: it needs availability, protected policy administration, versioned decisions and an explicit fail-open or fail-closed stance per process. And runtime tool discovery — an agent finding a new MCP capability on the fly — must not bypass registration, policy evaluation or enforcement because the capability is new.
 
@@ -274,7 +274,7 @@ No single pattern fits every workflow. These **preservation patterns** combine.
 | **3. Bounded claims transformation** | Translate claims between systems only through an approved trust relationship; narrow or preserve, never widen | Silent privilege expansion at a trust boundary |
 | **4. External policy decisions** | PDP/PEP where consistent policy is needed across many tools and APIs | Inconsistent or missing decisions across the estate |
 | **5. Resource- and field-level authorization** | Apply rules at tenant, record, field, operation and transaction-value granularity | "API access" implying access to every object behind the API |
-| **6. Purpose as policy context** | For higher-risk workflows, declared purpose — tied to a controlled workflow and policy version — augments identity, resource and action checks | Legitimate access used for an unapproved purpose |
+| **6. Purpose as policy context** | For higher-risk workflows, purpose validated or bound to a controlled workflow and policy version augments identity, resource and action checks | Legitimate access used for an unapproved purpose |
 | **7. Continuous authorization and revocation** | Re-evaluate on change of risk, device, session or agent behaviour; revocation reaches tokens, caches, indexes and running workflows within a known period; long tasks re-authorize at checkpoints | Authority outliving the decision that granted it |
 | **8. Cross-domain and agent-to-agent brokerage** | At every organizational, SaaS or agent boundary: explicit token exchange, audience restriction and local policy evaluation; delegation to another agent is a *new bounded decision* | Collapse across trust domains and multi-agent pipelines |
 
@@ -316,12 +316,12 @@ A review should produce evidence, not only a diagram. These are dimensions, not 
 | Measure | Why it matters | How to measure |
 |---|---|---|
 | **Revocation latency** | How long removed authority stays usable | Revoke a test subject or agent; time to denial across API, cache, search and active-workflow paths |
-| **Authorization coverage %** | Consequential paths with no enforceable decision | Paths with a tested PDP/PEP decision ÷ all in-scope consequential paths |
+| **Authorization coverage %** | Consequential paths with no tested decision against the approved request context | Paths with tested authorization decisions and enforcement (central or resource-local) using the relevant request context ÷ all in-scope consequential paths |
 | **Privilege-expansion count** | Where effective authority becomes broader | Count hops where downstream permissions exceed incoming authority; each approved expansion needs an owner and a policy reference |
 | **Alternate-path parity** | Whether equivalent routes give equivalent outcomes | Run one allow/deny test set against API, search, cache and vector paths; record pass, fail or justified exception |
 | **Decision traceability** | Investigation, audit, accountability | Sample material actions; reconstruct subject, actor, policy version, resource, action, context and outcome |
 
-Run against the broken CRM chain, three of the five fail at once: coverage (the CRM's decision ignores the request's subject), privilege expansion (one unowned hop from "one customer, named fields" to "all customers, all fields") and traceability (the log shows a service account, not the employee or agent). That is the business impact in miniature: unauthorized change or exposure, a segregation-of-duties gap, and an audit that cannot say who authorized what.
+Run against the broken CRM chain, three of the five fail at once: coverage (the CRM's decision is not tested against the request's subject and limits), privilege expansion (one unowned hop from "one customer, named fields" to "all customers, all fields") and traceability (the log shows a service account, not the employee or agent). That is the business impact in miniature: unauthorized change or exposure, a segregation-of-duties gap, and an audit that cannot say who authorized what.
 
 ## What Business Leaders Should Ask
 
@@ -370,8 +370,8 @@ An AI agent should not gain authority merely because it is useful, connected, or
 - [NIST SP 800-162 — Guide to Attribute Based Access Control (ABAC)](https://csrc.nist.gov/pubs/sp/800/162/upd2/final) — subject, object, operation and environment attributes
 - [NIST SP 800-53 Rev. 5 — AC-6 Least Privilege](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final) — least-privilege control guidance
 - [RFC 8693 — OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html) — delegation, subject and actor representation, audience-scoped tokens
-- [MITRE CWE-441 — Unintended Proxy or Intermediary ('Confused Deputy')](https://cwe.mitre.org/data/definitions/441.html) — the weakness class that authorization collapse instantiates at scale
-- [Model Context Protocol — Authorization (2025-06-18 specification)](https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization) — OAuth-based authorization responsibilities for HTTP-based MCP clients and servers
+- [MITRE CWE-441 — Unintended Proxy or Intermediary ('Confused Deputy')](https://cwe.mitre.org/data/definitions/441.html) — a related weakness involving intermediaries that fail to preserve the request origin
+- [Model Context Protocol — Authorization (2026-07-28 specification)](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization) — optional transport-level authorization for HTTP-based MCP implementations
 - [OWASP Top 10 for Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) — excessive agency and related agent-specific failure modes
 - [Microsoft Entra Agent ID — Overview of Agent Identities](https://learn.microsoft.com/en-us/entra/agent-id/agent-identities) — agent identity, sponsor and lifecycle concepts
 - [Open Policy Agent Documentation](https://www.openpolicyagent.org/docs/latest/) — a general-purpose policy engine and PDP approach
