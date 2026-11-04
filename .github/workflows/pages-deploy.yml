@@ -84,7 +84,10 @@ jobs:
         run: |
           set -u
           sleep 45  # give the Pages CDN a moment to serve the fresh sitemap
-          SITEMAP="$(curl -fsSL "https://${SITE_HOST}/sitemap.xml" || true)"
+          # Cache-bust with a unique query string so we never read a stale
+          # CDN-cached copy of the sitemap (observed serving a months-old
+          # version on the plain URL, Nov 2026).
+          SITEMAP="$(curl -fsSL -H 'Cache-Control: no-cache' "https://${SITE_HOST}/sitemap.xml?cb=${GITHUB_RUN_ID}" || true)"
           if [ -z "$SITEMAP" ]; then echo "sitemap not reachable; skipping"; exit 0; fi
           # Only ping real content URLs: posts, topic hubs, about, home (skip tag/category pages).
           URLS="$(printf '%s' "$SITEMAP" \
